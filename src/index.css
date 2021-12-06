@@ -1,13 +1,34 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.contenLogo{
+  margin-top: 10px;
+}
+.logoIni{
+  width: 80px;
+}
+.title{
+  display: block;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  margin-top: 80px;
+  text-decoration: underline;
+}
+.FormCreate{
+  margin-top: 100px;
+}
+.spinner, .spinnerIni {
+  animation: spin infinite 1s linear;
+}
+.spinnerIni{
+  margin-top: 10rem;
+  width: 5rem;
+  height: 5rem;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@keyframes spin {
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
 }
