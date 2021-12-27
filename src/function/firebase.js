@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore/lite';
+import cryptoJs from "crypto-js";
+import { doc, setDoc } from "firebase/firestore";
 
 const firebase = () => {
     const firebaseConfig = {
@@ -10,14 +10,26 @@ const firebase = () => {
       messagingSenderId: "1028798509980",
       appId: "1:1028798509980:web:4c5a6b75617ad842b34e59"
     };
-    
-    const app = initializeApp(firebaseConfig);
-    
-    const db = getFirestore(app);
-
-    // return {app, db};
-
+    return firebaseConfig;
 }
 
-export default firebase;
+const encrypt = (data) => {
+  const encrypted = cryptoJs.AES.encrypt(JSON.stringify(data.data), "123456789");
+  return encrypted;
+}
+
+const decrypt = (data) => {
+  const decrypted = cryptoJs.AES.decrypt(data.data, "123456789");
+  return decrypted.toString(cryptoJs.enc.Utf8);
+}
+
+const saveFirebase = (data,encrypted,setData,uFirebase,uid) => {
+  const cityRef = doc(uFirebase, uid.uid, "data");
+  setDoc(cityRef, { 'data': encrypted.toString() }).then(()=>{
+    console.log('Document successfully written!');
+    setData({...data,data:data.data});
+  }).catch(error=>console.error(error));
+}
+
+export {firebase, encrypt, decrypt, saveFirebase}
 

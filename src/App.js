@@ -1,79 +1,84 @@
-import firebase from './function/firebase';
-import { browserSessionPersistence, getAuth, onAuthStateChanged, setPersistence, signOut } from '@firebase/auth';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Col, Container, Row } from "react-bootstrap";
-import { ImSpinner2 } from "react-icons/im";
 
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import SignIn from './components/SignIn';
 import CreateAccount from './components/CreateAccount';
-firebase();
+import { AuthProvider, FirestoreProvider, useFirebaseApp, useSigninCheck } from 'reactfire';
+import { getAuth } from 'firebase/auth';
+import Loading from './templete/Loading';
+import Dashboard from './components/Dashboard';
+import { getFirestore } from 'firebase/firestore';
+// import cryptoJs from 'crypto-js';
+
 
 function App() {
 
-  // firebase();
-  // const [sesion, setsesion] = useState(localStorage.getItem("sesion") ? true : false);
-  const [sesion, setSesion] = useState(undefined);
-  const [state, setstate] = useState(true);
-  // console.log(sesion);
+  /**
+   * Las siguientes lineas son para tener como referencia el metodo usado para encriptar
+   */
 
-  const auth = getAuth();
+  // const arr = [];
+  // for (let index = 0; index < 100; index++) {
+  //   arr.push({
+  //     "11111111111111":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890",
+  //     "22222222222222":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890",
+  //     "33333333333333":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890",
+  //     "44444444444444":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890",
+  //     "55555555555555":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890",
+  //     "66666666666666":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890",
+  //     "77777777777777":"qwertyuiop asdfghjklñ zxcvbnm,. !#$%&/()= 1234567890"
+  //   });    
+  // }
 
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     const uid = user.uid;
-  //     // console.log(uid);
-  //     setSesion(true);
-  //   } else {
-  //     // console.log("sin sesion");
-  //     setSesion(false);
-  //   }
-  // });
+  // const encrypted = cryptoJs.AES.encrypt(JSON.stringify(arr), "123456789");
+  // console.log(encrypted.toString().length);
 
-  // const auth = getAuth();
-  // signOut(auth).then(() => {
-  //   // Sign-out successful.
-  //   console.log("sesion cerrada");
-  // }).catch((error) => {
-  //   // An error happened.
-  //   console.log("Error al cerrar");
-  // });
+  // const decrypted = cryptoJs.AES.decrypt(encrypted, "123456789");
+  // console.log(decrypted.toString(cryptoJs.enc.Utf8).length);
 
-  const elementos = () => {
-    switch (sesion) {
-      case undefined:
-        return (
-          <Col xs={{ span: 6, offset: 5 }}>
-            <ImSpinner2 className="spinnerIni" />
-          </Col>
-        )
-      case false:
-        return (
-          <Col xs lg="6">
-            {state ? <SignIn setstate={setstate} /> : <CreateAccount setstate={setstate} />}
-          </Col>
-        );
-      case true:
-        return (
-          <Col xs lg="12">
-            <h1>Aqui dashboar</h1>
-          </Col>
-        )
-      default:
-        break;
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
+
+  return(
+    <AuthProvider sdk={auth}>
+      <Suspense fallback={<Loading />}>
+        <Container fluid>
+          <Row className="justify-content-md-center">
+            <ValidationSession />
+          </Row>
+        </Container>
+      </Suspense>
+    </AuthProvider>
+  );
+
+    
+  }
+  
+  const ValidationSession = () => {
+    const firestoreInstance = getFirestore(useFirebaseApp());
+    const { status, data: signInCheckResult } = useSigninCheck();
+    const [state, setstate] = useState(true);
+
+    if (status === 'loading') {
+      return <Loading />;
+    }
+  
+    if (signInCheckResult.signedIn === true) {
+      return(
+        <FirestoreProvider sdk={firestoreInstance}>
+          <Dashboard/>
+        </FirestoreProvider>
+      );
+    } else {
+      return (
+        <Col xs lg="6">
+          {state ? <SignIn setstate={setstate} /> : <CreateAccount setstate={setstate} />}
+        </Col>
+      );
     }
   }
- 
 
-  return (
-    <Container fluid>
-      <Row className="justify-content-md-center">
-        {elementos()}
-      </Row>
-    </Container>
-  );
-}
 
 export default App;
