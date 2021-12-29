@@ -23,12 +23,21 @@ const decrypt = (data) => {
   return decrypted.toString(cryptoJs.enc.Utf8);
 }
 
-const saveFirebase = (data,encrypted,setData,uFirebase,uid) => {
+const saveFirebase = (data,encrypted,setData,uFirebase,uid,setAlert=undefined,reset=undefined) => {
   const cityRef = doc(uFirebase, uid.uid, "data");
   setDoc(cityRef, { 'data': encrypted.toString() }).then(()=>{
-    console.log('Document successfully written!');
     setData({...data,data:data.data});
-  }).catch(error=>console.error(error));
+    if(setAlert!==undefined){
+      setAlert({msg:"Aggregate Data.",type:"success"});
+      setTimeout(() => setAlert({msg:"",type:""}), 3000);
+      reset();
+    }
+  }).catch(error=> {
+    if(setAlert!==undefined){
+      setAlert({msg:"An error occurred while adding data.",type:"danger"});
+      setTimeout(() => setAlert({msg:"",type:""}), 3000);
+    }
+  } );
 }
 
 export {firebase, encrypt, decrypt, saveFirebase}

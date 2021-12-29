@@ -7,9 +7,7 @@ const List = ({data,setData,changeAction,id,setId}) => {
 
     const uFirebase = useFirestore();
     const {data:uid} = useUser();
-
     const [msgModal, setMsgModal] = useState("");
-    // const [id, setId] = useState(null);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

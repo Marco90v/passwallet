@@ -39,7 +39,7 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
                 <Modal.Body>{msgModal}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="primary" onClick={save}>Save Changes</Button>
+                    <Button variant="danger" onClick={save}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
       </>

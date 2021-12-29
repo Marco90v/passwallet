@@ -10,7 +10,6 @@ const TemplateDashboard = ({changeAction}) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link onClick={()=>changeAction(1)} >New</Nav.Link>
-                        {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

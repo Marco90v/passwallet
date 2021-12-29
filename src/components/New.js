@@ -1,5 +1,3 @@
-import cryptoJs from "crypto-js";
-import { doc, setDoc } from "firebase/firestore";
 import { useFirestore, useUser } from "reactfire";
 import { useState } from "react";
 import useInput from "../hooks/useInput";
@@ -7,9 +5,9 @@ import FormNew from "../templete/FormNew";
 import BankAccounts from "./BankAccounts";
 import Cryptocurrencies from "./Cryptocurrencies";
 import SocialNetworking from "./SocialNetworking";
+import { encrypt, saveFirebase } from "../function/firebase";
 
 const New = ({type=0,data,setData}) => {
-    // console.log(data);
 
     const typeForm = [
         {"form":"Social Networking"}, 
@@ -20,7 +18,8 @@ const New = ({type=0,data,setData}) => {
     const uFirebase = useFirestore();
     const {data:uid} = useUser();
     const [form, setForm] = useState(type);
-    const [input, setInput, reset] = useInput(data || {type,Name:"",URL:"",User:"",Email:"",Password:""});
+    const [alert, setAlert] = useState({msg:"",type:""});
+    const [input, setInput, reset] = useInput({type,Name:"",URL:"",User:"",Email:"",Password:""});
 
     const changeForm = (id) => {
         switch (id) {
@@ -43,15 +42,11 @@ const New = ({type=0,data,setData}) => {
 
     const save = (e) => {
         e.preventDefault();
-
         let datos = [];
         datos = data.data;
         datos.push(input);
-        setData(e => { return {...e,data:datos} });
-        const encrypted = cryptoJs.AES.encrypt(JSON.stringify(data.data), "123456789");
-
-        const cityRef = doc(uFirebase, uid.uid, "data");
-        setDoc(cityRef, { 'data': encrypted.toString() }).then(()=>console.log('Document successfully written!')).catch(error=>console.error(error));
+        const enc = encrypt({data:datos});
+        saveFirebase(datos,enc,setData,uFirebase,uid,setAlert,reset);
     }
 
     const element = () => {
@@ -68,7 +63,7 @@ const New = ({type=0,data,setData}) => {
     }
 
     return(
-        <FormNew type={type} data={data} setData={setData} save={save} changeForm={changeForm} typeForm={typeForm} element={element} />
+        <FormNew type={type} data={data} setData={setData} save={save} changeForm={changeForm} typeForm={typeForm} element={element} n_e={false} alert={alert} />
     );
 
 }

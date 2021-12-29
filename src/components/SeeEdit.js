@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useFirestore, useUser } from "reactfire";
+import { encrypt, saveFirebase } from "../function/firebase";
 import useInput from "../hooks/useInput";
 import FormNew from "../templete/FormNew";
 import BankAccounts from "./BankAccounts";
@@ -17,13 +19,18 @@ const SeeEdit = ({data,setData,id}) => {
 
     const [form, setForm] = useState(datos.type);
     const [input, setInput, reset] = useInput({...datos});
+    const [disa, setDisa] = useState(true);
+    const [alert, setAlert] = useState({msg:"",type:""});
+
+    const uFirebase = useFirestore();
+    const {data:uid} = useUser();
 
     const changeForm = (id) => {
         switch (id) {
             case 0:
                 setForm(id);
                 reset({
-                    type:datos.type || "",
+                    type:id || "",
                     Name:datos.Name || "",
                     URL:datos.URL || "",
                     User:datos.User || "",
@@ -34,7 +41,7 @@ const SeeEdit = ({data,setData,id}) => {
             case 1:
                 setForm(id);
                 reset({
-                    type:datos.type  || "",
+                    type:id  || "",
                     Name:datos.Name  || "",
                     URL:datos.URL  || "",
                     User:datos.User  || "",
@@ -50,7 +57,7 @@ const SeeEdit = ({data,setData,id}) => {
             case 2:
                 setForm(id);
                 reset({
-                    type:datos.type || "",
+                    type:id || "",
                     Name:datos.Name || "",
                     URL:datos.URL || "",
                     User:datos.User || "",
@@ -67,24 +74,30 @@ const SeeEdit = ({data,setData,id}) => {
     
     const save = (e) => {
         e.preventDefault();
-        console.log(input);
+        const d = {data: data.data.map((x,i)=>{ return i===id ? input : x })};
+        const enc = encrypt(d);
+        saveFirebase(d,enc,setData,uFirebase,uid,setAlert);
+    }
+
+    const edit = () => {
+        setDisa(!disa);
     }
 
     const element = () => {
         switch (form) {
             case 0:
-                return <SocialNetworking input={input} setInput={setInput} />;
+                return <SocialNetworking input={input} setInput={setInput} disa={disa} />;
             case 1:
-                return <BankAccounts input={input} setInput={setInput} />;
+                return <BankAccounts input={input} setInput={setInput} disa={disa} />;
             case 2:
-                return <Cryptocurrencies input={input} setInput={setInput} />;
+                return <Cryptocurrencies input={input} setInput={setInput} disa={disa} />;
             default:
                 break;
         }
     }
     
     return(
-        <FormNew type={datos.type} data={datos} save={save} changeForm={changeForm} typeForm={typeForm} element={element} />
+        <FormNew type={datos.type} data={datos} save={save} changeForm={changeForm} typeForm={typeForm} element={element} n_e={true} edit={edit} disa={disa} alert={alert} />
     );
 }
 
