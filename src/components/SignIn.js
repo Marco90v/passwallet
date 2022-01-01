@@ -11,28 +11,19 @@ const SignIn = ({setstate}) =>{
     const [alert, setAlert] = useState('');
     const [wait, setWait] = useState(false);
 
-
     const signIn = (e) =>{
         e.preventDefault();
         setValidated(true);
         setWait(true);
         setAlert('');
         if (e.currentTarget.checkValidity() !== false){
-            // e.stopPropagation();
-            // console.log("Inicia");
-            const auth = getAuth();
-            signInWithEmailAndPassword(auth, email, pass)
-            .then((userCredential) => {
-                // const user = userCredential.user;
-                // console.log(user);
-                localStorage.setItem("sesion",true);
-                setWait(false);
+            signInWithEmailAndPassword(getAuth(), email, pass)
+            .then( userCredential => {
+                localStorage.setItem("temp",pass);
+                setWait(false)
             })
             .catch((error) => {
-                const errorCode = error.code;
-                // const errorMessage = error.message;
-                console.log(errorCode);
-                switch (errorCode) {
+                switch (error.code) {
                     case "auth/wrong-password":
                         setAlert('Wrong password');
                         break;
@@ -44,23 +35,15 @@ const SignIn = ({setstate}) =>{
                 }
                 setWait(false);
             });
-        }else{
-            console.log("compos obligatorios");
-            setWait(false);
-        }
+        }else{ setWait(false); }
     }
 
-    const createAccount = () => {
-        setstate(false);
-    }
+    const createAccount = () => setstate(false);
 
     const props = {signIn,createAccount,validated,input,setInput,alert,wait};
 
-    return(
-        <>
-            <FormLogin props={props} />
-        </>
-    );
+    return( <FormLogin props={props} /> );
+
 }
 
 export default SignIn;

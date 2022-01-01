@@ -1,6 +1,7 @@
 import logoIni from "../assets/lock.png";
 import { Col, Form, Row, Button, Image, Alert } from "react-bootstrap";
 import { ImSpinner2 } from "react-icons/im";
+import Generate from "../components/Generate";
 
 
 const FormLogin = ({props}) => {
@@ -16,11 +17,11 @@ const FormLogin = ({props}) => {
                     <span className="position-absolute top-0 start-50 translate-middle-x title">Password Wallet</span>
                 </Col>
             </Row>
-            <Form noValidate validated={validated} className="g-3 FormCreate" onSubmit={signIn}>
+            <Form noValidate validated={validated} className="g-3 FormCreate animate__animated animate__fadeIn" onSubmit={signIn}>
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                     <Form.Label column sm={2}>Email</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="email" placeholder="Email" name="email" value={email} onChange={(e)=>{setInput(e)}} required  />
+                        <Form.Control size="sm" type="email" placeholder="Email" name="email" value={email} onChange={(e)=>{setInput(e)}} required  />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">Please choose a email.</Form.Control.Feedback>
                     </Col>
@@ -29,7 +30,7 @@ const FormLogin = ({props}) => {
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
                     <Form.Label column sm={2}>Password</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="password" placeholder="Password" name="pass" value={pass} onChange={(e)=>{setInput(e)}} required />
+                        <Form.Control size="sm" type="password" placeholder="Password" name="pass" value={pass} onChange={(e)=>{setInput(e)}} required />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">Please choose a password.</Form.Control.Feedback>
                     </Col>
@@ -46,11 +47,12 @@ const FormLogin = ({props}) => {
 
                 <Form.Group as={Row} className="mb-3">
                     <Col sm={{ span: 2, offset: 2 }}>
-                        <Button type="submit">Sign in {wait && <ImSpinner2 className="spinner" />} </Button>
+                        <Button size="sm" type="submit">Sign in {wait && <ImSpinner2 className="spinner" />} </Button>
                     </Col>
                     <Col sm={{ span: 3}}>
-                        <Button variant="link" onClick={()=>{createAccount()}} >Create an Account</Button>
+                        <Button size="sm" variant="link" onClick={()=>{createAccount()}} >Create an Account</Button>
                     </Col>
+                    <Generate />
                 </Form.Group>
             </Form>
         </>

@@ -13,31 +13,27 @@ const firebase = () => {
     return firebaseConfig;
 }
 
-const encrypt = (data) => {
-  const encrypted = cryptoJs.AES.encrypt(JSON.stringify(data.data), "123456789");
-  return encrypted;
-}
+const encrypt = data => cryptoJs.AES.encrypt(JSON.stringify(data.data), localStorage.getItem("temp"));
 
-const decrypt = (data) => {
-  const decrypted = cryptoJs.AES.decrypt(data.data, "123456789");
-  return decrypted.toString(cryptoJs.enc.Utf8);
-}
+const decrypt = data => cryptoJs.AES.decrypt(data.data, localStorage.getItem("temp")).toString(cryptoJs.enc.Utf8);
 
 const saveFirebase = (data,encrypted,setData,uFirebase,uid,setAlert=undefined,reset=undefined) => {
   const cityRef = doc(uFirebase, uid.uid, "data");
   setDoc(cityRef, { 'data': encrypted.toString() }).then(()=>{
     setData({...data,data:data.data});
     if(setAlert!==undefined){
-      setAlert({msg:"Aggregate Data.",type:"success"});
+      setAlert({msg:"Aggregate Data.",type:"success", ani:"animate__animated animate__bounceIn"});
+      setTimeout(() => setAlert(e => { return {...e,ani:"animate__animated animate__bounceOut" } }), 2000);
       setTimeout(() => setAlert({msg:"",type:""}), 3000);
-      reset();
+      reset!==undefined && reset();
     }
   }).catch(error=> {
     if(setAlert!==undefined){
-      setAlert({msg:"An error occurred while adding data.",type:"danger"});
+      setAlert({msg:"An error occurred while adding data.",type:"danger", ani:"animate__animated animate__bounceIn"});
+      setTimeout(() => setAlert(e => { return {...e,ani:"animate__animated animate__bounceOut" } }), 2000);
       setTimeout(() => setAlert({msg:"",type:""}), 3000);
     }
-  } );
+  });
 }
 
 export {firebase, encrypt, decrypt, saveFirebase}

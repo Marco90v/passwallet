@@ -1,19 +1,11 @@
 import { useFirestore, useUser } from "reactfire";
 import { useState } from "react";
+import { encrypt, saveFirebase } from "../function/firebase";
 import useInput from "../hooks/useInput";
 import FormNew from "../templete/FormNew";
-import BankAccounts from "./BankAccounts";
-import Cryptocurrencies from "./Cryptocurrencies";
-import SocialNetworking from "./SocialNetworking";
-import { encrypt, saveFirebase } from "../function/firebase";
+import {changeElement, GetTypeElement,typeForm} from "./GetTypeElement";
 
 const New = ({type=0,data,setData}) => {
-
-    const typeForm = [
-        {"form":"Social Networking"}, 
-        {"form":"Bank Accounts"}, 
-        {"form":"Cryptocurrencies"}
-    ];
 
     const uFirebase = useFirestore();
     const {data:uid} = useUser();
@@ -21,24 +13,7 @@ const New = ({type=0,data,setData}) => {
     const [alert, setAlert] = useState({msg:"",type:""});
     const [input, setInput, reset] = useInput({type,Name:"",URL:"",User:"",Email:"",Password:""});
 
-    const changeForm = (id) => {
-        switch (id) {
-            case 0:
-                reset({type:id,Name:"",URL:"",User:"",Email:"",Password:""});
-                setForm(id);
-                break;
-            case 1:
-                reset({type:id,Name:"",URL:"",User:"",Email:"",Password:"",AccNum:"",CardNum:"",ExpDate:"",CVV:"",PasswordCard:""});
-                setForm(id);
-                break;
-            case 2:
-                reset({type:id,Name:"",URL:"",User:"",Email:"",Password:"",Wallet:"",SecretPhr:""});
-                setForm(id);
-                break;
-            default:
-                break;
-        }
-    }
+    const changeForm = (id) => changeElement(id,reset,setForm);
 
     const save = (e) => {
         e.preventDefault();
@@ -49,22 +24,9 @@ const New = ({type=0,data,setData}) => {
         saveFirebase(datos,enc,setData,uFirebase,uid,setAlert,reset);
     }
 
-    const element = () => {
-        switch (form) {
-            case 0:
-                return <SocialNetworking input={input} setInput={setInput} />;
-            case 1:
-                return <BankAccounts input={input} setInput={setInput} />;
-            case 2:
-                return <Cryptocurrencies input={input} setInput={setInput} />;
-            default:
-                break;
-        }
-    }
+    const element = () =>  GetTypeElement(form,input,setInput);
 
-    return(
-        <FormNew type={type} data={data} setData={setData} save={save} changeForm={changeForm} typeForm={typeForm} element={element} n_e={false} alert={alert} />
-    );
+    return( <FormNew type={type} data={data} setData={setData} save={save} changeForm={changeForm} typeForm={typeForm} element={element} n_e={false} alert={alert} /> );
 
 }
 

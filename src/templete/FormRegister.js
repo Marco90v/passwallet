@@ -1,6 +1,7 @@
 import logoIni from "../assets/lock.png";
 import { Col, Form, Image, Row, Button, Alert } from "react-bootstrap";
 import { ImSpinner2 } from "react-icons/im";
+import Generate from "../components/Generate";
 
 const FromRegister = ({props}) => {
     
@@ -15,12 +16,12 @@ const FromRegister = ({props}) => {
                     <span className="position-absolute top-0 start-50 translate-middle-x title">Password Wallet</span>
                 </Col>
             </Row>
-            <Form noValidate validated={validated} className="g-3 FormCreate" onSubmit={create}>
+            <Form noValidate validated={validated} className="g-3 FormCreate animate__animated animate__fadeIn" onSubmit={create}>
 
                 <Form.Group as={Row} className="mb-3" controlId="Email">
                     <Form.Label column sm={2}>Email</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="email" placeholder="Email" name="email" value={email} onChange={(e)=>{setInput(e)}} required  />
+                        <Form.Control size="sm" type="email" placeholder="Email" name="email" value={email} onChange={(e)=>{setInput(e)}} required  />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">Please choose a email.</Form.Control.Feedback>
                     </Col>
@@ -29,7 +30,7 @@ const FromRegister = ({props}) => {
                 <Form.Group as={Row} className="mb-3" controlId="Password">
                     <Form.Label column sm={2}>Password</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="password" placeholder="Password" name="pass" value={pass} onChange={(e)=>{setInput(e)}} required />
+                        <Form.Control size="sm" type="password" placeholder="Password" name="pass" value={pass} onChange={(e)=>{setInput(e)}} required />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">Please choose a password.</Form.Control.Feedback>
                     </Col>
@@ -38,7 +39,7 @@ const FromRegister = ({props}) => {
                 <Form.Group as={Row} className="mb-3" controlId="RePassword">
                     <Form.Label column sm={2}>Repeat Password</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="password" placeholder="Password" name="rePass" value={rePass} onChange={(e)=>{setInput(e)}} required />
+                        <Form.Control size="sm" type="password" placeholder="Password" name="rePass" value={rePass} onChange={(e)=>{setInput(e)}} required />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">Please choose a password.</Form.Control.Feedback>
                     </Col>
@@ -55,12 +56,14 @@ const FromRegister = ({props}) => {
 
 
                 <Form.Group as={Row} className="mb-3">
-                    <Col sm={{ span: 3, offset: 2 }}>
-                        <Button type="submit">Create an Account {wait && <ImSpinner2 className="spinner" />} </Button>
+                    <Col sm={{ span: 2, offset: 2 }}>
+                        <Button size="sm" type="submit">Create an Account {wait && <ImSpinner2 className="spinner" />} </Button>
                     </Col>
                     <Col sm={{ span: 3}}>
-                        <Button variant="link" onClick={()=>{signIn()}} >Sign In </Button>
+                        <Button size="sm" variant="link" onClick={()=>{signIn()}} >Sign In </Button>
                     </Col>
+                    <Generate />
+
                 </Form.Group>
 
             </Form>

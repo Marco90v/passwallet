@@ -32,9 +32,7 @@ const List = ({data,setData,changeAction,id,setId}) => {
         changeAction(2);
     }
 
-    return(
-        <FormList data={data} eliminar={eliminar} handleClose={handleClose} show={show} msgModal={msgModal} save={save} SeeEdit={SeeEdit} />
-    );
+    return( <FormList data={data} eliminar={eliminar} handleClose={handleClose} show={show} msgModal={msgModal} save={save} SeeEdit={SeeEdit} /> );
 
 }
 

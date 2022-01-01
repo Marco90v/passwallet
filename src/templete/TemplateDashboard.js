@@ -1,9 +1,9 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
 
-const TemplateDashboard = ({changeAction}) => {
+const TemplateDashboard = ({changeAction,generatePass,gPass,close}) => {
 
     return(
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="animate__animated animate__fadeInDown">
             <Container>
                 <Navbar.Brand onClick={()=>changeAction(0)} style={{cursor:"pointer"}} >PassWallet</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -11,6 +11,11 @@ const TemplateDashboard = ({changeAction}) => {
                     <Nav className="me-auto">
                         <Nav.Link onClick={()=>changeAction(1)} >New</Nav.Link>
                     </Nav>
+                    <Form className="d-flex">
+                        <FormControl type="text" placeholder="************" className="me-2" aria-label="Generate" size="sm" name="gPass" value={gPass} disabled />
+                        <Button variant="outline-success" size="sm" onClick={generatePass}>Generate</Button>
+                        <Button variant="danger" size="sm" style={{marginLeft: "0.5rem"}} onClick={close}>Close</Button>
+                    </Form>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

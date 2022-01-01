@@ -1,8 +1,10 @@
 // import cryptoJs from "crypto-js";
+import { getAuth, signOut } from "firebase/auth";
 import { doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useFirestore, useFirestoreDocData, useUser } from "reactfire";
+import { useFirebaseApp, useFirestore, useFirestoreDocData, useUser } from "reactfire";
 import { decrypt } from "../function/firebase";
+import { GeneratePass } from "../function/GeneratePass";
 import TemplateDashboard from "../templete/TemplateDashboard";
 import List from "./List";
 import New from "./New";
@@ -13,10 +15,12 @@ const Dashboard = () => {
     const [id, setId] = useState(null);
     const [action, setAction] = useState(0);
     const [data,setData] = useState({data:[]});
+    const [gPass,setGPass] = useState({gPass:""});
     const uFirebase = useFirestore();
+    const app = useFirebaseApp();
+    const auth = getAuth(app);
     const {data:uid} = useUser();
     const ref = doc(uFirebase, uid.uid, 'data');
-
     const { data: d } = useFirestoreDocData(ref);
     
     useEffect(() => {
@@ -29,6 +33,10 @@ const Dashboard = () => {
   
 
     const changeAction = (value) => { setAction(value); }
+
+    const  generatePass = () => setGPass({gPass:GeneratePass()});
+
+    const close = () => signOut(auth).then(() => localStorage.removeItem("temp")).catch(error => console.log(error));
 
     const elementos = () => {
         switch (action) {
@@ -45,7 +53,7 @@ const Dashboard = () => {
 
     return(
         <>
-            <TemplateDashboard changeAction={changeAction} />
+            <TemplateDashboard changeAction={changeAction} generatePass={generatePass} gPass={gPass.gPass} close={close} />
             {elementos()}
         </>
     );

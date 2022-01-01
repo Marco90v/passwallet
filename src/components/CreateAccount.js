@@ -17,17 +17,11 @@ const CreateAccount = ({setstate}) => {
         setAlert('');
         setValidated(true);
         if (e.currentTarget.checkValidity() === true && pass === rePass){
-            // e.stopPropagation();
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, pass)
-            .then((userCredential) => {
-                setstate(true);
-            })
+            .then( userCredential => setstate(true) )
             .catch((error) => {
-                const errorCode = error.code;
-                // const errorMessage = error.message;
-                // console.log(errorCode);
-                switch (errorCode) {
+                switch (error.code) {
                     case "auth/email-already-in-use":
                         setAlert('Email is already in use.');
                         break;
@@ -40,12 +34,6 @@ const CreateAccount = ({setstate}) => {
                     default:
                         break;
                 }
-                
-                // if (errorCode === "auth/email-already-in-use"){
-                //     setAlert('Email is already in use.');
-                // }else{
-                //     setAlert('Error');
-                // }
                 setWait(false);
             });
         }else{
@@ -54,17 +42,11 @@ const CreateAccount = ({setstate}) => {
         }
     }
 
-    const signIn = () => {
-        setstate(true);
-    }
+    const signIn = () => setstate(true);
 
     const props = {validated,create,signIn,input,setInput,alert,wait};
 
-    return(
-        <>
-            <FormRegister props={props} />
-        </>
-    );
+    return( <FormRegister props={props} /> );
 }
 
 export default CreateAccount;
