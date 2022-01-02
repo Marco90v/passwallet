@@ -52,6 +52,7 @@ const FormLogin = ({props}) => {
                     <Col sm={{ span: 3}}>
                         <Button size="sm" variant="link" onClick={()=>{createAccount()}} >Create an Account</Button>
                     </Col>
+                    {/* Generador de pass */}
                     <Generate />
                 </Form.Group>
             </Form>

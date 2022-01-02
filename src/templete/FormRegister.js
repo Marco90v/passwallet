@@ -62,8 +62,8 @@ const FromRegister = ({props}) => {
                     <Col sm={{ span: 3}}>
                         <Button size="sm" variant="link" onClick={()=>{signIn()}} >Sign In </Button>
                     </Col>
+                    {/* Generador de pass */}
                     <Generate />
-
                 </Form.Group>
 
             </Form>
