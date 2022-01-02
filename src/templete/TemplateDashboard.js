@@ -10,6 +10,7 @@ const TemplateDashboard = ({changeAction,generatePass,gPass,close}) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link onClick={()=>changeAction(1)} >New</Nav.Link>
+                        <Nav.Link onClick={()=>changeAction(3)} >Setting</Nav.Link>
                     </Nav>
                     <Form className="d-flex">
                         <FormControl type="text" placeholder="************" className="me-2" aria-label="Generate" size="sm" name="gPass" value={gPass} disabled />

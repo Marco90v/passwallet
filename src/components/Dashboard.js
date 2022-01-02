@@ -9,6 +9,7 @@ import TemplateDashboard from "../templete/TemplateDashboard";
 import List from "./List";
 import New from "./New";
 import SeeEdit from "./SeeEdit";
+import Setting from "./Setting";
 
 const Dashboard = () => {
     
@@ -46,6 +47,8 @@ const Dashboard = () => {
                 return <New data={data} setData={setData} />
             case 2:
                 return <SeeEdit data={data} setData={setData} id={id} />
+            case 3:
+                return <Setting data={data} setData={setData} />
             default:
                 break;
         }

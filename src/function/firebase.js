@@ -1,4 +1,5 @@
 import cryptoJs from "crypto-js";
+import { updatePassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 const firebase = () => {
@@ -17,24 +18,32 @@ const encrypt = data => cryptoJs.AES.encrypt(JSON.stringify(data.data), localSto
 
 const decrypt = data => cryptoJs.AES.decrypt(data.data, localStorage.getItem("temp")).toString(cryptoJs.enc.Utf8);
 
-const saveFirebase = (data,encrypted,setData,uFirebase,uid,setAlert=undefined,reset=undefined) => {
+const handleAlert =(setAlert,msg,type,reset) => {
+  setAlert({msg,type, ani:"animate__animated animate__bounceIn"});
+  setTimeout(() => setAlert(e => { return {...e,ani:"animate__animated animate__bounceOut" } }), 2000);
+  setTimeout(() => setAlert({msg:"",type:""}), 3000);
+  reset!==undefined && reset();
+}
+
+const saveFirebase = (data=undefined,encrypted,setData=undefined,uFirebase,uid,setAlert=undefined,reset=undefined) => {
   const cityRef = doc(uFirebase, uid.uid, "data");
   setDoc(cityRef, { 'data': encrypted.toString() }).then(()=>{
-    setData({...data,data:data.data});
-    if(setAlert!==undefined){
-      setAlert({msg:"Aggregate Data.",type:"success", ani:"animate__animated animate__bounceIn"});
-      setTimeout(() => setAlert(e => { return {...e,ani:"animate__animated animate__bounceOut" } }), 2000);
-      setTimeout(() => setAlert({msg:"",type:""}), 3000);
-      reset!==undefined && reset();
-    }
+    setData !== undefined && setData({...data,data:data.data});
+    if(setAlert!==undefined){ handleAlert(setAlert,"Aggregate Data.","success",reset); }
   }).catch(error=> {
-    if(setAlert!==undefined){
-      setAlert({msg:"An error occurred while adding data.",type:"danger", ani:"animate__animated animate__bounceIn"});
-      setTimeout(() => setAlert(e => { return {...e,ani:"animate__animated animate__bounceOut" } }), 2000);
-      setTimeout(() => setAlert({msg:"",type:""}), 3000);
-    }
+    if(setAlert!==undefined){ handleAlert(setAlert,"An error occurred while adding data.","danger"); }
   });
 }
 
-export {firebase, encrypt, decrypt, saveFirebase}
+const changePassword = (currentUser,newPass,data,uFirebase,uid,setAlert,reset) => {
+  updatePassword(currentUser, newPass).then(() => {
+    localStorage.setItem("temp",newPass);
+    const enc = encrypt({data:data});
+    saveFirebase(undefined,enc,undefined,uFirebase,uid,setAlert,reset);
+}).catch((error) => {
+    handleAlert(setAlert,"An error occurred when changing the password.","danger");
+});
+}
+
+export {firebase, encrypt, decrypt, saveFirebase, changePassword, handleAlert}
 
