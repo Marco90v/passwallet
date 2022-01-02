@@ -1,7 +1,8 @@
-import { Alert, Button, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 
-const FormSetting = ({input,setInput,changePass,deleteData,alert}) => {
+const FormSetting = ({props}) => {
 
+    const {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar} = props;
     const {oldPass,newPass,currentPass} = input;
 
     return(
@@ -37,7 +38,7 @@ const FormSetting = ({input,setInput,changePass,deleteData,alert}) => {
 
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 1, offset: 5 }}>
-                    <Button variant="danger" type="button" size="sm" onClick={deleteData} >Delete Account</Button>
+                    <Button variant="danger" type="button" size="sm" onClick={eliminar} >Delete Account</Button>
                 </Col>
             </Form.Group>
 
@@ -46,6 +47,18 @@ const FormSetting = ({input,setInput,changePass,deleteData,alert}) => {
                     <Alert variant={alert.type} className={alert.ani} > {alert.msg} </Alert>
                 </Col>
             </Form.Group>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>PassWallet</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{msgModal}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    <Button variant="danger" onClick={deleteData}>Save Changes</Button>
+                </Modal.Footer>
+            </Modal>
+
         </Form>
     );
 

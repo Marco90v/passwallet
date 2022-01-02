@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useFirebaseApp, useFirestore, useFirestoreDocData, useUser } from "reactfire";
 import { decrypt } from "../function/firebase";
 import { GeneratePass } from "../function/GeneratePass";
+import FormAbout from "../templete/FormAbout";
 import TemplateDashboard from "../templete/TemplateDashboard";
 import List from "./List";
 import New from "./New";
@@ -49,6 +50,8 @@ const Dashboard = () => {
                 return <SeeEdit data={data} setData={setData} id={id} />
             case 3:
                 return <Setting data={data} setData={setData} />
+            case 4:
+                return <FormAbout />
             default:
                 break;
         }

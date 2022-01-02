@@ -9,6 +9,10 @@ const Setting = ({data,setData}) => {
     const {data:user} = useUser();
     const [alert, setAlert] = useState({msg:"",type:"", ani:""});
     const [input, setInput, reset] = useInput({oldPass:"",newPass:"",currentPass:""});
+    const [msgModal, setMsgModal] = useState("");
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
 
     const changePass = () => {
         if(input.oldPass === localStorage.getItem("temp") && input.newPass!=="" && input.newPass.length >= 6){
@@ -17,13 +21,22 @@ const Setting = ({data,setData}) => {
     }
 
     const deleteData = () => {
+        setShow(false);
+        setMsgModal("");
         if(input.currentPass === localStorage.getItem("temp")){
             const enc = encrypt({data:[]});
             saveFirebase(enc,enc,setData,uFirebase,user,setAlert,reset);
         }else{ handleAlert(setAlert,"Incorrect password.","danger"); }
     }
 
-    return(<FormSetting input={input} setInput={setInput} changePass={changePass} deleteData={deleteData} alert={alert} />);
+    const eliminar = () => {
+        setMsgModal("Do you want to delete all data from the database?");
+        setShow(true);
+    }
+
+    const props = {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar};
+
+    return(<FormSetting props={props} />);
 
 }
 
