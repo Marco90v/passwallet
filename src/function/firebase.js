@@ -4,12 +4,13 @@ import { doc, setDoc } from "firebase/firestore";
 
 const firebase = () => {
     const firebaseConfig = {
-      apiKey: "AIzaSyDi8bEuFPPF8okv_WjdMEuAupUG836KHDs",
-      authDomain: "prueba-2f917.firebaseapp.com",
-      projectId: "prueba-2f917",
-      storageBucket: "prueba-2f917.appspot.com",
-      messagingSenderId: "1028798509980",
-      appId: "1:1028798509980:web:4c5a6b75617ad842b34e59"
+      apiKey: "AIzaSyAqiHj0iaHv3a6fTkPFaTJeb_eAtAc_Auw",
+      authDomain: "passwallet-d8c64.firebaseapp.com",
+      projectId: "passwallet-d8c64",
+      storageBucket: "passwallet-d8c64.appspot.com",
+      messagingSenderId: "711833623616",
+      appId: "1:711833623616:web:f27313a19cd9197c8113a5",
+      measurementId: "G-9M47XVG7N8"
     };
     return firebaseConfig;
 }
