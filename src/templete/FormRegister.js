@@ -1,6 +1,8 @@
 import logoIni from "../assets/lock.png";
 import { Col, Form, Image, Row, Button, Alert } from "react-bootstrap";
 import { ImSpinner2 } from "react-icons/im";
+import { FcAddDatabase } from "react-icons/fc";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import Generate from "../components/Generate";
 
 const FromRegister = ({props}) => {
@@ -57,10 +59,10 @@ const FromRegister = ({props}) => {
 
                 <Form.Group as={Row} className="mb-3">
                     <Col sm={{ span: 2, offset: 2 }}>
-                        <Button size="sm" type="submit">Create an Account {wait && <ImSpinner2 className="spinner" />} </Button>
+                        <Button size="sm" type="submit"><FcAddDatabase style={{marginTop: "-3px"}} /> Sign Up {wait && <ImSpinner2 className="spinner" />} </Button>
                     </Col>
                     <Col sm={{ span: 3}}>
-                        <Button size="sm" variant="link" onClick={()=>{signIn()}} >Sign In </Button>
+                        <Button size="sm" variant="link" onClick={()=>{signIn()}} >Sign In <HiOutlineSwitchHorizontal /></Button>
                     </Col>
                     {/* Generador de pass */}
                     <Generate />

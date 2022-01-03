@@ -1,3 +1,5 @@
+import { FaRandom } from "react-icons/fa";
+import { FcLock } from "react-icons/fc";
 import { Button, Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
 
 const TemplateDashboard = ({changeAction,generatePass,gPass,close}) => {
@@ -14,9 +16,9 @@ const TemplateDashboard = ({changeAction,generatePass,gPass,close}) => {
                         <Nav.Link onClick={()=>changeAction(4)} >About</Nav.Link>
                     </Nav>
                     <Form className="d-flex">
-                        <FormControl type="text" placeholder="************" className="me-2" aria-label="Generate" size="sm" name="gPass" value={gPass} disabled />
-                        <Button variant="outline-success" size="sm" onClick={generatePass}>Generate</Button>
-                        <Button variant="danger" size="sm" style={{marginLeft: "0.5rem"}} onClick={close}>Close</Button>
+                        <FormControl type="text" placeholder="************" className="me-2" aria-label="Generate" size="sm" name="gPass" value={gPass} style={{width: "auto"}} disabled />
+                        <Button variant="outline-success" size="sm" onClick={generatePass}>Generate<FaRandom style={{marginTop: "-1px",marginLeft: "5px"}} /></Button>
+                        <Button variant="danger" size="sm" style={{marginLeft: "0.5rem"}} onClick={close}><FcLock /> Close </Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>

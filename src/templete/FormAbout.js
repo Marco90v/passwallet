@@ -1,7 +1,7 @@
 const FormAbout = () => {
 
     return(
-        <div className="animate__animated animate__fadeInLeft" style={{width:"50%"}}>
+        <div className="animate__animated animate__fadeInLeft" style={{width:"50%",marginTop: "2rem"}}>
             <p className="title_about">PassWallet</p>
             <p className="p_about">PassWallet is an application created with the purpose of storing in a secure and centralized way the passwords of the online accounts that you can have in different websites and more.</p>
             <p className="p_about">The passwords are stored in Firebase with AES encryption from the client so it cannot be seen by any other user.</p>
