@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/animate.css';
-import './App.css';
 import { AuthProvider, FirestoreProvider, useFirebaseApp, useSigninCheck } from 'reactfire';
 import React, { Suspense, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";

@@ -31,11 +31,11 @@ const Inputs = ({input,setInput,disa,n_e,copiar}) => {
                 return(
                     e!== "type" && 
                     <Form.Group key={i} as={Row} className="mb-3" controlId={e}>
-                        <Form.Label md={{ span: 2, offset: 3 }} column="sm" sm={2}>{labelInputs(e)}</Form.Label>
+                        <Form.Label md={{ span: 2, offset: 3 }} column="sm" sm={2}><strong>{labelInputs(e)}</strong></Form.Label>
                         <Col sm={4}>
                             <InputGroup size="sm" >
                                 <Form.Control size="sm" type="text" placeholder={labelInputs(e)} name={e} value={input[e]} onChange={(ele)=>{setInput(ele)}} disabled={disa} />
-                                {n_e && <InputGroup.Text id="basic-addon2" onClick={()=>copiar(input[e])}> <FaClipboard /> </InputGroup.Text>}
+                                {n_e && <InputGroup.Text id="basic-addon2" className="clipboard" style={{backgroundColor: "purple"}} onClick={()=>copiar(input[e])}> <FaClipboard /> </InputGroup.Text>}
                             </InputGroup>
                         </Col>
                     </Form.Group>

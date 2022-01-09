@@ -28,10 +28,10 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
             <Table striped bordered hover size="sm" style={{width:"50%", marginTop: "2rem"}} className="animate__animated animate__fadeInLeft">
                 <thead>
                     <tr>
-                        <th style={{width:"50px",textAlign:"center"}} ><FcEmptyTrash /></th>
-                        <th>Name</th>
-                        <th style={{width:"50px",textAlign:"center"}}>Type</th>
-                        <th style={{width:"50px",textAlign:"center"}} ><FcViewDetails /></th>
+                        <th style={{textAlign:"center"}} ><FcEmptyTrash /></th>
+                        <th style={{textAlign:"center"}} >Name</th>
+                        <th style={{textAlign:"center"}} >Type</th>
+                        <th style={{textAlign:"center"}} ><FcViewDetails /></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,16 +40,14 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
                             (e,i) => { 
                                 return (
                                     <tr key={i}>
-                                        <td style={{width:"50px",textAlign:"center"}} onClick={()=>eliminar(i,e.Name)} ><FcEmptyTrash /></td>
-                                        <td>{e.Name}<div></div></td>
-                                            <OverlayTrigger placement="left" overlay={
-                                                <Tooltip id={i}> {typeForm[e.type].form} </Tooltip>
-                                            }>
+                                        <td style={{textAlign:"center"}} onClick={()=>eliminar(i,e.Name)} ><FcEmptyTrash /></td>
+                                        <td >{e.Name}</td>
+                                            <OverlayTrigger placement="left" overlay={ <Tooltip id={i}> {typeForm[e.type].form} </Tooltip> }>
                                                 <td style={{textAlign: "center"}}>
                                                     <div className="divType" style={{backgroundColor: color(e.type)}} ></div>
                                                 </td>
                                             </OverlayTrigger>
-                                        <td style={{width:"50px",textAlign:"center"}} onClick={()=>SeeEdit(i)} ><FcViewDetails /></td>
+                                        <td style={{textAlign:"center"}} onClick={()=>SeeEdit(i)} ><FcViewDetails /></td>
                                     </tr>
                                 ) 
                             } 

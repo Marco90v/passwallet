@@ -31,6 +31,13 @@
   display: inline-block;
   border-radius: 50%;
 }
+.clipboard{
+  background-color: green;
+  cursor: pointer;
+}
+.clipboard > svg{
+  color:white;
+}
 .spinner, .spinnerIni {
   animation: spin infinite 1s linear;
 }
