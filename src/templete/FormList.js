@@ -1,10 +1,27 @@
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Modal, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { FcViewDetails, FcEmptyTrash } from "react-icons/fc";
+import { typeForm } from "../components/GetTypeElement";
 
 const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
     /**
      * variant="dark" <-- modo oscuro para la tabla
      */
+
+    const color = (i) => {
+        switch (i) {
+            case 0:
+                return "red";
+            case 1:
+                return "blue";
+            case 2:
+                return "purple";
+            case 3:
+                return "green";
+            default:
+                break;
+        }
+    }
+
     
     return(
         <>
@@ -13,6 +30,7 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
                     <tr>
                         <th style={{width:"50px",textAlign:"center"}} ><FcEmptyTrash /></th>
                         <th>Name</th>
+                        <th style={{width:"50px",textAlign:"center"}}>Type</th>
                         <th style={{width:"50px",textAlign:"center"}} ><FcViewDetails /></th>
                     </tr>
                 </thead>
@@ -23,7 +41,14 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
                                 return (
                                     <tr key={i}>
                                         <td style={{width:"50px",textAlign:"center"}} onClick={()=>eliminar(i,e.Name)} ><FcEmptyTrash /></td>
-                                        <td>{e.Name}</td>
+                                        <td>{e.Name}<div></div></td>
+                                            <OverlayTrigger placement="left" overlay={
+                                                <Tooltip id={i}> {typeForm[e.type].form} </Tooltip>
+                                            }>
+                                                <td style={{textAlign: "center"}}>
+                                                    <div className="divType" style={{backgroundColor: color(e.type)}} ></div>
+                                                </td>
+                                            </OverlayTrigger>
                                         <td style={{width:"50px",textAlign:"center"}} onClick={()=>SeeEdit(i)} ><FcViewDetails /></td>
                                     </tr>
                                 ) 

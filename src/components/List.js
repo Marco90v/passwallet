@@ -4,7 +4,6 @@ import { encrypt, saveFirebase } from "../function/firebase";
 import FormList from "../templete/FormList";
 
 const List = ({data,setData,changeAction,id,setId}) => {
-
     const uFirebase = useFirestore();
     const {data:uid} = useUser();
     const [msgModal, setMsgModal] = useState("");

@@ -2,6 +2,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import { doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+// import { ListGroup } from "react-bootstrap";
 import { useFirebaseApp, useFirestore, useFirestoreDocData, useUser } from "reactfire";
 import { decrypt } from "../function/firebase";
 import { GeneratePass } from "../function/GeneratePass";
@@ -24,14 +25,28 @@ const Dashboard = () => {
     const {data:uid} = useUser();
     const ref = doc(uFirebase, uid.uid, 'data');
     const { data: d } = useFirestoreDocData(ref);
+    const ref2 = doc(uFirebase, uid.uid, 'config');
+    const { data: c } = useFirestoreDocData(ref2);
     
     useEffect(() => {
         if(d !== undefined){
-            const decrypted = decrypt(d);
-            setData({ data : JSON.parse(decrypted) });
+            const decrypted = JSON.parse(decrypt(d));
+            if(c !== undefined && c.order !== 0) {
+                if(c.order===1){
+                    decrypted.sort((a,b)=>{
+                        if (a["Name"].toLowerCase() > b["Name"].toLowerCase()) {return 1};
+                        if (a["Name"].toLowerCase() < b["Name"].toLowerCase()) {return -1};
+                        return 0;
+                    });
+                }else{
+                    decrypted.sort((a,b)=>{ return a['type']-b['type'] });
+                }
+            }
+            // setData({ data : JSON.parse(decrypted) });
+            setData({ data : decrypted });
         }
         return () => {}
-    }, [d]);
+    }, [d,c]);
   
 
     const changeAction = (value) => { setAction(value); }
@@ -49,17 +64,28 @@ const Dashboard = () => {
             case 2:
                 return <SeeEdit data={data} setData={setData} id={id} />
             case 3:
-                return <Setting data={data} setData={setData} />
+                return <Setting data={data} setData={setData} config={c} />
             case 4:
                 return <FormAbout />
             default:
                 break;
         }
     }
+    // const typeData = () => {
+    //     return (
+    //         <ListGroup horizontal >
+    //             <ListGroup.Item>This</ListGroup.Item>
+    //             <ListGroup.Item>ListGroup</ListGroup.Item>
+    //             <ListGroup.Item>renders</ListGroup.Item>
+    //             <ListGroup.Item>horizontally!</ListGroup.Item>
+    //         </ListGroup>
+    //     );
+    // }
 
     return(
         <>
             <TemplateDashboard changeAction={changeAction} generatePass={generatePass} gPass={gPass.gPass} close={close} />
+            {/* {typeData()} */}
             {elementos()}
         </>
     );

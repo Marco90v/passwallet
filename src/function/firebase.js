@@ -41,10 +41,19 @@ const changePassword = (currentUser,newPass,data,uFirebase,uid,setAlert,reset) =
     localStorage.setItem("temp",newPass);
     const enc = encrypt({data:data});
     saveFirebase(undefined,enc,undefined,uFirebase,uid,setAlert,reset);
-}).catch((error) => {
+  }).catch((error) => {
     handleAlert(setAlert,"An error occurred when changing the password.","danger");
-});
+  });
 }
 
-export {firebase, encrypt, decrypt, saveFirebase, changePassword, handleAlert}
+const saveConfig = (order,uFirebase,uid,setAlert=undefined,reset=undefined) => {
+  const cityRef = doc(uFirebase, uid.uid, "config");
+  setDoc(cityRef, { 'order':order }).then(()=>{
+    if(setAlert!==undefined){ handleAlert(setAlert,"Saved configuration.","success",reset); }
+  }).catch(error=> {
+    if(setAlert!==undefined){ handleAlert(setAlert,"Error saving configuration.","danger"); }
+  });
+}
+
+export {firebase, encrypt, decrypt, saveFirebase, changePassword, handleAlert,saveConfig}
 

@@ -1,11 +1,8 @@
-import AccountNotes from "./AccountNotes";
-import BankAccounts from "./BankAccounts";
-import Cryptocurrencies from "./Cryptocurrencies";
-import SocialNetworking from "./SocialNetworking";
+import Inputs from "./Inputs";
 
-const typeForm = [ {"form":"Social Networking"}, {"form":"Bank Accounts"}, {"form":"Cryptocurrencies"}, {"form":"Notes"} ];
+const typeForm = [ {"form":"Web Site"}, {"form":"Bank Accounts"}, {"form":"Cryptocurrencies"}, {"form":"Notes"} ];
 
-const changeElement = (id,reset,setForm,datos) => {
+const changeElement = (id,reset,datos) => {
     switch (id) {
         case 0:
             datos === undefined ? reset({type:id,Name:"",URL:"",User:"",Email:"",Password:""}) : 
@@ -16,7 +13,6 @@ const changeElement = (id,reset,setForm,datos) => {
                 Email:datos.Email || "",
                 Password:datos.Password || ""
             });
-            setForm(id);
             break;
         case 1:
             datos === undefined ? reset({type:id,Name:"",URL:"",User:"",Email:"",Password:"",AccNum:"",CardNum:"",ExpDate:"",CVV:"",PasswordCard:""}) : 
@@ -32,7 +28,6 @@ const changeElement = (id,reset,setForm,datos) => {
                 CVV:datos.CVV  || "",
                 PasswordCard:datos.PasswordCard || ""
             });
-            setForm(id);
             break;
         case 2:
             datos === undefined ? reset({type:id,Name:"",URL:"",User:"",Email:"",Password:"",Wallet:"",SecretPhr:""}) : 
@@ -45,7 +40,6 @@ const changeElement = (id,reset,setForm,datos) => {
                 Wallet:datos.Wallet || "",
                 SecretPhr:datos.SecretPhr || ""
             });
-            setForm(id);
             break;
         case 3:
             datos === undefined ? reset({type:id,Name:"",Notes:""}) : 
@@ -53,26 +47,12 @@ const changeElement = (id,reset,setForm,datos) => {
                 Name:datos.Name || "",
                 Notes:datos.Notes || "",
             });
-            setForm(id);
             break;
         default:
             break;
     }
 }
 
-const GetTypeElement = (form,input,setInput,disa=false) => {
-    switch (form) {
-        case 0:
-            return <SocialNetworking input={input} setInput={setInput} disa={disa} />;
-        case 1:
-            return <BankAccounts input={input} setInput={setInput} disa={disa} />;
-        case 2:
-            return <Cryptocurrencies input={input} setInput={setInput} disa={disa} />;
-        case 3:
-            return <AccountNotes input={input} setInput={setInput} disa={disa} />;
-        default:
-            break;
-    }
-}
+const GetTypeElement = (input,setInput,disa=false,n_e,copiar) => <Inputs input={input} setInput={setInput} disa={disa} n_e={n_e} copiar={copiar} />;
 
 export {GetTypeElement,typeForm,changeElement};

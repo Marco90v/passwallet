@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useFirestore, useUser } from "reactfire";
-import { changePassword, encrypt, handleAlert, saveFirebase } from "../function/firebase";
+import { changePassword, encrypt, handleAlert, saveConfig, saveFirebase } from "../function/firebase";
 import useInput from "../hooks/useInput";
 import FormSetting from "../templete/FormSetting";
 
-const Setting = ({data,setData}) => {
+const Setting = ({data,setData,config}) => {
     const uFirebase = useFirestore();
     const {data:user} = useUser();
     const [alert, setAlert] = useState({msg:"",type:"", ani:""});
     const [input, setInput, reset] = useInput({oldPass:"",newPass:"",currentPass:""});
     const [msgModal, setMsgModal] = useState("");
     const [show, setShow] = useState(false);
+    const [typeOrder,setTypeOrder] = useState(config===undefined?0:config.order);
 
     const handleClose = () => setShow(false);
 
@@ -34,7 +35,12 @@ const Setting = ({data,setData}) => {
         setShow(true);
     }
 
-    const props = {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar};
+    const saveOrder = () => {
+        // console.log(typeOrder);
+        saveConfig(typeOrder,uFirebase,user,setAlert);
+    }
+
+    const props = {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar,saveOrder,typeOrder,setTypeOrder};
 
     return(<FormSetting props={props} />);
 

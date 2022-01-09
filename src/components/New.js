@@ -9,11 +9,10 @@ const New = ({type=0,data,setData}) => {
 
     const uFirebase = useFirestore();
     const {data:uid} = useUser();
-    const [form, setForm] = useState(type);
     const [alert, setAlert] = useState({msg:"",type:""});
     const [input, setInput, reset] = useInput({type,Name:"",URL:"",User:"",Email:"",Password:""});
 
-    const changeForm = (id) => changeElement(id,reset,setForm);
+    const changeForm = (id) => changeElement(id,reset);
 
     const save = (e) => {
         e.preventDefault();
@@ -24,9 +23,11 @@ const New = ({type=0,data,setData}) => {
         saveFirebase(datos,enc,setData,uFirebase,uid,setAlert,reset);
     }
 
-    const element = () =>  GetTypeElement(form,input,setInput);
+    const element = () =>  GetTypeElement(input,setInput,false);
 
-    return( <FormNew type={type} data={data} setData={setData} save={save} changeForm={changeForm} typeForm={typeForm} element={element} n_e={false} alert={alert} /> );
+    const props = {type,save,changeForm,typeForm,element,n_e:false,alert};
+
+    return( <FormNew props={props} /> );
 
 }
 

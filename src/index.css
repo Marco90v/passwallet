@@ -24,6 +24,13 @@
 .p_about{
   text-align: justify;
 }
+.divType{
+  /* background-color: red; */
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+}
 .spinner, .spinnerIni {
   animation: spin infinite 1s linear;
 }

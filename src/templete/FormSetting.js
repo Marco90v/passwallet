@@ -1,13 +1,34 @@
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { FcKey, FcDeleteDatabase } from "react-icons/fc";
+import { FcKey, FcDeleteDatabase, FcCheckmark } from "react-icons/fc";
 
 const FormSetting = ({props}) => {
 
-    const {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar} = props;
+    const {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar,saveOrder,typeOrder,setTypeOrder} = props;
     const {oldPass,newPass,currentPass} = input;
+    // const order = config === undefined ? 0 : config.order;
 
     return(
         <Form className="animate__animated animate__fadeInLeft" style={{marginTop: "2rem"}}>
+            {/* Ordernar */}
+            <Form.Group as={Row} className="mb-3" controlId="oldPassword">
+                <Form.Label md={{ span: 2, offset: 3 }} column="sm" sm={2}>Sort (name, data type)</Form.Label>
+                <Col sm={4}>
+                <Form.Select size="sm" defaultValue={typeOrder} onChange={e=>setTypeOrder(parseInt(e.target.value))} >
+                    <option value={0}>-</option>
+                    <option value={1}>Name</option>
+                    <option value={2}>Data Type</option>
+                </Form.Select>
+                </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={{ span: 2, offset: 5 }}>
+                    <Button variant="primary" type="button" size="sm" onClick={saveOrder} >Save <FcCheckmark style={{marginTop: "-3px"}} /> </Button>
+                </Col>
+            </Form.Group>
+
+            <hr />
+
             {/* Editar contraseña */}
             <Form.Group as={Row} className="mb-3" controlId="oldPassword">
                 <Form.Label md={{ span: 2, offset: 3 }} column="sm" sm={2}>Old Password</Form.Label>
@@ -28,6 +49,8 @@ const FormSetting = ({props}) => {
                     <Button variant="success" type="button" size="sm" onClick={changePass} >Change Password <FcKey style={{marginTop: "-3px"}} /> </Button>
                 </Col>
             </Form.Group>
+
+            <hr />
 
             {/* Eliminar Usuario */}
             <Form.Group as={Row} className="mb-3" controlId="currentPassword">
