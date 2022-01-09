@@ -21,7 +21,6 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
                 break;
         }
     }
-
     
     return(
         <>

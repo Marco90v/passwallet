@@ -3,7 +3,7 @@
   "name": "Password Wallet",
   "permissions": [],
   "manifest_version": 3,
-  "version": "1.0",
+  "version": "1.0.1",
   "icons": {
       "16": "static/media/lock.21afe2d1.png",
       "32": "static/media/lock.21afe2d1.png",

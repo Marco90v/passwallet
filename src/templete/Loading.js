@@ -1,4 +1,4 @@
-import { Col } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
 import { ImSpinner2 } from "react-icons/im";
 
 const Loading = () => {
