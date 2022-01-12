@@ -35,6 +35,9 @@
   background-color: green;
   cursor: pointer;
 }
+.hideShow{
+  background-color: white;
+}
 .clipboard > svg{
   color:white;
 }
