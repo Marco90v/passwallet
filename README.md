@@ -41,19 +41,19 @@ PassWallet es una aplicación crea con la finalidad de almacenar de manera segur
 - _Registration:_
 ![Registration](./caps/register.png)
 - _Login:_
-![Registration](./caps/login.png)
+![Login](./caps/login.png)
 - _Dashboard:_
-![Registration](./caps/dashboard.jpg)
+![Dashboard](./caps/dashboard.png)
 - _New Data:_
-![Registration](./caps/new_data.png)
+![New Data](./caps/new_data.png)
 - _Data Edition:_
-![Registration](./caps/edit_data.jpg)
+![Data Edition](./caps/edit_data.jpg)
 - _Alert:_
-![Registration](./caps/alert.png)
+![Alert](./caps/alert.png)
 - _Setting:_
-![Registration](./caps/setting.png)
+![Setting](./caps/setting.png)
 - _Encrypted Data:_
-![Registration](./caps/data_encrypt.png)
+![Encrypted Data](./caps/data_encrypt.png)
 
 ---
 ---

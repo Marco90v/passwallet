@@ -35,10 +35,7 @@ const Setting = ({data,setData,config}) => {
         setShow(true);
     }
 
-    const saveOrder = () => {
-        // console.log(typeOrder);
-        saveConfig(typeOrder,uFirebase,user,setAlert);
-    }
+    const saveOrder = () => saveConfig(typeOrder,uFirebase,user,setAlert);
 
     const props = {input,setInput,changePass,deleteData,alert,show,msgModal,handleClose,eliminar,saveOrder,typeOrder,setTypeOrder};
 

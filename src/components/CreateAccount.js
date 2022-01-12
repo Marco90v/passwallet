@@ -5,6 +5,8 @@ import FormRegister from '../templete/FormRegister';
 
 const CreateAccount = ({setstate}) => {
 
+    localStorage.removeItem("temp");
+
     const [validated, setValidated] = useState(false);
     const [input, setInput] = useInput({email:'',pass:'',rePass:''});
     const {email,pass,rePass} = input;

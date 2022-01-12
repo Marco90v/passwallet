@@ -1,9 +1,11 @@
-import { getAuth, signInWithEmailAndPassword  } from "firebase/auth";
+import { browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword  } from "firebase/auth";
 import { useState } from "react";
 import useInput from "../hooks/useInput";
 import FormLogin from "../templete/FormLogin";
 
 const SignIn = ({setstate}) =>{
+
+    localStorage.removeItem("temp");
     
     const [validated, setValidated] = useState(false);
     const [input, setInput] = useInput({email:'',pass:''});
@@ -17,24 +19,26 @@ const SignIn = ({setstate}) =>{
         setWait(true);
         setAlert('');
         if (e.currentTarget.checkValidity() !== false){
-            signInWithEmailAndPassword(getAuth(), email, pass)
-            .then( userCredential => {
-                localStorage.setItem("temp",pass);
-                setWait(false)
-            })
-            .catch((error) => {
-                switch (error.code) {
-                    case "auth/wrong-password":
-                        setAlert('Wrong password');
-                        break;
-                    case "auth/user-not-found":
-                        setAlert('User not found');
-                        break;
-                    default:
-                        break;
-                }
-                setWait(false);
-            });
+            setPersistence(getAuth(), browserSessionPersistence).then(()=>{
+                signInWithEmailAndPassword(getAuth(), email, pass)
+                .then( () => {
+                    localStorage.setItem("temp",pass);
+                    setWait(false)
+                })
+                .catch((error) => {
+                    switch (error.code) {
+                        case "auth/wrong-password":
+                            setAlert('Wrong password');
+                            break;
+                        case "auth/user-not-found":
+                            setAlert('User not found');
+                            break;
+                        default:
+                            break;
+                    }
+                    setWait(false);
+                });
+            }).catch(()=>setAlert('Login configuration error') );
         }else{ setWait(false); }
     }
 
