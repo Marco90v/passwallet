@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/passwallet/static/css/main.79b95721.chunk.css",
-    "main.js": "/passwallet/static/js/main.ce3995d2.chunk.js",
-    "main.js.map": "/passwallet/static/js/main.ce3995d2.chunk.js.map",
-    "runtime-main.js": "/passwallet/static/js/runtime-main.85e1de0f.js",
-    "runtime-main.js.map": "/passwallet/static/js/runtime-main.85e1de0f.js.map",
+    "main.css": "/passwallet/static/css/main.0dd29ce0.chunk.css",
+    "main.js": "/passwallet/static/js/main.db8d7246.chunk.js",
+    "main.js.map": "/passwallet/static/js/main.db8d7246.chunk.js.map",
+    "runtime-main.js": "/passwallet/static/js/runtime-main.b0257307.js",
+    "runtime-main.js.map": "/passwallet/static/js/runtime-main.b0257307.js.map",
     "static/css/2.84112ba1.chunk.css": "/passwallet/static/css/2.84112ba1.chunk.css",
-    "static/js/2.d4fc6738.chunk.js": "/passwallet/static/js/2.d4fc6738.chunk.js",
-    "static/js/2.d4fc6738.chunk.js.map": "/passwallet/static/js/2.d4fc6738.chunk.js.map",
-    "static/js/3.6aa593ef.chunk.js": "/passwallet/static/js/3.6aa593ef.chunk.js",
-    "static/js/3.6aa593ef.chunk.js.map": "/passwallet/static/js/3.6aa593ef.chunk.js.map",
+    "static/js/2.3f0a6027.chunk.js": "/passwallet/static/js/2.3f0a6027.chunk.js",
+    "static/js/2.3f0a6027.chunk.js.map": "/passwallet/static/js/2.3f0a6027.chunk.js.map",
+    "static/js/3.f6746a86.chunk.js": "/passwallet/static/js/3.f6746a86.chunk.js",
+    "static/js/3.f6746a86.chunk.js.map": "/passwallet/static/js/3.f6746a86.chunk.js.map",
     "index.html": "/passwallet/index.html",
     "static/css/2.84112ba1.chunk.css.map": "/passwallet/static/css/2.84112ba1.chunk.css.map",
-    "static/css/main.79b95721.chunk.css.map": "/passwallet/static/css/main.79b95721.chunk.css.map",
-    "static/js/2.d4fc6738.chunk.js.LICENSE.txt": "/passwallet/static/js/2.d4fc6738.chunk.js.LICENSE.txt",
+    "static/css/main.0dd29ce0.chunk.css.map": "/passwallet/static/css/main.0dd29ce0.chunk.css.map",
+    "static/js/2.3f0a6027.chunk.js.LICENSE.txt": "/passwallet/static/js/2.3f0a6027.chunk.js.LICENSE.txt",
     "static/media/lock.21afe2d1.png": "/passwallet/static/media/lock.21afe2d1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.85e1de0f.js",
+    "static/js/runtime-main.b0257307.js",
     "static/css/2.84112ba1.chunk.css",
-    "static/js/2.d4fc6738.chunk.js",
-    "static/css/main.79b95721.chunk.css",
-    "static/js/main.ce3995d2.chunk.js"
+    "static/js/2.3f0a6027.chunk.js",
+    "static/css/main.0dd29ce0.chunk.css",
+    "static/js/main.db8d7246.chunk.js"
   ]
 }
