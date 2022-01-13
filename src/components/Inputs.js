@@ -42,7 +42,7 @@ const Inputs = ({input,setInput,disa,n_e,copiar}) => {
                         <Form.Label md={{ span: 2, offset: 3 }} column="sm" sm={2}><strong>{labelInputs(e)}</strong></Form.Label>
                         <Col sm={4}>
                             <InputGroup size="sm" >
-                                {(n_e && e==="Password") && <InputGroup.Text id="basic-addon2" className="hideShow" style={{backgroundColor: "white"}} onClick={()=>sethideShow(t=>!t)}> {hideShow ? <AiFillEyeInvisible/> : <AiFillEye />} </InputGroup.Text>}
+                                {e==="Password" && <InputGroup.Text id="basic-addon2" className="hideShow" style={{backgroundColor: "white"}} onClick={()=>sethideShow(t=>!t)}> {hideShow ? <AiFillEyeInvisible/> : <AiFillEye />} </InputGroup.Text>}
                                 <Form.Control size="sm" type={changeState(e)} placeholder={labelInputs(e)} name={e} value={input[e]} onChange={(ele)=>{setInput(ele)}} disabled={disa} />
                                 {n_e && <InputGroup.Text id="basic-addon2" className="clipboard" style={{backgroundColor: "purple"}} onClick={()=>copiar(input[e])}> <FaClipboard /> </InputGroup.Text>}
                             </InputGroup>
