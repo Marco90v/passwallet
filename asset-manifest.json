@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/passwallet/static/css/main.0dd29ce0.chunk.css",
-    "main.js": "/passwallet/static/js/main.9850f8ec.chunk.js",
-    "main.js.map": "/passwallet/static/js/main.9850f8ec.chunk.js.map",
+    "main.css": "/passwallet/static/css/main.33d180fe.chunk.css",
+    "main.js": "/passwallet/static/js/main.49ab2d83.chunk.js",
+    "main.js.map": "/passwallet/static/js/main.49ab2d83.chunk.js.map",
     "runtime-main.js": "/passwallet/static/js/runtime-main.b0257307.js",
     "runtime-main.js.map": "/passwallet/static/js/runtime-main.b0257307.js.map",
     "static/css/2.84112ba1.chunk.css": "/passwallet/static/css/2.84112ba1.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.f6746a86.chunk.js.map": "/passwallet/static/js/3.f6746a86.chunk.js.map",
     "index.html": "/passwallet/index.html",
     "static/css/2.84112ba1.chunk.css.map": "/passwallet/static/css/2.84112ba1.chunk.css.map",
-    "static/css/main.0dd29ce0.chunk.css.map": "/passwallet/static/css/main.0dd29ce0.chunk.css.map",
+    "static/css/main.33d180fe.chunk.css.map": "/passwallet/static/css/main.33d180fe.chunk.css.map",
     "static/js/2.3f0a6027.chunk.js.LICENSE.txt": "/passwallet/static/js/2.3f0a6027.chunk.js.LICENSE.txt",
     "static/media/lock.21afe2d1.png": "/passwallet/static/media/lock.21afe2d1.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.b0257307.js",
     "static/css/2.84112ba1.chunk.css",
     "static/js/2.3f0a6027.chunk.js",
-    "static/css/main.0dd29ce0.chunk.css",
-    "static/js/main.9850f8ec.chunk.js"
+    "static/css/main.33d180fe.chunk.css",
+    "static/js/main.49ab2d83.chunk.js"
   ]
 }
