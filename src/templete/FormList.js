@@ -24,7 +24,7 @@ const FormList = ({data,eliminar,handleClose,show,msgModal,save,SeeEdit}) => {
     
     return(
         <>
-            <Table striped bordered hover size="sm" style={{width:"50%", marginTop: "2rem"}} className="animate__animated animate__fadeInLeft">
+            <Table striped bordered hover size="sm" style={{ marginTop: "2rem"}} className="tabla animate__animated animate__fadeInLeft">
                 <thead>
                     <tr>
                         <th style={{textAlign:"center"}} ><FcEmptyTrash /></th>

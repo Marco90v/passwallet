@@ -49,12 +49,29 @@
   width: 5rem;
   height: 5rem;
 }
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+@media (max-width: 512px) {
+  div > .generate{
+    margin-top: 1rem;
+  }
+  table.tabla, div.about{
+    width: 90%;
+  }
+}
+@media (min-width: 512px) and (max-width: 715px) {
+  table.tabla,div.about{
+    width: 70%;
+  }
+}
+@media (min-width: 715px) {
+  table.tabla,div.about{
+    width: 50%;
   }
 }

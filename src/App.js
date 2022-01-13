@@ -19,7 +19,7 @@ function App() {
     <AuthProvider sdk={auth}>
       <Suspense fallback={<Loading />}>
         <Container fluid>
-          <Row className="justify-content-md-center">
+          <Row className="justify-content-center">
             <ValidationSession />
           </Row>
         </Container>
@@ -32,11 +32,11 @@ function App() {
   const ValidationSession = () => {
     const firestoreInstance = getFirestore(useFirebaseApp());
     const { status, data: signInCheckResult } = useSigninCheck();
-    const [state, setstate] = useState(true);
+    const [state, setState] = useState(true);
 
     return(status === 'loading' ? <Loading /> : 
       signInCheckResult.signedIn === true ? <FirestoreProvider sdk={firestoreInstance}> <Dashboard/> </FirestoreProvider> :
-        <Col xs lg="6"> { state ? <SignIn  setstate={setstate} /> : <CreateAccount setstate={setstate} /> } </Col>
+        <Col xs="12" lg="6"> { state ? <SignIn  setState={setState} /> : <CreateAccount setState={setState} /> } </Col>
     );
   }
 

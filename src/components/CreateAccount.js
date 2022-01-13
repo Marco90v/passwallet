@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useInput from '../hooks/useInput';
 import FormRegister from '../templete/FormRegister';
 
-const CreateAccount = ({setstate}) => {
+const CreateAccount = ({setState}) => {
 
     localStorage.removeItem("temp");
 
@@ -21,7 +21,7 @@ const CreateAccount = ({setstate}) => {
         if (e.currentTarget.checkValidity() === true && pass === rePass){
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, pass)
-            .then( userCredential => setstate(true) )
+            .then( userCredential => setState(true) )
             .catch((error) => {
                 switch (error.code) {
                     case "auth/email-already-in-use":
@@ -44,7 +44,7 @@ const CreateAccount = ({setstate}) => {
         }
     }
 
-    const signIn = () => setstate(true);
+    const signIn = () => setState(true);
 
     const props = {validated,create,signIn,input,setInput,alert,wait};
 

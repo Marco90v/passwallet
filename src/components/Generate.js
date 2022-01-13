@@ -9,7 +9,7 @@ const Generate = () => {
     const g = () => setGPass({gPass:GeneratePass()});
 
     return (
-        <Col sm={{ span: 4, offset: 1}}>
+        <Col xs={{span:12}} sm={{ span: 4, offset: 1}} className="generate">
             <Form.Group className="d-flex">
                 <FormControl type="text" placeholder="************" className="me-2" aria-label="passGenerate" size="sm" name="gPass" value={gPass} style={{width:"66%"}}  disabled />
                 <Button variant="outline-success" size="sm" onClick={g} >Generate <FaRandom style={{marginTop: "-1px"}} /></Button>

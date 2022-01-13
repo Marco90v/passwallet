@@ -12,8 +12,8 @@ const FromRegister = ({props}) => {
 
     return(
         <>
-            <Row className="justify-content-md-center contenLogo">
-                <Col lg="1">
+            <Row className="justify-content-center contenLogo">
+                <Col xs="3" lg="1">
                     <Image className="logoIni" src={logoIni} rounded />
                     <span className="position-absolute top-0 start-50 translate-middle-x title">Password Wallet</span>
                 </Col>
@@ -58,10 +58,10 @@ const FromRegister = ({props}) => {
 
 
                 <Form.Group as={Row} className="mb-3">
-                    <Col sm={{ span: 2, offset: 2 }}>
+                    <Col xs={{span:4}} sm={{ span: 2, offset: 2 }}>
                         <Button size="sm" type="submit"><FcAddDatabase style={{marginTop: "-3px"}} /> Sign Up {wait && <ImSpinner2 className="spinner" />} </Button>
                     </Col>
-                    <Col sm={{ span: 3}}>
+                    <Col xs={{span:7}} sm={{ span: 3}}>
                         <Button size="sm" variant="link" onClick={()=>{signIn()}} >Sign In <HiOutlineSwitchHorizontal /></Button>
                     </Col>
                     {/* Generador de pass */}

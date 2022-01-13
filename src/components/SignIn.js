@@ -3,7 +3,7 @@ import { useState } from "react";
 import useInput from "../hooks/useInput";
 import FormLogin from "../templete/FormLogin";
 
-const SignIn = ({setstate}) =>{
+const SignIn = ({setState}) =>{
 
     localStorage.removeItem("temp");
     
@@ -42,7 +42,7 @@ const SignIn = ({setstate}) =>{
         }else{ setWait(false); }
     }
 
-    const createAccount = () => setstate(false);
+    const createAccount = () => setState(false);
 
     const props = {signIn,createAccount,validated,input,setInput,alert,wait};
 
