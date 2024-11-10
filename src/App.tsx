@@ -1,30 +1,34 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import { useForm, Controller, SubmitHandler } from "react-hook-form"
+import Input from "@components/Input";
+import Button from "@components/Button";
+
+interface IFormInput {
+  firstName: string
+  password: string
+}
+
+const temp = {
+	value:"123",
+}
 
 function App() {
-	const [count, setCount] = useState(0);
-
+	const { register, handleSubmit } = useForm({
+    defaultValues: {
+      firstName: "",
+      password: "",
+    },
+  })
+	const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data)
+  }
 	return (
-		<div className="App">
-			<div>
-				<a href="https://reactjs.org" target="_blank" rel="noreferrer">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Rspack + React + TypeScript</h1>
-			<div className="card">
-				<button type="button" onClick={() => setCount(count => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Rspack and React logos to learn more
-			</p>
-		</div>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<Input identify="firstName" type="text" placeholder="First Name" register={register} />
+			<Input identify="password" type="password" placeholder="Password" register={register} />
+			<Button type="submit" >Submit</Button>
+			<Button color="red" >Submit</Button>
+			<Button color="green" >Submit</Button>
+    </form>
 	);
 }
 
