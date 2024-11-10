@@ -15,3 +15,10 @@ interface ButtonProps {
 	disabled?: boolean;
   color?: "green" | "red" | "blue";
 }
+
+interface LabelProps{
+	children: ReactNode;
+	className?: string;
+}
+
+type Theme = "light" | "dark";

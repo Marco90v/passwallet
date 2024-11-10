@@ -7,3 +7,12 @@
     @apply bg-zinc-900
   }
 }
+
+@layer components {
+  .slider{
+    @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 rounded-full transition-colors duration-200 ease-in-out
+  }
+  .slider:before{
+    @apply absolute content-[''] w-6 h-6 left-1 bottom-1 bg-white rounded-full transition-all duration-200 ease-in-out
+  }
+}
