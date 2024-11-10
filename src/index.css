@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html.dark {
     @apply bg-zinc-900
   }
 }

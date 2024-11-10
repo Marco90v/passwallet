@@ -9,7 +9,7 @@ import eyeOff from "@assets/icons/eye-off.svg";
 const InputBase = <T extends FieldValues>(props:InputProps<T>) => {
   const { identify, register, required=false, className="", ...other } = props;
   return (
-    <input {...other} className={`p-1 m-1 rounded-sm ${className}`} {...register(identify, {required})}  /> 
+    <input {...other} className={`p-1 m-1 rounded border-solid border-2 border-zinc-200 ${className}`} {...register(identify, {required})}  /> 
   );
 }
 
