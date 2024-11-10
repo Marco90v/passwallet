@@ -6,6 +6,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];
+const path = require('path');
 
 export default defineConfig({
 	context: __dirname,
@@ -13,7 +14,8 @@ export default defineConfig({
 		main: "./src/main.tsx"
 	},
 	resolve: {
-		extensions: ["...", ".ts", ".tsx", ".jsx"]
+		extensions: ["...", ".ts", ".tsx", ".jsx"],
+		tsConfig: path.resolve(__dirname, './tsconfig.json'),
 	},
 	module: {
 		rules: [

@@ -11,7 +11,15 @@
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
     "useDefineForClassFields": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "baseUrl": "./",
+      "paths": {
+        "@components/*": ["./src/components/*"],
+        "@hooks/*": ["./src/hooks/*"],
+        "@utils/*": ["./src/utils/*"],
+        "@assets/*": ["src/assets/*"],
+        "src/*": ["src/*"]
+      }
   },
   "include": ["src"],
   "ts-node": {
