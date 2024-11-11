@@ -5,6 +5,7 @@ import Label from "@components/Label";
 
 import key from "@assets/icons/key.svg";
 import { ReactNode } from "react";
+import FormSession from "@components/FromSession";
 
 interface login {
   email: string;
@@ -31,9 +32,8 @@ const Login = () => {
   }
   return (
     <div className="flex items-center justify-center h-screen">
-      <form
-        className="m-auto flex flex-col w-[500px] gap-4 p-4"
-        onSubmit={handleSubmit(onSubmit)}
+      <FormSession
+        handleSubmit={handleSubmit(onSubmit)}
       >
         <DivContent>
           <Label className="font-semibold text-zinc-700">Email</Label>
@@ -54,7 +54,7 @@ const Login = () => {
             Create Account
           </Button>
         </DivContent>
-      </form>
+      </FormSession>
     </div>
   )
 } 

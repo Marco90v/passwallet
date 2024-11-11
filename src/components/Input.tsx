@@ -7,19 +7,19 @@ import eye from "@assets/icons/eye.svg";
 import eyeOff from "@assets/icons/eye-off.svg";
 
 const InputBase = <T extends FieldValues> (props:InputProps<T>) => {
-  const { identify, register, required=false, className="", ...other } = props;
+  const { identify, register, required=false, className="", type=TEXT, ...other } = props;
   return (
-    <input {...other}  id={identify} className={`w-full p-1 m-1 rounded border-solid border border-zinc-200 ${className}`} {...register(identify, {required})}  /> 
+    <input {...other}  id={identify} className={`${type===PASSWORD && "w-full"} p-1 m-1 rounded border-solid border border-zinc-200 ${className}`} {...register(identify, {required})}  /> 
   );
 }
 
 const Input = <T extends FieldValues> (props:InputProps<T>) => {
-	const { type=TEXT } = props;
+	const { type=TEXT, className="" } = props;
 	const [isView, setIsView] = useState<boolean>(false);
 
-	if(type === "password") {
+	if(type === PASSWORD) {
 		return (
-			<div className="inline relative w-full">
+			<div className="relative flex w-full">
 				<InputBase  {...props} type={isView ? TEXT : PASSWORD} />
 				<img
 					src={isView ? eyeOff : eye}

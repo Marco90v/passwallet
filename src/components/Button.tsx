@@ -9,7 +9,7 @@ const getColor = (color:string) => {
     return "bg-blue-600 border-blue-600 text-white hover:bg-blue-500"
   }
   if(color === "link") {
-    return "bg-transparent border-transparent text-blue-800 content-center underline underline-offset-2 hover:text-blue-600"
+    return "bg-transparent border-transparent text-blue-800 dark:text-blue-200 content-center underline underline-offset-2 hover:text-blue-600"
   }
   return "bg-white border-white text-black"
 }

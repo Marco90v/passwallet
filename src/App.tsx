@@ -4,6 +4,7 @@ import Button from "@components/Button";
 import Label from "@components/Label";
 import ChangeTheme from "@components/ChangeTheme";
 import Login from "./pages/Login";
+import CreateAccount from "./pages/CreateAccount";
 
 interface IFormInput {
   firstName: string
@@ -33,9 +34,10 @@ function App() {
 				<Button color="red" >Submit</Button>
 				<Button color="green" >Submit</Button>
 				<Label>Label</Label>
-			</form>
-			<ChangeTheme /> */}
-			<Login />
+			</form> */}
+			<ChangeTheme />
+			{/* <Login /> */}
+			<CreateAccount />
 		</>
 	);
 }
