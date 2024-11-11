@@ -38,8 +38,7 @@ const Input = <T extends FieldValues> (props:InputProps<T>) => {
 				<img
 					src={mail}
 					alt={"email"}
-					className="absolute left-2 top-1/2 -translate-y-1/2 cursor-pointer"
-					onClick={() => setIsView(!isView)}
+					className="absolute left-2 top-1/2 -translate-y-1/2"
 				/>
 			</div>
 		);
