@@ -6,6 +6,9 @@
   html.dark {
     @apply bg-zinc-900
   }
+  body{
+    @apply h-screen
+  }
 }
 
 @layer components {

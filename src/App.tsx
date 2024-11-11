@@ -3,6 +3,7 @@ import Input from "@components/Input";
 import Button from "@components/Button";
 import Label from "@components/Label";
 import ChangeTheme from "@components/ChangeTheme";
+import Login from "./pages/Login";
 
 interface IFormInput {
   firstName: string
@@ -25,7 +26,7 @@ function App() {
   }
 	return (
 		<>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			{/* <form onSubmit={handleSubmit(onSubmit)}>
 				<Input identify="firstName" type="text" placeholder="First Name" register={register} />
 				<Input identify="password" type="password" placeholder="Password" register={register} />
 				<Button type="submit" >Submit</Button>
@@ -33,7 +34,8 @@ function App() {
 				<Button color="green" >Submit</Button>
 				<Label>Label</Label>
 			</form>
-			<ChangeTheme />
+			<ChangeTheme /> */}
+			<Login />
 		</>
 	);
 }
