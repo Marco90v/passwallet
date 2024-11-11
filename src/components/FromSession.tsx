@@ -14,7 +14,7 @@ const FormSession = <T extends FieldValues> ({handleSubmit, children}:props<T>) 
 
   return (
     <form
-      className="m-auto flex flex-col w-[500px] gap-4 p-4 border-solid border border-zinc-200 rounded-xl bg-blue-200 dark:bg-zinc-700"
+      className="m-auto flex flex-col w-[500px] gap-4 p-8 border-solid border border-zinc-200 bg-white rounded-2xl shadow-xl"
       onSubmit={accion}
     >
       {children}

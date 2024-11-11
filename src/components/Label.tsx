@@ -1,7 +1,7 @@
 const Label = (props:LabelProps) => {
   const { children, className="", ...other } = props;
   return (
-    <label className={`text-black m-1 dark:text-white ${className}`} {...other}>
+    <label className={`block font-medium text-slate-700 mb-1 ${className}`} {...other}>
       {children}
     </label>
   )

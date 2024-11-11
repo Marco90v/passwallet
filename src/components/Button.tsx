@@ -6,10 +6,10 @@ const getColor = (color:string) => {
     return "bg-red-600 border-red-600 text-black hover:bg-red-500"
   }
   if(color === "blue") {
-    return "bg-blue-600 border-blue-600 text-white hover:bg-blue-500"
+    return "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700"
   }
   if(color === "link") {
-    return "bg-transparent border-transparent text-blue-800 dark:text-blue-200 content-center underline underline-offset-2 hover:text-blue-600"
+    return "bg-transparent border-transparent text-indigo-600 content-center underline underline-offset-2 hover:text-indigo-700"
   }
   return "bg-white border-white text-black"
 }
@@ -18,7 +18,7 @@ const Button = (props:ButtonProps) => {
   const { children, className, onClick, type="button", disabled=false, color="" } = props;
   return (
     <button
-      className={`${getColor(color)} rounded-md m-1 px-4 py-1 font-bold flex gap-1 border-solid border-2 justify-center items-center transition-colors duration-300 ${className}`}
+      className={`${getColor(color)} rounded-md m-1 px-4 py-1 flex gap-1 border-solid border-2 justify-center items-center transition-colors duration-300 ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

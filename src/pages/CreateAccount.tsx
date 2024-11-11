@@ -1,9 +1,13 @@
+import { ReactNode } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
+
 import Button from "@components/Button"
 import FormSession from "@components/FromSession"
 import Input from "@components/Input"
 import Label from "@components/Label"
-import { ReactNode } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+
+import shield from "@assets/icons/shield.svg";
+
 
 interface createAccount {
   email: string
@@ -33,10 +37,16 @@ const CreateAccount = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-4">
       <FormSession
         handleSubmit={handleSubmit(onSubmit)}
       >
+        <div className="flex flex-col items-center">
+          <div className="bg-indigo-600 p-3 rounded-full">
+            <img src={shield} alt="shield" className="w-8 h-8 text-white" />
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold text-black text-center">Welcome</h1>
         <DivContent>
           <Label className="font-semibold text-zinc-700">Email</Label>
           <Input<createAccount> identify="email" type="email" placeholder="Email" register={register} required={true}  />
