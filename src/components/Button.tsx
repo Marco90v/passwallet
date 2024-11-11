@@ -1,9 +1,9 @@
 const getColor = (color:string) => {
   if(color === "green") {
-    return "bg-green-600 border-green-600 text-white hover:bg-green-500"
+    return "bg-green-600 border-green-600 text-white hover:bg-green-700"
   }
   if(color === "red") {
-    return "bg-red-600 border-red-600 text-black hover:bg-red-500"
+    return "bg-red-600 border-red-600 text-black hover:bg-red-700"
   }
   if(color === "blue") {
     return "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700"

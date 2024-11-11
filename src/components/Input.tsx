@@ -11,7 +11,6 @@ const InputBase = <T extends FieldValues> (props:InputProps<T>) => {
   const { identify, register, required=false, className="", type=TEXT, ...other } = props;
 	const extraClasses = `${type===PASSWORD && "pr-10"} ${type===EMAIL && "pl-10"}`;
   return (
-		// <input {...other}  id={identify} className={`${type===PASSWORD && "pr-8 w-full"} ${type===EMAIL && "pl-8 w-full"} p-1 m-1 rounded border-solid border border-zinc-200 ${className}`} {...register(identify, {required})}  /> 
     <input
 			{...other}
 			id={identify}
