@@ -19,6 +19,7 @@
         "@hooks/*": ["./src/hooks/*"],
         "@utils/*": ["./src/utils/*"],
         "@assets/*": ["src/assets/*"],
+        "@layouts/*": ["./src/layouts/*"],
         "src/*": ["src/*"]
       }
   },

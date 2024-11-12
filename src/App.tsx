@@ -5,7 +5,8 @@ import Label from "@components/Label";
 import ChangeTheme from "@components/ChangeTheme";
 import Login from "@pages/Login";
 import CreateAccount from "@pages/CreateAccount";
-import Daashboard from "@pages/Dashboard";
+import {Dashboard} from "@pages/Dashboard";
+import { useState } from "react";
 
 interface IFormInput {
   firstName: string
@@ -17,15 +18,19 @@ document.documentElement.classList.remove("light", "dark");
 document.documentElement.classList.add(themeInitial);
 
 function App() {
-	const { register, handleSubmit } = useForm({
-    defaultValues: {
-      firstName: "",
-      password: "",
-    },
-  })
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data)
-  }
+
+	const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+	// const { register, handleSubmit } = useForm({
+  //   defaultValues: {
+  //     firstName: "",
+  //     password: "",
+  //   },
+  // })
+	
+	// const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  //   console.log(data)
+  // }
 	return (
 		<>
 			{/* <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,8 +43,8 @@ function App() {
 			</form> */}
 			{/* <ChangeTheme /> */}
 			{/* <Login /> */}
-			<CreateAccount />
-			<Daashboard />
+			{/* <CreateAccount /> */}
+			<Dashboard  onLogout={() => setIsAuthenticated(false)} />
 		</>
 	);
 }

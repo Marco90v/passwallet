@@ -1,4 +1,5 @@
 import { CHARACTERS_LOWER, CHARACTERS_UPPER, CHARACTERS_NUMBER, CHARACTERS_SYMBOL } from "@utils/const";
+
 export const keyGenerate = (long:number):string => {
   let key = "";
   for (let i = 0; i < long; i++) {
@@ -20,4 +21,8 @@ export const keyGenerate = (long:number):string => {
     }
   }
   return key;
+};
+
+export const capitalize = (str:string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };

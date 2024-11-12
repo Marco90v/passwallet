@@ -13,18 +13,28 @@ interface InputProps<T> {
 	required?: boolean;
 }
 
-interface ButtonProps {
-  children: ReactNode;
-	className?: string;
-  type?: "submit" | "button";
-	onClick?: () => void;
-	disabled?: boolean;
-  color?: "green" | "red" | "blue" | "link";
-}
-
 interface LabelProps{
 	children: ReactNode;
 	className?: string;
 }
 
 type Theme = "light" | "dark";
+
+type itemsNavValue = 'items' | 'add' | 'password' | 'help';
+type itemsfilterValue = 'all' | 'social' | 'banking' | 'other';
+
+interface IPage {
+  label: string;
+  value: itemsNavValue;
+  icon: React.ReactNode;
+}
+
+interface ItemType {
+  id: string;
+  title: string;
+  username: string;
+	email: string;
+  password: string;
+  category: string;
+  url?: string;
+};
