@@ -3,8 +3,9 @@ import Input from "@components/Input";
 import Button from "@components/Button";
 import Label from "@components/Label";
 import ChangeTheme from "@components/ChangeTheme";
-import Login from "./pages/Login";
-import CreateAccount from "./pages/CreateAccount";
+import Login from "@pages/Login";
+import CreateAccount from "@pages/CreateAccount";
+import Daashboard from "@pages/Dashboard";
 
 interface IFormInput {
   firstName: string
@@ -35,9 +36,10 @@ function App() {
 				<Button color="green" >Submit</Button>
 				<Label>Label</Label>
 			</form> */}
-			<ChangeTheme />
+			{/* <ChangeTheme /> */}
 			{/* <Login /> */}
 			<CreateAccount />
+			<Daashboard />
 		</>
 	);
 }

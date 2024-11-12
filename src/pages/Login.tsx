@@ -1,25 +1,14 @@
-import { ReactNode } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import FormSession from "@components/FromSession";
 import Button from "@components/Button";
-import Input from "@components/Input";
-import Label from "@components/Label";
 
 import key from "@assets/icons/key.svg";
-import shield from "@assets/icons/shield.svg";
+import LabelInput from "@components/LabelInput";
 
 interface login {
   email: string;
   password: string;
-}
-
-const DivContent = ({children}:{children:ReactNode}) => {
-  return (
-    <div className="flex flex-col">
-      {children}
-    </div>
-  )
 }
 
 const Login = () => {
@@ -37,31 +26,16 @@ const Login = () => {
       <FormSession
         handleSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col items-center">
-          <div className="bg-indigo-600 p-3 rounded-full">
-            <img src={shield} alt="shield" className="w-8 h-8 text-white" />
-          </div>
-        </div>
         <h1 className="text-2xl font-bold text-slate-800 text-center">Welcome</h1>
-        <DivContent>
-          <Label className="font-semibold text-zinc-700">Email</Label>
-          <Input<login> identify="email" type="email" placeholder="Email" register={register}  />
-        </DivContent>
-        <DivContent>
-          <Label className="font-semibold text-zinc-700">Password</Label>
-          <Input<login> identify="password" type="password" placeholder="Password" register={register} />
-        </DivContent>
-        <DivContent>
-          <Button color="blue" type="submit" className="">
-            Sign In
-            <img src={key} alt="key" className="ml-2" />
-          </Button>
-        </DivContent>
-        <DivContent>
-          <Button color="link" >
-            Create Account
-          </Button>
-        </DivContent>
+        <LabelInput<login> label="Email" identify="email" type="email" placeholder="Email" register={register} />
+        <LabelInput<login> label="Password" identify="password" type="password" placeholder="Password" register={register} />
+        <Button color="blue" type="submit">
+          Sign In
+          <img src={key} alt="key" className="ml-2" />
+        </Button>
+        <Button color="link" >
+          Create Account
+        </Button>
       </FormSession>
     </div>
   )

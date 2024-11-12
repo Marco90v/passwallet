@@ -22,7 +22,7 @@ const GenerateKey = () => {
 
   return (
     <form className="flex gap-2 m-1" onSubmit={handleSubmit(onSubmit)}>
-      <Input<IFormGenerateKey> identify="keyName" type="text" placeholder="Key" register={register} disabled className="disabled:cursor-text bg-zinc-200 text-zinc-900 w-44" />
+      <Input<IFormGenerateKey> identify="keyName" type="text" placeholder="Key" register={register} disabled />
       <Button color="green" type="submit">Generate</Button>
     </form>
   );

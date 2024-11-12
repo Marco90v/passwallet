@@ -9,13 +9,13 @@ import mail from "@assets/icons/mail.svg";
 
 const InputBase = <T extends FieldValues> (props:InputProps<T>) => {
   const { identify, register, required=false, className="", type=TEXT, ...other } = props;
-	const extraClasses = `${type===PASSWORD && "pr-10"} ${type===EMAIL && "pl-10"}`;
+	const extraClasses = `${type===PASSWORD && "pr-10" } ${type===EMAIL && "pl-10"}`;
   return (
     <input
 			{...other}
 			id={identify}
 			type={type}
-			className={`${extraClasses} w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all ${className}`}
+			className={`${extraClasses} text-base text-black w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:text-slate-800 disabled:border-transparent focus:border-transparent transition-all ${className}`}
 			{...register(identify, {required})}
 		/> 
   );
@@ -51,7 +51,9 @@ const Input = <T extends FieldValues> (props:InputProps<T>) => {
 		);
 	}
 	return (
-		<InputBase {...props} />
+		<div className="relative flex w-full">
+			<InputBase {...props} />
+		</div>
 	);
 }
 
