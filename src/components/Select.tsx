@@ -25,7 +25,7 @@ const Salect = (props:SelectProps) => {
   const { identify, register, className, disabled, required } = props;
   return (
     <select
-      className={`w-full px-3 py-2 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white rounded-lg ${className}`}
+      className={`w-full px-3 py-2 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent bg-white rounded-lg ${className}`}
       disabled={disabled}
       required={required}
       {...register(identify, {required})}

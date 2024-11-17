@@ -15,7 +15,7 @@ const InputBase = <T extends FieldValues> (props:InputProps<T>) => {
 			{...other}
 			id={identify}
 			type={type}
-			className={`${extraClasses} text-base text-black w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:text-slate-800 disabled:border-transparent focus:border-transparent transition-all ${className}`}
+			className={`${extraClasses} text-base text-black w-full px-3 py-2 rounded-md shadow-sm border border-slate-200 focus:outline-none focus:ring-1 focus:border-transparent focus:ring-indigo-500 disabled:bg-gray-400 disabled:text-slate-800 disabled:border-transparent transition-all ${className}`}
 			{...register(identify, {required})}
 		/> 
   );
