@@ -1,14 +1,4 @@
-import { UseFormRegister } from "react-hook-form";
-
-interface SelectProps {
-  identify: keyof ItemType;
-	register: UseFormRegister<ItemType>;
-	type?: "text" | "password" | "email" | "number";
-	placeholder?: string;
-	className?: string;
-	disabled?: boolean;
-	required?: boolean;
-}
+import { FieldValues } from "react-hook-form";
 
 interface OptionsSelect {
   value: 'social' | 'banking' | 'other';
@@ -21,7 +11,7 @@ const options:OptionsSelect[] = [
   { value: 'other', label: 'Other' },
 ];
 
-const Salect = (props:SelectProps) => {
+const Salect = <T extends FieldValues>(props:SelectProps<T>) => {
   const { identify, register, className, disabled, required } = props;
   return (
     <select

@@ -2,8 +2,6 @@ import { useState } from 'react';
 import FilterButton from '@components/FilterButton';
 import EditForm from '@components/EditForm';
 import ItemPreview from '@components/ItemPreview';
-import { capitalize } from '@utils/functions';
-import { useForm } from 'react-hook-form';
 
 interface ItemListProps {
   items: ItemType[];
@@ -59,10 +57,11 @@ const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
           <div key={item.id} className="p-4 hover:bg-slate-50">
             {
               editingItem?.id === item.id ? (
-                <EditForm
+                <EditForm<ItemType>
                   item={editingItem}
                   onSave={onSave}
                   onCancel={() => setEditingItem(null)}
+                  edit
                 />
               ) : (
                 <ItemPreview

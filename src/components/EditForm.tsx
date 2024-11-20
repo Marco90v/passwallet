@@ -1,38 +1,27 @@
-import { useState } from "react";
 import Input from "@components/Input";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, Path, SubmitHandler, useForm } from "react-hook-form";
 import { capitalize } from "@utils/functions";
-import Button from "./Button";
-import Salect from "./Select";
+import Button from "@components/Button";
+import Salect from "@components/Select";
 
-interface EditFormProps {
-  item: ItemType;
-  onSave: (item: ItemType) => void;
+interface EditFormProps<T extends FieldValues> {
+  item: T;
+  onSave: (item: T) => void;
   onCancel: () => void;
+  edit?:boolean;
 }
 
-function EditForm({ item, onSave, onCancel }: EditFormProps) {
-  const [editedItem, setEditedItem] = useState<ItemType>(item);
+function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditFormProps<T>) {
 
-  const {register, handleSubmit, setValue} = useForm<ItemType>({
-    defaultValues: {
-      title: '',
-      username: '',
-      email: '',
-      password: '',
-      category: 'social',
-    },
-  });
+  const {register, handleSubmit, setValue} = useForm<T>();
 
-  setValue('id', editedItem.id);
-  setValue('title', editedItem.title);
-  setValue('username', editedItem.username);
-  setValue('email', editedItem.email);
-  setValue('password', editedItem.password);
-  setValue('category', editedItem.category);
-  setValue('url', editedItem.url);
+  if(edit){    
+    Object.keys(item).map((key:string, index) => {
+      setValue(key as Path<T>, item[key]);
+    });
+  }
 
-  const onSubmit: SubmitHandler<ItemType> = (data) => {
+  const onSubmit: SubmitHandler<T> = (data) => {
     onSave(data);
   }
 
@@ -42,14 +31,13 @@ function EditForm({ item, onSave, onCancel }: EditFormProps) {
       className="space-y-4"
     >
       {
-        Object.keys(editedItem).map((key, index) => {
+        Object.keys(item).map((key, index) => {
           if(key === "id" ) return null;
           if(key === "category") return (            
             <Salect
               key={index}
               identify={key}
               register={register}
-              // className="w-full px-3 py-2 border border-slate-300 rounded-md"
             />
           )
           return (
@@ -63,21 +51,6 @@ function EditForm({ item, onSave, onCancel }: EditFormProps) {
           )
         })
       }
-
-
-
-      {/* <select
-        value={editedItem.category}
-        onChange={(e) => setEditedItem({ ...editedItem, category: e.target.value })}
-        className="w-full px-3 py-2 border border-slate-300 rounded-md"
-      >
-        <option value="social">Social</option>
-        <option value="banking">Banking</option>
-        <option value="other">Other</option>
-      </select> */}
-
-
-
       <div className="flex justify-end space-x-2">
         <Button
           type="button"

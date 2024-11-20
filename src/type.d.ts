@@ -13,6 +13,16 @@ interface InputProps<T> {
 	required?: boolean;
 }
 
+interface SelectProps<T extends FieldValues> {
+  identify: keyof T;
+	register: UseFormRegister<T>;
+	type?: "text" | "password" | "email" | "number";
+	placeholder?: string;
+	className?: string;
+	disabled?: boolean;
+	required?: boolean;
+}
+
 interface LabelProps{
 	children: ReactNode;
 	className?: string;
