@@ -3,6 +3,7 @@ import { DasBoardLayout } from '@layouts/DashBoardLayout';
 import { ItemList } from '@components/ItemList';
 import AddItem from '@pages/AddItem';
 import ChangePassword from '@pages/ChangePassword';
+import { Help } from '@pages/Help';
 
 
 interface DashboardProps {
@@ -58,8 +59,8 @@ function Dashboard({ onLogout }: DashboardProps) {
         return <AddItem onAdd={handleAddItem} onCancel={() => setCurrentPage('items')} />;
       case 'password':
         return <ChangePassword onSuccess={() => setCurrentPage('items')} />;
-      // case 'help':
-      //   return <Help />;
+      case 'help':
+        return <Help />;
       default:
         return null;
     }
