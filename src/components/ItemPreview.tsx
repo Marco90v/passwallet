@@ -1,6 +1,7 @@
 import { Edit2, ExternalLink, Eye, EyeOff, Trash2 } from "lucide-react";
 import { useState } from "react";
 import Button from "@components/Button";
+import { PASSNOTVIEW } from "@utils/const";
 
 interface ItemPreviewProps {
   item: ItemType;
@@ -41,7 +42,7 @@ const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
         }
         <div className="flex items-center mt-1">
           <span className="text-sm font-mono">
-            {showPasswords[item.id] ? item.password : '••••••••'}
+            {showPasswords[item.id] ? item.password : PASSNOTVIEW}
           </span>
           <Button
             onClick={() => togglePassword(item.id)}

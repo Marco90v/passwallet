@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 interface ButtonProps {
   children: ReactNode;
 	className?: string;
-  type?: "submit" | "button";
+  type?: TypeButton;
 	onClick?: () => void;
 	disabled?: boolean;
   color?: "green" | "red" | "blue" | "link" | "indigo";

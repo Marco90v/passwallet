@@ -1,14 +1,11 @@
 import { FormEvent, ReactNode } from "react";
-import { FieldValues } from "react-hook-form";
-
 import shield from "@assets/icons/shield.svg";
 
-
-interface props<T extends FieldValues> {
+interface props {
   handleSubmit:()=>{};
   children:ReactNode;
 }
-const FormSession = <T extends FieldValues> ({handleSubmit, children}:props<T>) => {
+const FormSession = ({handleSubmit, children}:props) => {
 
   const accion = (e:FormEvent) => {
     e.preventDefault();

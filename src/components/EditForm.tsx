@@ -3,12 +3,19 @@ import { FieldValues, Path, SubmitHandler, useForm } from "react-hook-form";
 import { capitalize } from "@utils/functions";
 import Button from "@components/Button";
 import Salect from "@components/Select";
+import { CATEGORY, EMAIL, ID, NUMBER, PASSWORD, TEXT } from "@utils/const";
 
 interface EditFormProps<T extends FieldValues> {
   item: T;
   onSave: (item: T) => void;
   onCancel: () => void;
   edit?:boolean;
+}
+
+const validateTypeInput = (key:string):TypeInput => {
+  if(key === PASSWORD || key === NUMBER || key === EMAIL) return key;
+  if(key.toLowerCase().includes(PASSWORD)) return PASSWORD;
+  return TEXT;
 }
 
 function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditFormProps<T>) {
@@ -32,8 +39,8 @@ function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditF
     >
       {
         Object.keys(item).map((key, index) => {
-          if(key === "id" ) return null;
-          if(key === "category") return (            
+          if(key === ID ) return null;
+          if(key === CATEGORY) return (            
             <Salect
               key={index}
               identify={key}
@@ -44,7 +51,7 @@ function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditF
             <Input
               key={index}
               identify={key}
-              type="text"
+              type={validateTypeInput(key)}
               placeholder={capitalize(key)}
               register={register}
             />

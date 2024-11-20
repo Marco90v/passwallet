@@ -3,10 +3,13 @@
 //   password: string
 // }
 
+type TypeInput = "email" | "password" | "text" | "number";
+type TypeButton = "button" | "submit";
+
 interface InputProps<T> {
   identify: keyof T;
 	register: UseFormRegister<T>;
-	type?: "text" | "password" | "email" | "number";
+	type: TypeInput;
 	placeholder?: string;
 	className?: string;
 	disabled?: boolean;
@@ -16,8 +19,6 @@ interface InputProps<T> {
 interface SelectProps<T extends FieldValues> {
   identify: keyof T;
 	register: UseFormRegister<T>;
-	type?: "text" | "password" | "email" | "number";
-	placeholder?: string;
 	className?: string;
 	disabled?: boolean;
 	required?: boolean;

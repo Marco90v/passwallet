@@ -44,7 +44,7 @@ const Input = <T extends FieldValues> (props:InputProps<T>) => {
 				<InputBase  {...props} />
 				<img
 					src={mail}
-					alt={"email"}
+					alt={EMAIL}
 					className="absolute left-2 top-1/2 -translate-y-1/2"
 				/>
 			</div>

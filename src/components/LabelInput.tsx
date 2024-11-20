@@ -6,7 +6,7 @@ interface LabelInputProps<T extends FieldValues> {
   identify: keyof T;
   label:string;
   register:UseFormRegister<T>;
-  type?:"text" | "password" | "email" | "number";
+  type:TypeInput;
   placeholder?:string;
   disabled?:boolean;
   [key:string]:any;
@@ -16,7 +16,12 @@ const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, r
   return (
     <div className="flex flex-col">
       <Label className="font-semibold text-zinc-700">{label}</Label>
-      <Input<T> identify={identify} type={type} placeholder={placeholder} register={register} {...other} />
+      <Input
+        identify={identify}
+        type={type}
+        placeholder={placeholder}
+        register={register} {...other}
+      />
     </div>
   )
 }
