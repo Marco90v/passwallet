@@ -2,6 +2,7 @@ import  { useState } from 'react';
 import { DasBoardLayout } from '@layouts/DashBoardLayout';
 import { ItemList } from '@components/ItemList';
 import AddItem from '@pages/AddItem';
+import ChangePassword from '@pages/ChangePassword';
 
 
 interface DashboardProps {
@@ -55,8 +56,8 @@ function Dashboard({ onLogout }: DashboardProps) {
         return <ItemList items={items} onDelete={handleDeleteItem} onEdit={handleEditItem} />;
       case 'add':
         return <AddItem onAdd={handleAddItem} onCancel={() => setCurrentPage('items')} />;
-      // case 'password':
-      //   return <ChangePassword onSuccess={() => setCurrentPage('items')} />;
+      case 'password':
+        return <ChangePassword onSuccess={() => setCurrentPage('items')} />;
       // case 'help':
       //   return <Help />;
       default:
