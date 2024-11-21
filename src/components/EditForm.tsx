@@ -5,11 +5,16 @@ import Button from "@components/Button";
 import Salect from "@components/Select";
 import { CATEGORY, EMAIL, ID, NUMBER, PASSWORD, TEXT } from "@utils/const";
 
+interface icon{
+  [key:string]:JSX.Element;
+}
+
 interface EditFormProps<T extends FieldValues> {
   item: T;
   onSave: (item: T) => void;
   onCancel: () => void;
   edit?:boolean;
+  icons?:icon;
 }
 
 const validateTypeInput = (key:string):TypeInput => {
@@ -18,12 +23,12 @@ const validateTypeInput = (key:string):TypeInput => {
   return TEXT;
 }
 
-function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditFormProps<T>) {
+function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit, icons }: EditFormProps<T>) {
 
   const {register, handleSubmit, setValue} = useForm<T>();
 
   if(edit){    
-    Object.keys(item).map((key:string, index) => {
+    Object.keys(item).map((key:string) => {
       setValue(key as Path<T>, item[key]);
     });
   }
@@ -45,6 +50,7 @@ function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditF
               key={index}
               identify={key}
               register={register}
+              icon={icons?.[key]}
             />
           )
           return (
@@ -54,6 +60,7 @@ function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit }: EditF
               type={validateTypeInput(key)}
               placeholder={capitalize(key)}
               register={register}
+              icon={icons?.[key]}
             />
           )
         })

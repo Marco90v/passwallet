@@ -14,6 +14,7 @@ interface InputProps<T> {
 	className?: string;
 	disabled?: boolean;
 	required?: boolean;
+	icon?: JSX.Element;
 }
 
 interface SelectProps<T extends FieldValues> {
@@ -22,6 +23,7 @@ interface SelectProps<T extends FieldValues> {
 	className?: string;
 	disabled?: boolean;
 	required?: boolean;
+	icon?: JSX.Element;
 }
 
 interface LabelProps{

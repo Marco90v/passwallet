@@ -2,6 +2,7 @@ import { useState } from 'react';
 import FilterButton from '@components/FilterButton';
 import EditForm from '@components/EditForm';
 import ItemPreview from '@components/ItemPreview';
+import { Captions, Globe, Link, Mail, User } from 'lucide-react';
 
 interface ItemListProps {
   items: ItemType[];
@@ -15,6 +16,14 @@ const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
   { value: 'banking', label: 'Banking' },
   { value: 'other', label: 'Other' },
 ];
+
+const iconBase = {
+  title: <Captions />,
+  username: <User />,
+  category: <Globe />,
+  url: <Link />,
+  email: <Mail />,
+}
 
  function ItemList({ items, onDelete, onEdit }: ItemListProps) {
 
@@ -61,6 +70,7 @@ const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
                   item={editingItem}
                   onSave={onSave}
                   onCancel={() => setEditingItem(null)}
+                  icons={iconBase}
                   edit
                 />
               ) : (

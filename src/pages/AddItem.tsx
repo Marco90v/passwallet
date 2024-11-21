@@ -1,14 +1,19 @@
 import EditForm from '@components/EditForm';
-import { Edit } from 'lucide-react';
-import React, { FormEvent, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-// import { ItemType } from '../types';
+import { Captions, Globe, Link, Mail, User } from 'lucide-react';
 
 type AddItemProps = {
   // onAdd: (item: Omit<ItemType, 'id'>) => void;
   onAdd: (item: ItemType) => void;
   onCancel: () => void;
 };
+
+const iconBase = {
+  title: <Captions />,
+  username: <User />,
+  category: <Globe />,
+  url: <Link />,
+  email: <Mail />,
+}
 
 const dataBase = {
   id: '',
@@ -21,27 +26,7 @@ const dataBase = {
 }
 
 function AddItem({ onAdd, onCancel }: AddItemProps) {
-  const [item, setItem] = useState(dataBase);
-
-  // const {register, handleSubmit, setValue} = useForm<ItemType>({
-  //   defaultValues: {
-  //     title: '',
-  //     username: '',
-  //     email: '',
-  //     password: '',
-  //     category: 'social',
-  //   },
-  // });
-
-  // const handleSubmit = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   onAdd(item);
-  // };
-
-  // const onSubmit: SubmitHandler<ItemType> = (data) => {
-  //   onAdd(data);
-  // }
-
+  
   const onSave = (data:ItemType) => {
     onAdd(data);
   }
@@ -51,9 +36,10 @@ function AddItem({ onAdd, onCancel }: AddItemProps) {
       <div className="p-6">
         <h2 className="text-2xl font-semibold text-slate-800 mb-6">Add New Password</h2>
         <EditForm
-          item={item}
+          item={dataBase}
           onSave={onSave}
           onCancel={onCancel}
+          icons={iconBase}
         />
       </div>
     </div>
