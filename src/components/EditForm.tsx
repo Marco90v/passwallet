@@ -61,6 +61,8 @@ function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit, icons }
               placeholder={capitalize(key)}
               register={register}
               icon={icons?.[key]}
+              setValue={setValue}
+              generate={key === PASSWORD}
             />
           )
         })

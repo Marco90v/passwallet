@@ -18,11 +18,11 @@ const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
 ];
 
 const iconBase = {
-  title: <Captions />,
-  username: <User />,
-  category: <Globe />,
-  url: <Link />,
-  email: <Mail />,
+  title: <Captions className='text-indigo-800' />,
+  username: <User className='text-indigo-800' />,
+  category: <Globe className='text-indigo-800' />,
+  url: <Link className='text-indigo-800' />,
+  email: <Mail className='text-indigo-800' />,
 }
 
  function ItemList({ items, onDelete, onEdit }: ItemListProps) {

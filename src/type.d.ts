@@ -15,6 +15,8 @@ interface InputProps<T> {
 	disabled?: boolean;
 	required?: boolean;
 	icon?: JSX.Element;
+	setValue?: UseFormSetValue<T>;
+	generate?: boolean;
 }
 
 interface SelectProps<T extends FieldValues> {

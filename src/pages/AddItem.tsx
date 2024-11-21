@@ -8,11 +8,11 @@ type AddItemProps = {
 };
 
 const iconBase = {
-  title: <Captions />,
-  username: <User />,
-  category: <Globe />,
-  url: <Link />,
-  email: <Mail />,
+  title: <Captions className='text-indigo-800' />,
+  username: <User className='text-indigo-800' />,
+  category: <Globe className='text-indigo-800' />,
+  url: <Link className='text-indigo-800' />,
+  email: <Mail className='text-indigo-800' />,
 }
 
 const dataBase = {
@@ -26,7 +26,7 @@ const dataBase = {
 }
 
 function AddItem({ onAdd, onCancel }: AddItemProps) {
-  
+
   const onSave = (data:ItemType) => {
     onAdd(data);
   }

@@ -1,10 +1,10 @@
 import { CHARACTERS_LOWER, CHARACTERS_UPPER, CHARACTERS_NUMBER, CHARACTERS_SYMBOL } from "@utils/const";
 
-export const keyGenerate = (long:number):string => {
+export const keyGenerate = (long?:number):string => {
   let key = "";
-  for (let i = 0; i < long; i++) {
+  const l = long || Math.floor(Math.random() * 8) + 15;
+  for (let i = 0; i < l; i++) {
     const randomType = Math.floor(Math.random() * 4);
-    // console.log(randomType);
     switch (randomType) {
       case 0:
         key += CHARACTERS_LOWER.charAt(Math.floor(Math.random() * CHARACTERS_LOWER.length));
