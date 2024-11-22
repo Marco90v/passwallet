@@ -1,18 +1,12 @@
-import Label from "./Label";
-import Input from "./Input";
 import { FieldValues, UseFormRegister } from "react-hook-form";
+import Label from "@components/Label";
+import Input from "@components/Input";
 
-interface LabelInputProps<T extends FieldValues> {
-  identify: keyof T;
+interface LabelInputProps<T extends FieldValues> extends InputProps<T> {
   label:string;
-  register:UseFormRegister<T>;
-  type:TypeInput;
-  placeholder?:string;
-  disabled?:boolean;
-  [key:string]:any;
 }
 
-const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, register, ...other}:LabelInputProps<T>) => {
+const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, register, icon, ...other}:LabelInputProps<T>) => {
   return (
     <div className="flex flex-col">
       <Label className="font-semibold text-zinc-700">{label}</Label>
@@ -21,6 +15,7 @@ const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, r
         type={type}
         placeholder={placeholder}
         register={register} {...other}
+        icon={icon}
       />
     </div>
   )

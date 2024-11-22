@@ -11,16 +11,16 @@ interface ButtonProps {
 
 const getColor = (color:string) => {
   if(color === "green") {
-    return "rounded-md bg-green-600 border-green-600 text-white hover:bg-green-700"
+    return "rounded-md bg-green-600 border-green-600 text-white py-2 hover:bg-green-700"
   }
   if(color === "red") {
-    return "rounded-md bg-red-600 border-red-600 text-black hover:bg-red-700"
+    return "rounded-md bg-red-600 border-red-600 text-black py-2 hover:bg-red-700"
   }
   if(color === "indigo") {
-    return "rounded-md bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700"
+    return "rounded-md bg-indigo-600 border-indigo-600 text-white py-2 hover:bg-indigo-700"
   }
   if(color === "blue") {
-    return "rounded-md bg-blue-600 border-blue-600 text-white hover:bg-blue-700"
+    return "rounded-md bg-blue-600 border-blue-600 text-white py-2 hover:bg-blue-700"
   }
   if(color === "link") {
     return " bg-transparent border-transparent  text-indigo-600 content-center underline underline-offset-2 hover:text-indigo-700"

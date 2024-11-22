@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@components/Button";
 import FormSession from "@components/FromSession";
 import LabelInput from "@components/LabelInput";
+import { Mail } from "lucide-react";
 
 interface createAccount {
   email: string
@@ -30,9 +31,28 @@ const CreateAccount = () => {
         handleSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="text-3xl font-bold text-black text-center">Welcome</h1>
-        <LabelInput<createAccount> label="Email" identify="email" type="email" placeholder="Email" register={register} />
-        <LabelInput<createAccount> label="Password" identify="password" type="password" placeholder="Password" register={register} />
-        <LabelInput<createAccount> label="Password" identify="rePassword" type="password" placeholder="Repeat Password" register={register} />
+        <LabelInput<createAccount>
+          label="Email"
+          identify="email"
+          type="email"
+          placeholder="Email"
+          register={register}
+          icon={<Mail className="text-indigo-800" />}
+        />
+        <LabelInput<createAccount>
+          label="Password"
+          identify="password"
+          type="password"
+          placeholder="Password"
+          register={register}
+        />
+        <LabelInput<createAccount>
+          label="Password"
+          identify="rePassword"
+          type="password"
+          placeholder="Repeat Password"
+          register={register}
+        />
         <Button color="green" type="submit">
           Create Account
         </Button>

@@ -8,43 +8,20 @@ import CreateAccount from "@pages/CreateAccount";
 import {Dashboard} from "@pages/Dashboard";
 import { useState } from "react";
 
-interface IFormInput {
-  firstName: string
-  password: string
-}
 
-const themeInitial = localStorage.getItem("theme") || "light";
-document.documentElement.classList.remove("light", "dark");
-document.documentElement.classList.add(themeInitial);
+
+// const themeInitial = localStorage.getItem("theme") || "light";
+// document.documentElement.classList.remove("light", "dark");
+// document.documentElement.classList.add(themeInitial);
 
 function App() {
 
-	const [isAuthenticated, setIsAuthenticated] = useState(true);
-
-	// const { register, handleSubmit } = useForm({
-  //   defaultValues: {
-  //     firstName: "",
-  //     password: "",
-  //   },
-  // })
-	
-	// const onSubmit: SubmitHandler<IFormInput> = (data) => {
-  //   console.log(data)
-  // }
 	return (
 		<>
-			{/* <form onSubmit={handleSubmit(onSubmit)}>
-				<Input identify="firstName" type="text" placeholder="First Name" register={register} />
-				<Input identify="password" type="password" placeholder="Password" register={register} />
-				<Button type="submit" >Submit</Button>
-				<Button color="red" >Submit</Button>
-				<Button color="green" >Submit</Button>
-				<Label>Label</Label>
-			</form> */}
 			{/* <ChangeTheme /> */}
 			{/* <Login /> */}
-			{/* <CreateAccount /> */}
-			<Dashboard  onLogout={() => setIsAuthenticated(false)} />
+			<CreateAccount />
+			{/* <Dashboard  onLogout={() => setIsAuthenticated(false)} /> */}
 		</>
 	);
 }

@@ -1,10 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-
 import FormSession from "@components/FromSession";
 import Button from "@components/Button";
-
-import key from "@assets/icons/key.svg";
 import LabelInput from "@components/LabelInput";
+import { KeyRound, Mail } from "lucide-react";
 
 interface login {
   email: string;
@@ -27,11 +25,24 @@ const Login = () => {
         handleSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="text-2xl font-bold text-slate-800 text-center">Welcome</h1>
-        <LabelInput<login> label="Email" identify="email" type="email" placeholder="Email" register={register} />
-        <LabelInput<login> label="Password" identify="password" type="password" placeholder="Password" register={register} />
+        <LabelInput<login>
+          label="Email"
+          identify="email"
+          type="email"
+          placeholder="Email"
+          register={register}
+          icon={<Mail className="text-indigo-800" />}
+        />
+        <LabelInput<login>
+          label="Password"
+          identify="password"
+          type="password"
+          placeholder="Password"
+          register={register}
+        />
         <Button color="blue" type="submit">
           Sign In
-          <img src={key} alt="key" className="ml-2" />
+          <KeyRound className="ml-2" />
         </Button>
         <Button color="link" >
           Create Account
