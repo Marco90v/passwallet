@@ -4,7 +4,8 @@ import { ItemList } from '@components/ItemList';
 import AddItem from '@pages/AddItem';
 import ChangePassword from '@pages/ChangePassword';
 import { Help } from '@pages/Help';
-
+import { useShallow } from 'zustand/shallow';
+import { useStoreData } from '@store/store';
 
 interface DashboardProps {
   onLogout: () => void
@@ -13,42 +14,33 @@ interface DashboardProps {
 function Dashboard({ onLogout }: DashboardProps) {
 
   const [currentPage, setCurrentPage] = useState<itemsNavValue>('items');
-  const [items, setItems] = useState<ItemType[]>([
-    {
-      id: '1',
-      title: 'Gmail',
-      username: 'user@gmail.com',
-      email: 'user@gmail.com',
-      password: '123456789',
-      category: 'social',
-      url: 'https://gmail.com',
-    },
-    {
-      id: '2',
-      title: 'Bank Account',
-      username: 'user123',
-      email: '',
-      password: '123456789',
-      category: 'banking',
-      url: 'https://mybank.com',
-    },
-  ]);
+  const {items, addItem, updateItem, removeItem} = useStoreData(
+    useShallow( (state => ({
+      items: state.store,
+      addItem: state.addItem,
+      updateItem: state.updateItem,
+      removeItem: state.removeItem,
+    })))
+  )
 
   const handleAddItem = (item: Omit<ItemType, 'id'>) => {
     const newItem = {
       ...item,
       id: Math.random().toString(36).substr(2, 9),
     };
-    setItems([...items, newItem]);
+    // setItems([...items, newItem]);
+    addItem(newItem);
     setCurrentPage('items');
   };
 
   const handleDeleteItem = (id: string) => {
-    setItems(items.filter(item => item.id !== id));
+    // setItems(items.filter(item => item.id !== id));
+    removeItem(id);
   };
 
   const handleEditItem = (updatedItem: ItemType) => {
-    setItems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
+    // setItems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
+    updateItem(updatedItem);
   };
 
   const renderContent = () => {
