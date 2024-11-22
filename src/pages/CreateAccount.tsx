@@ -5,13 +5,17 @@ import FormSession from "@components/FromSession";
 import LabelInput from "@components/LabelInput";
 import { Mail } from "lucide-react";
 
+interface CreateAccountProps {
+  onChange: () => void;
+}
+
 interface createAccount {
   email: string
   password: string
   rePassword: string
 }
 
-const CreateAccount = () => {
+const CreateAccount = ({onChange}:CreateAccountProps) => {
   
   const { register, handleSubmit } = useForm<createAccount>({
     defaultValues: {
@@ -56,7 +60,10 @@ const CreateAccount = () => {
         <Button color="green" type="submit">
           Create Account
         </Button>
-        <Button color="link" >
+        <Button
+          color="link"
+          onClick={onChange}
+        >
           Login
         </Button>
       </FormSession>

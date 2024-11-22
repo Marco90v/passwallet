@@ -40,7 +40,7 @@ const useStoreData = create<State & Action>()(
         updateItem: (item: ItemType) => set(state=>({store: state.store.map(i => i.id === item.id ? item : i)})),
         removeItem: (id: string) => set(state=>({store: state.store.filter(item => item.id !== id)})),
       }),
-      { name: 'passwallet' }
+      { name: 'storeData' }
     )
   )
 )

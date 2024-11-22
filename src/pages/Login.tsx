@@ -4,12 +4,17 @@ import Button from "@components/Button";
 import LabelInput from "@components/LabelInput";
 import { KeyRound, Mail } from "lucide-react";
 
+interface loginProps {
+  onChange: () => void;
+  onSession: () => void;
+}
+
 interface login {
   email: string;
   password: string;
 }
 
-const Login = () => {
+const Login = ({onChange, onSession}:loginProps) => {
   const { register, handleSubmit } = useForm<login>({
     defaultValues: {
       email: "",
@@ -18,6 +23,7 @@ const Login = () => {
   })
   const onSubmit: SubmitHandler<login> = (data) => {
     console.log(data)
+    onSession()
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-4">
@@ -44,7 +50,10 @@ const Login = () => {
           Sign In
           <KeyRound className="ml-2" />
         </Button>
-        <Button color="link" >
+        <Button
+          color="link"
+          onClick={onChange}
+        >
           Create Account
         </Button>
       </FormSession>
