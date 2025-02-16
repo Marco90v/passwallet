@@ -7,11 +7,11 @@ import { Help } from '@pages/Help';
 import { useShallow } from 'zustand/shallow';
 import { useStoreData } from '@store/store';
 
-interface DashboardProps {
-  onLogout: () => void
-}
+// interface DashboardProps {
+//   onLogout: () => void
+// }
 
-function Dashboard({ onLogout }: DashboardProps) {
+function Dashboard() {
 
   const [currentPage, setCurrentPage] = useState<itemsNavValue>('items');
   const {items, addItem, updateItem, removeItem} = useStoreData(
@@ -62,7 +62,7 @@ function Dashboard({ onLogout }: DashboardProps) {
     <DasBoardLayout
       currentPage={currentPage}
       onNavigate={setCurrentPage}
-      onLogout={onLogout}
+      // onLogout={onLogout}
     >
       {renderContent()}
     </DasBoardLayout>

@@ -1,11 +1,15 @@
 import NavButton from '@components/NavButton';
 import { Shield, Key, Plus, HelpCircle, LogOut, Home } from 'lucide-react';
 import Button from './Button';
+// import { useStoreFirebase } from '@store/firebase';
+import { useShallow } from 'zustand/shallow';
+import { getAuth, signOut } from 'firebase/auth';
+import { useStoreSession } from '@store/session';
 
 interface NavbarProps {
   currentPage: string;
   onNavigate: (page: itemsNavValue) => void;
-  onLogout: () => void;
+  // onLogout: () => void;
 }
 
 const arrPages:IPage[] = [
@@ -15,7 +19,27 @@ const arrPages:IPage[] = [
   {label: 'Help', value: 'help', icon: <HelpCircle />},
 ];
 
-const Navbar = ({currentPage, onNavigate, onLogout}:NavbarProps) => {
+
+const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
+
+  const {changeSession} = useStoreSession(
+    useShallow( (state => ({
+      changeSession: state.changeSession,
+    })))
+  )
+  
+  const onLogout = () => {
+    console.log('Logout');
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      changeSession(false);
+    }).catch((error) => {
+      // An error happened.
+      console.log(error);
+    });
+  }
+
   return (
     <nav className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

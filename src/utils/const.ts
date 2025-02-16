@@ -15,3 +15,9 @@ export const PASSNOTVIEW = "••••••••";
 export const THEME = "theme";
 export const LIGHT = "light";
 export const DARK = "dark";
+
+// Type of error
+export const ERROR = "error";
+export const SUCCESS = "success";
+export const INFO = "info";
+export const WARNING = "warning";

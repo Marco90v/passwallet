@@ -2,7 +2,10 @@ import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
 import * as RefreshPlugin from "@rspack/plugin-react-refresh";
 
+const Dotenv = require('dotenv-webpack');
+
 const isDev = process.env.NODE_ENV === "development";
+console.log(process.env.PUBLIC_NAME);
 
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];
@@ -58,7 +61,13 @@ export default defineConfig({
 		new rspack.HtmlRspackPlugin({
 			template: "./index.html"
 		}),
-		isDev ? new RefreshPlugin() : null
+		new Dotenv({
+			path: './.env', // Path to .env file (this is the default)
+			safe: true, // load .env.example (defaults to "false" which does not use dotenv-safe)
+			defaults: false, // load '.env.defaults' as the default values if empty.
+			prefix: 'import.meta.env.' // reference your env variables as 'import.meta.env.ENV_VAR'.
+		}),
+		isDev ? new RefreshPlugin() : null,
 	].filter(Boolean),
 	optimization: {
 		minimizer: [
