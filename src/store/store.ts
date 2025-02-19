@@ -8,6 +8,7 @@ interface Action {
   addItem: (item: ItemType) => void;
   updateItem: (item: ItemType) => void;
   removeItem: (id: string) => void;
+  setItems: (items: ItemType[]) => void;
 }
 
 const itemsInit: ItemType[] = [
@@ -35,10 +36,11 @@ const useStoreData = create<State & Action>()(
   devtools(
     persist(
       (set) => ({
-        store: itemsInit,
+        store: [],
         addItem: (item: ItemType) => set(state=>({store:[...state.store, item]})),
         updateItem: (item: ItemType) => set(state=>({store: state.store.map(i => i.id === item.id ? item : i)})),
         removeItem: (id: string) => set(state=>({store: state.store.filter(item => item.id !== id)})),
+        setItems: (items: ItemType[]) => set(state=>({...state,store: items})),
       }),
       { name: 'storeData' }
     )

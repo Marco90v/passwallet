@@ -40,11 +40,19 @@ export const saveSalt = async (FbApp:FirebaseApp, data:createAccount, s?:string)
   .catch(() => false);
 }
 
-export const getSalt = async (FbApp:FirebaseApp, email:string)=> {
+const get = (FbApp:FirebaseApp, email:string, collection:string) => {
   const db = getFirestore(FbApp)
-  const docRef = doc(db, email, "salt");
+  const docRef = doc(db, email, collection);
   return getDoc(docRef).then((doc) => { 
     return doc.exists() ? doc.data() : null
   }
   ).catch(() => null);
+}
+
+export const getSalt = async (FbApp:FirebaseApp, email:string)=> {
+  return get(FbApp, email, "salt");
+}
+
+export const getDataDB = (FbApp:FirebaseApp, email:string)=> {
+  return get(FbApp, email, "data");
 }

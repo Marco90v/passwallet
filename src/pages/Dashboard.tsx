@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { DasBoardLayout } from '@layouts/DashBoardLayout';
 import { ItemList } from '@components/ItemList';
 import AddItem from '@pages/AddItem';
@@ -6,6 +6,9 @@ import ChangePassword from '@pages/ChangePassword';
 import { Help } from '@pages/Help';
 import { useShallow } from 'zustand/shallow';
 import { useStoreData } from '@store/store';
+import { getDataDB } from '@utils/firebase';
+import { useStoreFirebase } from '@store/firebase';
+import { useStoreSession } from '@store/session';
 
 // interface DashboardProps {
 //   onLogout: () => void
@@ -13,33 +16,53 @@ import { useStoreData } from '@store/store';
 
 function Dashboard() {
 
+  const {appFirebase} = useStoreFirebase(
+    useShallow( (state => ({
+      appFirebase: state.appFirebase,
+    })))
+  )
+
+  const {email} = useStoreSession(
+    useShallow( (state => ({
+      email: state.session.email,
+    })))
+  )
+
   const [currentPage, setCurrentPage] = useState<itemsNavValue>('items');
-  const {items, addItem, updateItem, removeItem} = useStoreData(
+  const {items, addItem, updateItem, removeItem, setItems} = useStoreData(
     useShallow( (state => ({
       items: state.store,
       addItem: state.addItem,
       updateItem: state.updateItem,
       removeItem: state.removeItem,
+      setItems: state.setItems,
     })))
   )
+
+  useEffect(() => {
+    // getDataDB(appFirebase, email).then((res) => {
+    //   console.log(res);
+    // });
+  
+    return () => {}
+  }, [])
+  
+
 
   const handleAddItem = (item: Omit<ItemType, 'id'>) => {
     const newItem = {
       ...item,
       id: Math.random().toString(36).substr(2, 9),
     };
-    // setItems([...items, newItem]);
     addItem(newItem);
     setCurrentPage('items');
   };
 
   const handleDeleteItem = (id: string) => {
-    // setItems(items.filter(item => item.id !== id));
     removeItem(id);
   };
 
   const handleEditItem = (updatedItem: ItemType) => {
-    // setItems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
     updateItem(updatedItem);
   };
 

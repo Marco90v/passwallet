@@ -25,7 +25,7 @@ const iconBase = {
   email: <Mail className='text-indigo-800' />,
 }
 
- function ItemList({ items, onDelete, onEdit }: ItemListProps) {
+function ItemList({ items, onDelete, onEdit }: ItemListProps) {
 
   const [filter, setFilter] = useState<itemsfilterValue>('all');
   const [editingItem, setEditingItem] = useState<ItemType | null>(null);
@@ -62,31 +62,35 @@ const iconBase = {
         </div>
       </div>
       <div className="divide-y divide-slate-200">
-        {filteredItems.map(item => (
-          <div key={item.id} className="p-4 hover:bg-slate-50">
-            {
-              editingItem?.id === item.id ? (
-                <EditForm<ItemType>
-                  item={editingItem}
-                  onSave={onSave}
-                  onCancel={() => setEditingItem(null)}
-                  icons={iconBase}
-                  edit
-                />
-              ) : (
-                <ItemPreview
-                  item={item}
-                  onDelete={onDelete}
-                  setEditingItem={setEditingItem}
-                />
-              )}
-          </div>
-        ))}
-        {filteredItems.length === 0 && (
-          <div className="p-8 text-center text-slate-500">
-            No items found. Add some passwords to get started!
-          </div>
-        )}
+        {
+          filteredItems.length === 0 ? (
+            <div className="p-8 text-center text-slate-500">
+              No items found. Add some passwords to get started!
+            </div>
+          )
+          :
+          filteredItems.map(item => (
+            <div key={item.id} className="p-4 hover:bg-slate-50">
+              {
+                editingItem?.id === item.id ? (
+                  <EditForm<ItemType>
+                    item={editingItem}
+                    onSave={onSave}
+                    onCancel={() => setEditingItem(null)}
+                    icons={iconBase}
+                    edit
+                  />
+                ) : (
+                  <ItemPreview
+                    item={item}
+                    onDelete={onDelete}
+                    setEditingItem={setEditingItem}
+                  />
+                )
+              }
+            </div>
+          ))
+        }
       </div>
     </div>
   );
