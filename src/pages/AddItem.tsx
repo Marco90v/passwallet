@@ -1,7 +1,11 @@
 import EditForm from '@components/EditForm';
+import { useStoreData } from '@store/store';
+import { generateID } from '@utils/firebase';
 import { Captions, Globe, Link, Mail, User } from 'lucide-react';
+import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useShallow } from 'zustand/shallow';
 
-type AddItemProps = {
+interface AddItemProps {
   // onAdd: (item: Omit<ItemType, 'id'>) => void;
   onAdd: (item: ItemType) => void;
   onCancel: () => void;
@@ -25,22 +29,42 @@ const dataBase = {
   email: '',
 }
 
-function AddItem({ onAdd, onCancel }: AddItemProps) {
+function AddItem<T extends FieldValues>({ onAdd, onCancel }: AddItemProps) {
 
-  const onSave = (data:ItemType) => {
-    onAdd(data);
+  const {addItem} = useStoreData(
+    useShallow( (state => ({
+      addItem: state.addItem,
+    })))
+  )
+
+  // const {register, handleSubmit, setValue, reset} = useForm<ItemType>();
+  const methods = useForm<ItemType>();
+
+  // const onSave = (data:ItemType) => {
+  //   // onAdd(data);
+  //   const newData = {...data, id: generateID()};
+  //   addItem(newData);
+  // }
+
+  const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
+    // console.log(data);
+    const newData = {...data, id: generateID()};
+    addItem(newData);
+    methods.reset();
   }
 
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow">
       <div className="p-6">
         <h2 className="text-2xl font-semibold text-slate-800 mb-6">Add New Password</h2>
-        <EditForm
-          item={dataBase}
-          onSave={onSave}
-          onCancel={onCancel}
-          icons={iconBase}
-        />
+        <FormProvider {...methods}>
+          <EditForm
+            onSubmit={onSubmit}
+            item={dataBase}
+            onCancel={onCancel}
+            icons={iconBase}
+          />
+        </FormProvider>
       </div>
     </div>
   );

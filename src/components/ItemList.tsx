@@ -2,7 +2,17 @@ import { useState } from 'react';
 import FilterButton from '@components/FilterButton';
 import EditForm from '@components/EditForm';
 import ItemPreview from '@components/ItemPreview';
-import { Captions, Globe, Link, Mail, User } from 'lucide-react';
+import BaseTableItems from '@layouts/BaseTableItems';
+import MenuTableItems from '@layouts/MenuTableItems';
+import BodyTableItems from '@layouts/BodyTableItems';
+import RowTableItem from '@layouts/RowTableItem';
+
+import { AlignLeft, Captions, Globe, Link, Mail, User } from 'lucide-react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useStoreData } from '@store/store';
+import { useShallow } from 'zustand/shallow';
+import { ALL, BANKING, OTHER, SOCIAL } from '@utils/const';
+import { capitalize } from '@utils/functions';
 
 interface ItemListProps {
   items: ItemType[];
@@ -11,10 +21,10 @@ interface ItemListProps {
 };
 
 const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
-  { value: 'all', label: 'All' },
-  { value: 'social', label: 'Social' },
-  { value: 'banking', label: 'Banking' },
-  { value: 'other', label: 'Other' },
+  { value: ALL, label: capitalize(ALL) },
+  { value: SOCIAL, label: capitalize(SOCIAL) },
+  { value: BANKING, label: capitalize(BANKING) },
+  { value: OTHER, label: capitalize(OTHER) },
 ];
 
 const iconBase = {
@@ -27,72 +37,84 @@ const iconBase = {
 
 function ItemList({ items, onDelete, onEdit }: ItemListProps) {
 
-  const [filter, setFilter] = useState<itemsfilterValue>('all');
-  const [editingItem, setEditingItem] = useState<ItemType | null>(null);
+  const {updateItem} = useStoreData(
+    useShallow( (state => ({
+      updateItem: state.updateItem,
+    })))
+  )
 
-  const onSave = (updatedItem:ItemType) => {
-    onEdit(updatedItem);
+  const [filter, setFilter] = useState<itemsfilterValue>(ALL);
+  const [editingItem, setEditingItem] = useState<string | null>(null);
+
+  const methods = useForm<ItemType>();
+  
+  const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
     setEditingItem(null);
+    updateItem(data);
+    methods.reset();
   }
 
-  const filteredItems = items.filter(
-    item => filter === 'all' || item.category === filter
-  );
+  const editItem = (id:string) => {
+    const item = items.find(item => item.id === id)
+    if (item){
+      Object.keys(item).map((key:string) => {
+        methods.setValue(key as keyof ItemType, item[key as keyof ItemType]);
+      });
+      setEditingItem(item.id);
+    }
+  }
+
+  const filterItems = () => {
+    return items.filter(
+      item => filter === ALL || item.category === filter
+    )
+  }
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="p-4 border-b border-slate-200">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-slate-800">Stored Passwords</h2>
-          <div className="flex space-x-2">
-            {
-              itemsFilterButton.map((value, index) => {
-                return (
-                  <FilterButton
-                    key={index}
-                    label={value.label}
-                    value={value.value}
-                    current={filter}
-                    onClick={setFilter}
-                  />
-                )
-              })
-            }
-          </div>
-        </div>
-      </div>
-      <div className="divide-y divide-slate-200">
+    <BaseTableItems>
+      <MenuTableItems>
         {
-          filteredItems.length === 0 ? (
-            <div className="p-8 text-center text-slate-500">
-              No items found. Add some passwords to get started!
-            </div>
-          )
-          :
-          filteredItems.map(item => (
-            <div key={item.id} className="p-4 hover:bg-slate-50">
+          itemsFilterButton.map((value, index) => {
+            return (
+              <FilterButton
+                key={index}
+                label={value.label}
+                value={value.value}
+                current={filter}
+                onClick={setFilter}
+              />
+            )
+          })
+        }
+      </MenuTableItems>
+
+      <BodyTableItems length={items.length}>
+        {
+          filterItems().map(item => (
+            <RowTableItem key={item.id}>
               {
-                editingItem?.id === item.id ? (
-                  <EditForm<ItemType>
-                    item={editingItem}
-                    onSave={onSave}
-                    onCancel={() => setEditingItem(null)}
-                    icons={iconBase}
-                    edit
-                  />
+                editingItem === item.id ? (
+                  <FormProvider {...methods}>
+                    <EditForm
+                      onSubmit={onSubmit}
+                      item={item}
+                      onCancel={() => setEditingItem(null)}
+                      icons={iconBase}
+                    />
+                  </FormProvider>
                 ) : (
                   <ItemPreview
                     item={item}
                     onDelete={onDelete}
-                    setEditingItem={setEditingItem}
+                    setEditingItem={editItem}
                   />
                 )
               }
-            </div>
+            </RowTableItem>
           ))
         }
-      </div>
-    </div>
+      </BodyTableItems>
+    </BaseTableItems>
   );
 }
 

@@ -7,11 +7,20 @@ interface State {
     active: boolean;
     email: string;
     salt: string;
+    password: string;
   }
 }
 interface Action {
   changeL_A: () => void;
-  changeSession: (active: boolean, email?:string, salt?:string) => void;
+  changeSession: (active: boolean, email:string, salt:string, password:string) => void;
+  logout: () => void;
+}
+
+const sessionInit = {
+  active: false,
+  email: "",
+  salt: "",
+  password: "",
 }
 
 const useStoreSession = create<State & Action>()(
@@ -19,15 +28,12 @@ const useStoreSession = create<State & Action>()(
     persist(
       (set) => ({
         L_A: true,
-        session: {
-          active: false,
-          email: "",
-          salt: "",
-        },
+        session: sessionInit,
         changeL_A: () => set(state=>({L_A:!state.L_A})),
-        changeSession: (active, email="", salt="") => set(()=>(
-          {session:{active,email,salt}}
+        changeSession: (active, email, salt, password) => set(()=>(
+          {session:{active,email,salt,password}}
         )),
+        logout: () => set(()=>({session:sessionInit})),
       }),
       { name: 'storeSession' }
     )

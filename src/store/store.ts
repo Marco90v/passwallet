@@ -9,28 +9,31 @@ interface Action {
   updateItem: (item: ItemType) => void;
   removeItem: (id: string) => void;
   setItems: (items: ItemType[]) => void;
+  clearItems: () => void;
 }
 
-const itemsInit: ItemType[] = [
-  {
-    id: '1',
-    title: 'Item 1',
-    username: 'User 1',
-    email: 'user1@mail.com',
-    password: '123456',
-    category: 'Banking',
-    url: 'https://www.google.com',
-  },
-  {
-    id: '2',
-    title: 'Item 2',
-    username: 'User 2',
-    email: 'user2@mail.com',
-    password: '123456',
-    category: 'Banking',
-    url: 'https://www.google.com',
-  },
-]
+// const itemsInit: ItemType[] = [
+//   {
+//     id: '1',
+//     title: 'Item 1',
+//     username: 'User 1',
+//     email: 'user1@mail.com',
+//     password: '123456',
+//     category: 'Banking',
+//     url: 'https://www.google.com',
+//   },
+//   {
+//     id: '2',
+//     title: 'Item 2',
+//     username: 'User 2',
+//     email: 'user2@mail.com',
+//     password: '123456',
+//     category: 'Banking',
+//     url: 'https://www.google.com',
+//   },
+// ]
+
+// const itemsInit: ItemType[] = []
 
 const useStoreData = create<State & Action>()(
   devtools(
@@ -41,6 +44,7 @@ const useStoreData = create<State & Action>()(
         updateItem: (item: ItemType) => set(state=>({store: state.store.map(i => i.id === item.id ? item : i)})),
         removeItem: (id: string) => set(state=>({store: state.store.filter(item => item.id !== id)})),
         setItems: (items: ItemType[]) => set(state=>({...state,store: items})),
+        clearItems: () => set(state=>({...state, store: []})),
       }),
       { name: 'storeData' }
     )

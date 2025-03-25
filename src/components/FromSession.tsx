@@ -1,21 +1,20 @@
 import { FormEvent, ReactNode } from "react";
 import shield from "@assets/icons/shield.svg";
+import { SubmitHandler, useFormContext } from "react-hook-form";
 
 interface props {
-  handleSubmit:()=>{};
+  // handleSubmit:()=>{};
+  onSubmit: SubmitHandler<any>;
   children:ReactNode;
 }
-const FormSession = ({handleSubmit, children}:props) => {
+const FormSession = ({onSubmit, children}:props) => {
 
-  const accion = (e:FormEvent) => {
-    e.preventDefault();
-    handleSubmit();
-  }
+  const { handleSubmit } = useFormContext();
 
   return (
     <form
       className="m-auto flex flex-col w-[500px] gap-4 p-8 border-solid border border-zinc-200 bg-white rounded-2xl shadow-xl"
-      onSubmit={accion}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col items-center">
           <div className="bg-indigo-600 p-3 rounded-full">

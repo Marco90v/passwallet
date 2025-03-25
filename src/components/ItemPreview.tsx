@@ -6,7 +6,7 @@ import { PASSNOTVIEW } from "@utils/const";
 interface ItemPreviewProps {
   item: ItemType;
   onDelete:(id: string) => void;
-  setEditingItem: (item: ItemType | null) => void;
+  setEditingItem: (id:string) => void;
 }
 
 
@@ -58,7 +58,7 @@ const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
       </div>
       <div className="flex items-center space-x-2">
         <Button
-          onClick={() => setEditingItem(item)}
+          onClick={() => setEditingItem(item.id)}
           className="p-2 text-slate-400 hover:text-indigo-600 rounded-full hover:bg-slate-100"
         >
           <Edit2 className="h-5 w-5" />

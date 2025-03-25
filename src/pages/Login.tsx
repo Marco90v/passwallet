@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import FormSession from "@components/FromSession";
 import Button from "@components/Button";
 import LabelInput from "@components/LabelInput";
@@ -11,6 +11,7 @@ import { useStoreSession } from "@store/session";
 import { getSalt } from "@utils/firebase";
 import Alert from "@components/Alert";
 import useAlertStore from "@store/alert";
+import { ERROR } from "@utils/const";
 // import { appFirebase } from "@utils/firebase";
 
 interface loginProps {
@@ -54,14 +55,15 @@ const Login = ({onChange}:loginProps) => {
     })))
   )
 
-  const { register, handleSubmit } = useForm<login>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
+  // const { register, handleSubmit } = useForm<login>({
+  //   defaultValues: {
+  //     email: "",
+  //     password: "",
+  //   },
+  // })
+  const methods = useForm<login>();
+
   const onSubmit: SubmitHandler<login> = (data) => {
-    // console.log(data)
     const auth = getAuth();
     signInWithEmailAndPassword(auth, data.email, data.password)
     .then((userCredential) => {
@@ -70,56 +72,58 @@ const Login = ({onChange}:loginProps) => {
       // console.log(pH)
       getSalt(appFirebase, data.email).then((res) => {
         if(res){
-          changeSession(true, data.email, res?.salt);
+          changeSession(true, data.email, res.salt, data.password);
         }else{
-          showAlert("Error retrieving data.", "error");
+          showAlert("Error retrieving data.", ERROR);
         }
       });
       // console.log(salt)
     })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      if(error.code === "auth/invalid-credential"){
-        showAlert("Invalid credentials.", "error");
+      // const errorMessage = error.message;
+      if(errorCode === "auth/invalid-credential"){
+        showAlert("Invalid credentials.", ERROR);
       }else{
-        showAlert("Server error.", "error");
+        showAlert("Server error.", ERROR);
 
       }
     });
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-4">
-      <FormSession
-        handleSubmit={handleSubmit(onSubmit)}
-      >
-        <h1 className="text-2xl font-bold text-slate-800 text-center">Welcome</h1>
-        <LabelInput<login>
-          label="Email"
-          identify="email"
-          type="email"
-          placeholder="Email"
-          register={register}
-          icon={<Mail className="text-indigo-800" />}
-        />
-        <LabelInput<login>
-          label="Password"
-          identify="password"
-          type="password"
-          placeholder="Password"
-          register={register}
-        />
-        <Button color="blue" type="submit">
-          Sign In
-          <KeyRound className="ml-2" />
-        </Button>
-        <Button
-          color="link"
-          onClick={onChange}
+      <FormProvider {...methods}>
+        <FormSession
+          onSubmit={onSubmit}
         >
-          Create Account
-        </Button>
-      </FormSession>
+          <h1 className="text-2xl font-bold text-slate-800 text-center">Welcome</h1>
+          <LabelInput<login>
+            label="Email"
+            identify="email"
+            type="email"
+            placeholder="Email"
+            // register={register}
+            icon={<Mail className="text-indigo-800" />}
+          />
+          <LabelInput<login>
+            label="Password"
+            identify="password"
+            type="password"
+            placeholder="Password"
+            // register={register}
+          />
+          <Button color="blue" type="submit">
+            Sign In
+            <KeyRound className="ml-2" />
+          </Button>
+          <Button
+            color="link"
+            onClick={onChange}
+          >
+            Create Account
+          </Button>
+        </FormSession>
+      </FormProvider>
       <Alert />
     </div>
   )

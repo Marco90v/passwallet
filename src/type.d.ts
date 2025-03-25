@@ -7,16 +7,15 @@ type TypeInput = "email" | "password" | "text" | "number";
 type TypeButton = "button" | "submit";
 
 interface InputProps<T> {
-  identify: keyof T;
-	register: UseFormRegister<T>;
+  identify: string;
+	// register: UseFormRegister<T>;
 	type: TypeInput;
 	placeholder?: string;
 	className?: string;
 	disabled?: boolean;
 	required?: boolean;
 	icon?: JSX.Element;
-	setValue?: UseFormSetValue<T>;
-	generate?: boolean;
+	children?: React.ReactNode;
 }
 
 interface SelectProps<T extends FieldValues> {

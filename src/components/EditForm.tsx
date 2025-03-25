@@ -1,9 +1,10 @@
 import Input from "@components/Input";
-import { FieldValues, Path, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, Path, SubmitHandler, useForm, useFormContext, UseFormRegister } from "react-hook-form";
 import { capitalize } from "@utils/functions";
 import Button from "@components/Button";
 import Salect from "@components/Select";
 import { CATEGORY, EMAIL, ID, NUMBER, PASSWORD, TEXT } from "@utils/const";
+import GeneratePassword from "./GeneratePassword";
 
 interface icon{
   [key:string]:JSX.Element;
@@ -11,9 +12,10 @@ interface icon{
 
 interface EditFormProps<T extends FieldValues> {
   item: T;
-  onSave: (item: T) => void;
   onCancel: () => void;
-  edit?:boolean;
+  // register: any;
+  // setValue: any;
+  onSubmit: SubmitHandler<any>;
   icons?:icon;
 }
 
@@ -23,19 +25,8 @@ const validateTypeInput = (key:string):TypeInput => {
   return TEXT;
 }
 
-function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit, icons }: EditFormProps<T>) {
-
-  const {register, handleSubmit, setValue} = useForm<T>();
-
-  if(edit){    
-    Object.keys(item).map((key:string) => {
-      setValue(key as Path<T>, item[key]);
-    });
-  }
-
-  const onSubmit: SubmitHandler<T> = (data) => {
-    onSave(data);
-  }
+function EditForm<T extends FieldValues>({onSubmit, item, onCancel, icons }: EditFormProps<T>) {
+  const { handleSubmit, register } = useFormContext();
 
   return (
     <form
@@ -59,11 +50,13 @@ function EditForm<T extends FieldValues>({ item, onSave, onCancel, edit, icons }
               identify={key}
               type={validateTypeInput(key)}
               placeholder={capitalize(key)}
-              register={register}
               icon={icons?.[key]}
-              setValue={setValue}
-              generate={key === PASSWORD}
-            />
+            >
+              {
+                key === PASSWORD &&
+                <GeneratePassword />
+              }
+            </Input>
           )
         })
       }

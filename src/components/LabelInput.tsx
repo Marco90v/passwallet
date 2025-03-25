@@ -6,7 +6,7 @@ interface LabelInputProps<T extends FieldValues> extends InputProps<T> {
   label:string;
 }
 
-const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, register, icon, ...other}:LabelInputProps<T>) => {
+const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, icon, ...other}:LabelInputProps<T>) => {
   return (
     <div className="flex flex-col">
       <Label className="font-semibold text-zinc-700">{label}</Label>
@@ -14,7 +14,7 @@ const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, r
         identify={identify}
         type={type}
         placeholder={placeholder}
-        register={register} {...other}
+        // register={register} {...other}
         icon={icon}
       />
     </div>

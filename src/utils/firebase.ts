@@ -31,13 +31,18 @@ export const createSalt = (length:number=8) => {
   return salt;
 }
 
-export const saveSalt = async (FbApp:FirebaseApp, data:createAccount, s?:string):Promise<boolean> => {
-  const salt = s ? s : createSalt();
-  const db = getFirestore(FbApp)
-  return setDoc(doc(db, data.email, "salt"), {
-    salt: salt,
-  }).then(() => true)
-  .catch(() => false);
+export const saveSalt = async (FbApp:FirebaseApp, data:createAccount, s?:string):Promise<{salt:string}> => {
+  return new Promise(async (resolve, reject) => {
+    const salt = s ? s : createSalt();
+    const db = getFirestore(FbApp)
+    setDoc(doc(db, data.email, "salt"), {
+      salt: salt,
+    }).then(() => {
+      resolve({salt: salt});
+    }).catch((err) => {
+      reject({error: err});
+    });
+  });
 }
 
 const get = (FbApp:FirebaseApp, email:string, collection:string) => {
@@ -55,4 +60,9 @@ export const getSalt = async (FbApp:FirebaseApp, email:string)=> {
 
 export const getDataDB = (FbApp:FirebaseApp, email:string)=> {
   return get(FbApp, email, "data");
+}
+
+export const generateID = () => {
+   // console.log(crypto.getRandomValues(new Uint32Array(1))[0]);
+  return crypto.randomUUID()
 }

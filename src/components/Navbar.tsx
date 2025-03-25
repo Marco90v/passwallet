@@ -5,6 +5,7 @@ import Button from './Button';
 import { useShallow } from 'zustand/shallow';
 import { getAuth, signOut } from 'firebase/auth';
 import { useStoreSession } from '@store/session';
+import { useStoreData } from '@store/store';
 
 interface NavbarProps {
   currentPage: string;
@@ -22,9 +23,14 @@ const arrPages:IPage[] = [
 
 const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
 
-  const {changeSession} = useStoreSession(
+  const {logout} = useStoreSession(
     useShallow( (state => ({
-      changeSession: state.changeSession,
+      logout: state.logout,
+    })))
+  )
+  const {clearItems} = useStoreData(
+    useShallow( (state => ({
+      clearItems: state.clearItems,
     })))
   )
   
@@ -33,7 +39,8 @@ const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
     const auth = getAuth();
     signOut(auth).then(() => {
       // Sign-out successful.
-      changeSession(false);
+      logout();
+      clearItems();
     }).catch((error) => {
       // An error happened.
       console.log(error);

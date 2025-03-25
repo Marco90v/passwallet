@@ -21,3 +21,8 @@ export const ERROR = "error";
 export const SUCCESS = "success";
 export const INFO = "info";
 export const WARNING = "warning";
+
+export const ALL = "all";
+export const SOCIAL = "social";
+export const BANKING = "banking";
+export const OTHER = "other";

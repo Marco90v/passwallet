@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import Button from "@components/Button";
@@ -44,13 +44,15 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
     })))
   )
 
-  const { register, handleSubmit } = useForm<createAccount>({
-    defaultValues: {
-      email: "",
-      password: "",
-      rePassword: "",
-    },
-  })
+  // const { register, handleSubmit } = useForm<createAccount>({
+  //   defaultValues: {
+  //     email: "",
+  //     password: "",
+  //     rePassword: "",
+  //   },
+  // })
+
+  const methods = useForm<createAccount>();
 
   const onSubmit: SubmitHandler<createAccount> = (data) => {
     const auth = getAuth();
@@ -60,14 +62,18 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
         // Signed in 
         const user = userCredential.user;
         saveSalt(appFirebase, data).then((res) => {
-          getSalt(appFirebase, data.email).then((res) => {
-            if(res){
-              changeSession(true, data.email, res?.salt);
-            }else{
-              showAlert("Error retrieving data.", "error");
-            }
-          })
-        });
+          changeSession(true, data.email, res.salt, data.password);
+          // getSalt(appFirebase, data.email).then((res) => {
+          //   if(res){
+          //     changeSession(true, data.email, res?.salt);
+          //   }else{
+          //     showAlert("Error retrieving data.", "error");
+          //   }
+          // })
+        }).catch((error) => {
+          console.log(error);
+          showAlert("Error saving data.", ERROR)
+        })
         // ...
       })
       .catch((error) => {
@@ -87,42 +93,44 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-4">
-      <FormSession
-        handleSubmit={handleSubmit(onSubmit)}
-      >
-        <h1 className="text-3xl font-bold text-black text-center">Welcome</h1>
-        <LabelInput<createAccount>
-          label="Email"
-          identify="email"
-          type="email"
-          placeholder="Email"
-          register={register}
-          icon={<Mail className="text-indigo-800" />}
-        />
-        <LabelInput<createAccount>
-          label="Password"
-          identify="password"
-          type="password"
-          placeholder="Password"
-          register={register}
-        />
-        <LabelInput<createAccount>
-          label="Password"
-          identify="rePassword"
-          type="password"
-          placeholder="Repeat Password"
-          register={register}
-        />
-        <Button color="green" type="submit">
-          Create Account
-        </Button>
-        <Button
-          color="link"
-          onClick={onChange}
+      <FormProvider {...methods}>
+        <FormSession
+          onSubmit={onSubmit}
         >
-          Login
-        </Button>
-      </FormSession>
+          <h1 className="text-3xl font-bold text-black text-center">Welcome</h1>
+          <LabelInput<createAccount>
+            label="Email"
+            identify="email"
+            type="email"
+            placeholder="Email"
+            // register={register}
+            icon={<Mail className="text-indigo-800" />}
+          />
+          <LabelInput<createAccount>
+            label="Password"
+            identify="password"
+            type="password"
+            placeholder="Password"
+            // register={register}
+          />
+          <LabelInput<createAccount>
+            label="Password"
+            identify="rePassword"
+            type="password"
+            placeholder="Repeat Password"
+            // register={register}
+          />
+          <Button color="green" type="submit">
+            Create Account
+          </Button>
+          <Button
+            color="link"
+            onClick={onChange}
+          >
+            Login
+          </Button>
+        </FormSession>
+      </FormProvider>
       <Alert />
     </div>
   )
