@@ -7,7 +7,7 @@ import MenuTableItems from '@layouts/MenuTableItems';
 import BodyTableItems from '@layouts/BodyTableItems';
 import RowTableItem from '@layouts/RowTableItem';
 
-import { AlignLeft, Captions, Globe, Link, Mail, User } from 'lucide-react';
+import { Captions, Globe, Link, Mail, User } from 'lucide-react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useStoreData } from '@store/store';
 import { useShallow } from 'zustand/shallow';
@@ -15,9 +15,7 @@ import { ALL, BANKING, OTHER, SOCIAL } from '@utils/const';
 import { capitalize } from '@utils/functions';
 
 interface ItemListProps {
-  items: ItemType[];
   onDelete: (id: string) => void;
-  onEdit: (item: ItemType) => void;
 };
 
 const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
@@ -35,10 +33,11 @@ const iconBase = {
   email: <Mail className='text-indigo-800' />,
 }
 
-function ItemList({ items, onDelete, onEdit }: ItemListProps) {
+function ItemList({ onDelete }: ItemListProps) {
 
-  const {updateItem} = useStoreData(
+  const {items, updateItem} = useStoreData(
     useShallow( (state => ({
+      items: state.store,
       updateItem: state.updateItem,
     })))
   )

@@ -3,19 +3,8 @@ import CreateAccount from "@pages/CreateAccount";
 import {Dashboard} from "@pages/Dashboard";
 import { useStoreSession } from "@store/session";
 import { useShallow } from "zustand/shallow";
-import { useStoreFirebase } from "@store/firebase";
-
-// const themeInitial = localStorage.getItem("theme") || "light";
-// document.documentElement.classList.remove("light", "dark");
-// document.documentElement.classList.add(themeInitial);
 
 function App() {
-
-  // const {appFirebase} = useStoreFirebase(
-  //   useShallow( (state => ({
-  //     appFirebase: state.appFirebase,
-  //   })))
-  // )
 
 	const {L_A, session, changeL_A, changeSession} = useStoreSession(
     useShallow( (state => ({
@@ -35,10 +24,6 @@ function App() {
       return <CreateAccount onChange={() => changeL_A()} />
     }
   }
-
-	// return session ?
-	// 	<Dashboard  onLogout={() => changeSession()} /> :
-	// 	L_A ? <Login onChange={() => changeL_A()} onSession={() => changeSession()} /> : <CreateAccount onChange={() => changeL_A()} />
 
 }
 

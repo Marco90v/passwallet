@@ -1,5 +1,4 @@
 import EditForm from '@components/EditForm';
-import React, { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 interface PasswordType {
@@ -20,26 +19,7 @@ const password:PasswordType = {
 };
 
 function ChangePassword({ onSuccess,onCancel }: ChangePasswordProps) {
-  // const [currentPassword, setCurrentPassword] = useState('');
-  // const [newPassword, setNewPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
-  // const [password, setPassword] = useState<PasswordType>({
-  //   currentPassword: '',
-  //   newPassword: '',
-  //   confirmPassword: '',
-  // });
-
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   // Implement password change logic here
-  //   onSuccess();
-  // };
-
-  // const {register, handleSubmit, setValue, reset} = useForm<PasswordType>();
   const methods = useForm<ItemType>();
-
-  
 
   const onSave = (data:PasswordType) => {
     // onAdd(data);

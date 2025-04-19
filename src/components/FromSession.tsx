@@ -1,4 +1,4 @@
-import { FormEvent, ReactNode } from "react";
+import { ReactNode } from "react";
 import shield from "@assets/icons/shield.svg";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 

@@ -9,7 +9,6 @@ interface ItemPreviewProps {
   setEditingItem: (id:string) => void;
 }
 
-
 const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
 
   const [showPasswords, setShowPasswords] = useState<Record<string, boolean>>({});

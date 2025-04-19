@@ -1,7 +1,6 @@
 import NavButton from '@components/NavButton';
 import { Shield, Key, Plus, HelpCircle, LogOut, Home } from 'lucide-react';
 import Button from './Button';
-// import { useStoreFirebase } from '@store/firebase';
 import { useShallow } from 'zustand/shallow';
 import { getAuth, signOut } from 'firebase/auth';
 import { useStoreSession } from '@store/session';
@@ -10,7 +9,6 @@ import { useStoreData } from '@store/store';
 interface NavbarProps {
   currentPage: string;
   onNavigate: (page: itemsNavValue) => void;
-  // onLogout: () => void;
 }
 
 const arrPages:IPage[] = [

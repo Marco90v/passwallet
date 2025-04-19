@@ -9,10 +9,8 @@ import { useStoreData } from '@store/store';
 import { getDataDB } from '@utils/firebase';
 import { useStoreFirebase } from '@store/firebase';
 import { useStoreSession } from '@store/session';
-
-// interface DashboardProps {
-//   onLogout: () => void
-// }
+import { decrypt } from '@utils/functions';
+import { DocumentData } from 'firebase/firestore';
 
 function Dashboard() {
 
@@ -22,9 +20,11 @@ function Dashboard() {
     })))
   )
 
-  const {email} = useStoreSession(
+  const {email, pass, salt} = useStoreSession(
     useShallow( (state => ({
       email: state.session.email,
+      pass: state.session.password,
+      salt: state.session.salt,
     })))
   )
 
@@ -40,21 +40,18 @@ function Dashboard() {
   )
 
   useEffect(() => {
-    // getDataDB(appFirebase, email).then((res) => {
-    //   console.log(res);
-    // });
+    if(items.length === 0){
+      console.log('No hay items');
+      getDataDB(appFirebase,email).then((res:DocumentData | null) => {
+        if(res === null) return;
+        const decryptedData = decrypt(res.data, pass, salt);
+        setItems(JSON.parse(decryptedData));
+      })
+    }
+  },[])
   
-    return () => {}
-  }, [])
-  
-
 
   const handleAddItem = (item: Omit<ItemType, 'id'>) => {
-    const newItem = {
-      ...item,
-      id: Math.random().toString(36).substr(2, 9),
-    };
-    addItem(newItem);
     setCurrentPage('items');
   };
 
@@ -62,14 +59,10 @@ function Dashboard() {
     removeItem(id);
   };
 
-  const handleEditItem = (updatedItem: ItemType) => {
-    updateItem(updatedItem);
-  };
-
   const renderContent = () => {
     switch (currentPage) {
       case 'items':
-        return <ItemList items={items} onDelete={handleDeleteItem} onEdit={handleEditItem} />;
+        return <ItemList onDelete={handleDeleteItem} />;
       case 'add':
         return <AddItem onAdd={handleAddItem} onCancel={() => setCurrentPage('items')} />;
       case 'password':

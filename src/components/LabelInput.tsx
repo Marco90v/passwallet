@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import Label from "@components/Label";
 import Input from "@components/Input";
 

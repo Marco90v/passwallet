@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 import Button from "@components/Button";
 import FormSession from "@components/FromSession";
@@ -7,7 +7,7 @@ import LabelInput from "@components/LabelInput";
 import { Mail } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 import { useStoreFirebase } from "@store/firebase";
-import { createSalt, getSalt, saveSalt } from "@utils/firebase";
+import { saveSalt } from "@utils/firebase";
 import Alert from "@components/Alert";
 import useAlertStore from "@store/alert";
 import { ERROR, WARNING } from "@utils/const";
@@ -16,12 +16,6 @@ import { useStoreSession } from "@store/session";
 interface CreateAccountProps {
   onChange: () => void;
 }
-
-// interface createAccount {
-//   email: string
-//   password: string
-//   rePassword: string
-// }
 
 const CreateAccount = ({onChange}:CreateAccountProps) => {
 
@@ -44,14 +38,6 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
     })))
   )
 
-  // const { register, handleSubmit } = useForm<createAccount>({
-  //   defaultValues: {
-  //     email: "",
-  //     password: "",
-  //     rePassword: "",
-  //   },
-  // })
-
   const methods = useForm<createAccount>();
 
   const onSubmit: SubmitHandler<createAccount> = (data) => {
@@ -63,18 +49,10 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
         const user = userCredential.user;
         saveSalt(appFirebase, data).then((res) => {
           changeSession(true, data.email, res.salt, data.password);
-          // getSalt(appFirebase, data.email).then((res) => {
-          //   if(res){
-          //     changeSession(true, data.email, res?.salt);
-          //   }else{
-          //     showAlert("Error retrieving data.", "error");
-          //   }
-          // })
         }).catch((error) => {
           console.log(error);
           showAlert("Error saving data.", ERROR)
         })
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -86,9 +64,6 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
       console.log("la contraseña no es igual")
       showAlert("The password does not match.", WARNING)
     }
-
-    // console.log(createSalt())
-    // showAlert("Textto de prueba", "success")
   }
 
   return (

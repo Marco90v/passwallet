@@ -1,8 +1,12 @@
+import { saveData } from '@utils/firebase';
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+import { useStoreFirebase } from './firebase';
+import { useStoreSession } from './session';
 
 interface State {
   store: ItemType[]
+  mySet: (set: any) => void;
 }
 interface Action {
   addItem: (item: ItemType) => void;
@@ -12,37 +16,42 @@ interface Action {
   clearItems: () => void;
 }
 
-// const itemsInit: ItemType[] = [
-//   {
-//     id: '1',
-//     title: 'Item 1',
-//     username: 'User 1',
-//     email: 'user1@mail.com',
-//     password: '123456',
-//     category: 'Banking',
-//     url: 'https://www.google.com',
-//   },
-//   {
-//     id: '2',
-//     title: 'Item 2',
-//     username: 'User 2',
-//     email: 'user2@mail.com',
-//     password: '123456',
-//     category: 'Banking',
-//     url: 'https://www.google.com',
-//   },
-// ]
-
-// const itemsInit: ItemType[] = []
+const save = async (temp: ItemType[]) => {
+  const FbApp = useStoreFirebase.getState().appFirebase;
+  const email= useStoreSession.getState().session.email;
+  const pass= useStoreSession.getState().session.password;
+  const salt= useStoreSession.getState().session.salt;
+  const res = await saveData(FbApp, temp, email, pass, salt);
+  if(res){
+    const set = useStoreData.getState().mySet;
+    set((state: State) => ({
+      ...state,
+      store: temp,
+    }));
+  }
+}
 
 const useStoreData = create<State & Action>()(
   devtools(
     persist(
       (set) => ({
         store: [],
-        addItem: (item: ItemType) => set(state=>({store:[...state.store, item]})),
-        updateItem: (item: ItemType) => set(state=>({store: state.store.map(i => i.id === item.id ? item : i)})),
-        removeItem: (id: string) => set(state=>({store: state.store.filter(item => item.id !== id)})),
+        mySet:set,
+        addItem: (item: ItemType) => set(state=>{
+          const temp = {store:[...state.store, item]};
+          save(temp.store);
+          return {...state}
+        }),
+        updateItem: (item: ItemType) => set(state=>{
+          const temp = state.store.map(i => i.id === item.id ? item : i);
+          save(temp);
+          return {...state}
+        }),
+        removeItem: (id: string) => set(state=>{
+          const temp = state.store.filter(item => item.id !== id);
+          save(temp)
+          return {...state}
+        }),
         setItems: (items: ItemType[]) => set(state=>({...state,store: items})),
         clearItems: () => set(state=>({...state, store: []})),
       }),

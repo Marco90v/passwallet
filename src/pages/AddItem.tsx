@@ -2,7 +2,7 @@ import EditForm from '@components/EditForm';
 import { useStoreData } from '@store/store';
 import { generateID } from '@utils/firebase';
 import { Captions, Globe, Link, Mail, User } from 'lucide-react';
-import { FieldValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
 
 interface AddItemProps {
@@ -29,25 +29,18 @@ const dataBase = {
   email: '',
 }
 
-function AddItem<T extends FieldValues>({ onAdd, onCancel }: AddItemProps) {
+function AddItem({ onAdd, onCancel }: AddItemProps) {
 
-  const {addItem} = useStoreData(
+  const {addItem, store} = useStoreData(
     useShallow( (state => ({
+      store: state.store,
       addItem: state.addItem,
     })))
   )
 
-  // const {register, handleSubmit, setValue, reset} = useForm<ItemType>();
   const methods = useForm<ItemType>();
 
-  // const onSave = (data:ItemType) => {
-  //   // onAdd(data);
-  //   const newData = {...data, id: generateID()};
-  //   addItem(newData);
-  // }
-
   const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
-    // console.log(data);
     const newData = {...data, id: generateID()};
     addItem(newData);
     methods.reset();

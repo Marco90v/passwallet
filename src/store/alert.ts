@@ -9,13 +9,6 @@ interface AlertState {
   hideAlert: () => void;
 }
 
-// const useAlertStore = create<AlertState>((set) => ({
-//   message: '',
-//   type: 'info',
-//   isVisible: false,
-//   showAlert: (message, type) => set({ message, type, isVisible: true }),
-//   hideAlert: () => set({ isVisible: false }),
-// }));
 
 const useAlertStore = create<AlertState>()(
   devtools(
