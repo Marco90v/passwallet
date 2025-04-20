@@ -13,7 +13,7 @@ function DasBoardLayout({ children, currentPage, onNavigate }: LayoutProps) {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar currentPage={currentPage} onNavigate={onNavigate} />
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <main className="mx-2 max-w-7xl py-6 lg:mx-auto lg:px-8">
         {children}
       </main>
     </div>

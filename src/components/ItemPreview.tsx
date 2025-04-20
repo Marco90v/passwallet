@@ -19,7 +19,7 @@ const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
 
 	return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-row gap-6 items-center">
+      <div className="flex flex-col gap-0 items-start lg:items-center lg:flex-row lg:gap-6">
         <div className="flex items-center">
           <h3 className="text-lg font-medium text-slate-900">{item.title}</h3>
           {item.url && (

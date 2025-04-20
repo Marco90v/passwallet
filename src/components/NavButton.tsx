@@ -12,7 +12,7 @@ function NavButton({ icon, label, isActive, onClick }:INavButton) {
   return (
     <Button
         onClick={onClick}
-        className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
+        className={`h-12 inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 lg:h-auto ${
           isActive
             ? 'border-indigo-500 text-slate-900'
             : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700'
