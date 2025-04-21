@@ -14,8 +14,8 @@ const LabelInput =<T extends FieldValues>({label, identify, type, placeholder, i
         identify={identify}
         type={type}
         placeholder={placeholder}
-        // register={register} {...other}
         icon={icon}
+        {...other}
       />
     </div>
   )

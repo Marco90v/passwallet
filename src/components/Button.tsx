@@ -33,7 +33,7 @@ const Button = (props:ButtonProps) => {
   return (
     <button
     // rounded-md m-1 px-4 py-1 flex gap-1 border-solid border-2 justify-center items-center
-      className={`${getColor(color)} flex gap-1 justify-center items-center transition-colors duration-300 ${className}`}
+      className={`${getColor(color)} flex gap-1 justify-center items-center transition-colors duration-300 disabled:cursor-not-allowed ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

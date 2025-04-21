@@ -25,7 +25,7 @@ const Input = <T extends FieldValues> (props:InputProps<T>) => {
 				{...other}
 				id={identify}
 				type={type === PASSWORD ? isView ? TEXT : PASSWORD : type}
-				className={`${extraClasses} text-base text-black w-full pl-10 pr-3 py-2 rounded-md shadow-sm border border-slate-200 focus:outline-none focus:ring-1 focus:border-transparent focus:ring-indigo-500 disabled:bg-gray-400 disabled:text-slate-800 disabled:border-transparent transition-all ${className}`}
+				className={`${extraClasses} text-base text-black w-full pl-10 pr-3 py-2 rounded-md shadow-sm border border-slate-200 focus:outline-none focus:ring-1 focus:border-transparent focus:ring-indigo-500 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:border-transparent transition-all ${className}`}
 				{...register(identify, {required})}
 			/>
 			{children}

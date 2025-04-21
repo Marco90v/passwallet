@@ -2,20 +2,33 @@ import { Edit2, ExternalLink, Eye, EyeOff, Trash2 } from "lucide-react";
 import { useState } from "react";
 import Button from "@components/Button";
 import { PASSNOTVIEW } from "@utils/const";
+import { useStoreData } from "@store/store";
+import { useShallow } from "zustand/shallow";
 
 interface ItemPreviewProps {
   item: ItemType;
-  onDelete:(id: string) => void;
   setEditingItem: (id:string) => void;
 }
 
-const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
+const ItemPreview = ({item, setEditingItem}:ItemPreviewProps) => {
 
-  const [showPasswords, setShowPasswords] = useState<Record<string, boolean>>({});
+  const {removeItem} = useStoreData(
+    useShallow( (state => ({
+      removeItem: state.removeItem,
+    })))
+  )
 
-  const togglePassword = (id: string) => {
-    setShowPasswords(prev => ({ ...prev, [id]: !prev[id] }));
-  };
+  const [standby, setStandby] = useState(false);
+  const [showPassword, togglePassword] = useState(false);
+
+  const callback = () => {
+    setStandby(prev => !prev)
+  }
+
+  const handlerDelete = (id:string) => {
+    callback();
+    removeItem(id, callback);
+  }
 
 	return (
     <div className="flex items-center justify-between">
@@ -41,13 +54,13 @@ const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
         }
         <div className="flex items-center mt-1">
           <span className="text-sm font-mono">
-            {showPasswords[item.id] ? item.password : PASSNOTVIEW}
+            {showPassword ? item.password : PASSNOTVIEW}
           </span>
           <Button
-            onClick={() => togglePassword(item.id)}
+            onClick={() => togglePassword(prev => !prev)}
             className="ml-2 text-slate-400 hover:text-slate-600"
           >
-            {showPasswords[item.id] ? (
+            {showPassword ? (
               <EyeOff className="h-4 w-4" />
             ) : (
               <Eye className="h-4 w-4" />
@@ -59,12 +72,14 @@ const ItemPreview = ({item, onDelete, setEditingItem}:ItemPreviewProps) => {
         <Button
           onClick={() => setEditingItem(item.id)}
           className="p-2 text-slate-400 hover:text-indigo-600 rounded-full hover:bg-slate-100"
+          disabled={standby}
         >
           <Edit2 className="h-5 w-5" />
         </Button>
         <Button
-          onClick={() => onDelete(item.id)}
+          onClick={() => handlerDelete(item.id)}
           className="p-2 text-slate-400 hover:text-red-600 rounded-full hover:bg-slate-100"
+          disabled={standby}
         >
           <Trash2 className="h-5 w-5" />
         </Button>

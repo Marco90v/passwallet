@@ -29,42 +29,31 @@ function Dashboard() {
   )
 
   const [currentPage, setCurrentPage] = useState<itemsNavValue>('items');
-  const {items, addItem, updateItem, removeItem, setItems} = useStoreData(
+  const {items, setItems} = useStoreData(
     useShallow( (state => ({
       items: state.store,
-      addItem: state.addItem,
-      updateItem: state.updateItem,
-      removeItem: state.removeItem,
       setItems: state.setItems,
     })))
   )
 
   useEffect(() => {
     if(items.length === 0){
-      console.log('No hay items');
       getDataDB(appFirebase,email).then((res:DocumentData | null) => {
         if(res === null) return;
         const decryptedData = decrypt(res.data, pass, salt);
         setItems(JSON.parse(decryptedData));
+      }).catch(err=>{
+        console.error("error")
       })
     }
   },[])
   
-
-  const handleAddItem = (item: Omit<ItemType, 'id'>) => {
-    setCurrentPage('items');
-  };
-
-  const handleDeleteItem = (id: string) => {
-    removeItem(id);
-  };
-
   const renderContent = () => {
     switch (currentPage) {
       case 'items':
-        return <ItemList onDelete={handleDeleteItem} />;
+        return <ItemList />;
       case 'add':
-        return <AddItem onAdd={handleAddItem} onCancel={() => setCurrentPage('items')} />;
+        return <AddItem onCancel={() => setCurrentPage('items')} />;
       case 'password':
         return <ChangePassword onSuccess={() => setCurrentPage('items')} onCancel={() => setCurrentPage('items')} />;
       case 'help':

@@ -11,6 +11,7 @@ import { getSalt } from "@utils/firebase";
 import Alert from "@components/Alert";
 import useAlertStore from "@store/alert";
 import { ERROR } from "@utils/const";
+import { useState } from "react";
 
 interface loginProps {
   onChange: () => void;
@@ -28,6 +29,7 @@ const Login = ({onChange}:loginProps) => {
       changeSession: state.changeSession,
     })))
   )
+
   const {appFirebase} = useStoreFirebase(
     useShallow( (state => ({
       appFirebase: state.appFirebase,
@@ -40,9 +42,12 @@ const Login = ({onChange}:loginProps) => {
     })))
   )
 
+  const [standby, setStandby] = useState(false);
+
   const methods = useForm<login>();
 
   const onSubmit: SubmitHandler<login> = (data) => {
+    setStandby(true);
     const auth = getAuth();
     signInWithEmailAndPassword(auth, data.email, data.password)
     .then((userCredential) => {
@@ -52,6 +57,7 @@ const Login = ({onChange}:loginProps) => {
         }else{
           showAlert("Error retrieving data.", ERROR);
         }
+        setStandby(false);
       });
     })
     .catch((error) => {
@@ -60,8 +66,8 @@ const Login = ({onChange}:loginProps) => {
         showAlert("Invalid credentials.", ERROR);
       }else{
         showAlert("Server error.", ERROR);
-
       }
+      setStandby(false);
     });
   }
   return (
@@ -76,24 +82,21 @@ const Login = ({onChange}:loginProps) => {
             identify="email"
             type="email"
             placeholder="Email"
-            // register={register}
             icon={<Mail className="text-indigo-800" />}
+            disabled={standby}
           />
           <LabelInput<login>
             label="Password"
             identify="password"
             type="password"
             placeholder="Password"
-            // register={register}
+            disabled={standby}
           />
-          <Button color="blue" type="submit">
+          <Button color="blue" type="submit" disabled={standby} >
             Sign In
             <KeyRound className="ml-2" />
           </Button>
-          <Button
-            color="link"
-            onClick={onChange}
-          >
+          <Button color="link" onClick={onChange} disabled={standby} >
             Create Account
           </Button>
         </FormSession>

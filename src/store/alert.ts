@@ -12,16 +12,16 @@ interface AlertState {
 
 const useAlertStore = create<AlertState>()(
   devtools(
-    persist(
-      (set, get) => ({
-        message:"Textto de prueba",
+    // persist(
+      (set) => ({
+        message:"Texto de prueba",
         type:"success",
         isVisible:false,
         showAlert: (message, type) => set({ message, type, isVisible: true }),
         hideAlert: () => set({ isVisible: false }),
       }),
-      { name: 'storeSession' }
-    )
+      { name: 'storeAlert' }
+    // )
   )
 );
 

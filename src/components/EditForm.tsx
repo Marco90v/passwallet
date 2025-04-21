@@ -13,9 +13,8 @@ interface icon{
 interface EditFormProps<T extends FieldValues> {
   item: T;
   onCancel: () => void;
-  // register: any;
-  // setValue: any;
   onSubmit: SubmitHandler<any>;
+  disabled?: boolean;
   icons?:icon;
 }
 
@@ -25,8 +24,9 @@ const validateTypeInput = (key:string):TypeInput => {
   return TEXT;
 }
 
-function EditForm<T extends FieldValues>({onSubmit, item, onCancel, icons }: EditFormProps<T>) {
-  const { handleSubmit, register } = useFormContext();
+function EditForm<T extends FieldValues>({onSubmit, item, onCancel, disabled, icons }: EditFormProps<T>) {
+
+  const { handleSubmit, register } = useFormContext<ItemType>();
 
   return (
     <form
@@ -42,6 +42,7 @@ function EditForm<T extends FieldValues>({onSubmit, item, onCancel, icons }: Edi
               identify={key}
               register={register}
               icon={icons?.[key]}
+              disabled={disabled}
             />
           )
           return (
@@ -51,6 +52,7 @@ function EditForm<T extends FieldValues>({onSubmit, item, onCancel, icons }: Edi
               type={validateTypeInput(key)}
               placeholder={capitalize(key)}
               icon={icons?.[key]}
+              disabled={disabled}
             >
               {
                 key === PASSWORD &&
@@ -65,13 +67,15 @@ function EditForm<T extends FieldValues>({onSubmit, item, onCancel, icons }: Edi
           type="button"
           onClick={onCancel}
           className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900"
+          disabled={disabled}
         >
           Cancel
         </Button>
         <Button
           color="indigo"
           type="submit"
-          className="px-4 py-2 text-sm font-medium "
+          className="px-4 py-2 text-sm font-medium"
+          disabled={disabled}
         >
           Save Changes
         </Button>

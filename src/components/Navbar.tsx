@@ -36,7 +36,6 @@ const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
   const [hiddenMenu, setHiddenMenu] = useState(true)
   
   const onLogout = () => {
-    console.log('Logout');
     const auth = getAuth();
     signOut(auth).then(() => {
       // Sign-out successful.

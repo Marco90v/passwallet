@@ -13,10 +13,7 @@ import { useStoreData } from '@store/store';
 import { useShallow } from 'zustand/shallow';
 import { ALL, BANKING, OTHER, SOCIAL } from '@utils/const';
 import { capitalize } from '@utils/functions';
-
-interface ItemListProps {
-  onDelete: (id: string) => void;
-};
+import Alert from './Alert';
 
 const itemsFilterButton:{value:itemsfilterValue, label:string}[] = [
   { value: ALL, label: capitalize(ALL) },
@@ -33,7 +30,7 @@ const iconBase = {
   email: <Mail className='text-indigo-800' />,
 }
 
-function ItemList({ onDelete }: ItemListProps) {
+function ItemList() {
 
   const {items, updateItem} = useStoreData(
     useShallow( (state => ({
@@ -44,13 +41,19 @@ function ItemList({ onDelete }: ItemListProps) {
 
   const [filter, setFilter] = useState<itemsfilterValue>(ALL);
   const [editingItem, setEditingItem] = useState<string | null>(null);
+  const [standby, setStandby] = useState(false);
 
   const methods = useForm<ItemType>();
+
+  const callback = () => {
+    setStandby(prev => !prev);
+    setEditingItem(null);
+    methods.reset();
+  }
   
   const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
-    setEditingItem(null);
-    updateItem(data);
-    methods.reset();
+    setStandby(prev => !prev);
+    updateItem(data, callback);
   }
 
   const editItem = (id:string) => {
@@ -70,50 +73,53 @@ function ItemList({ onDelete }: ItemListProps) {
   }
 
   return (
-    <BaseTableItems>
-      <MenuTableItems>
-        {
-          itemsFilterButton.map((value, index) => {
-            return (
-              <FilterButton
-                key={index}
-                label={value.label}
-                value={value.value}
-                current={filter}
-                onClick={setFilter}
-              />
-            )
-          })
-        }
-      </MenuTableItems>
+    <>
+      <BaseTableItems>
+        <MenuTableItems>
+          {
+            itemsFilterButton.map((value, index) => {
+              return (
+                <FilterButton
+                  key={index}
+                  label={value.label}
+                  value={value.value}
+                  current={filter}
+                  onClick={setFilter}
+                />
+              )
+            })
+          }
+        </MenuTableItems>
 
-      <BodyTableItems length={items.length}>
-        {
-          filterItems().map(item => (
-            <RowTableItem key={item.id}>
-              {
-                editingItem === item.id ? (
-                  <FormProvider {...methods}>
-                    <EditForm
-                      onSubmit={onSubmit}
+        <BodyTableItems length={items.length}>
+          {
+            filterItems().map(item => (
+              <RowTableItem key={item.id}>
+                {
+                  editingItem === item.id ? (
+                    <FormProvider {...methods}>
+                      <EditForm
+                        onSubmit={onSubmit}
+                        item={item}
+                        onCancel={() => setEditingItem(null)}
+                        icons={iconBase}
+                        disabled={standby}
+                      />
+                    </FormProvider>
+                  ) : (
+                    <ItemPreview
                       item={item}
-                      onCancel={() => setEditingItem(null)}
-                      icons={iconBase}
+                      setEditingItem={editItem}
                     />
-                  </FormProvider>
-                ) : (
-                  <ItemPreview
-                    item={item}
-                    onDelete={onDelete}
-                    setEditingItem={editItem}
-                  />
-                )
-              }
-            </RowTableItem>
-          ))
-        }
-      </BodyTableItems>
-    </BaseTableItems>
+                  )
+                }
+              </RowTableItem>
+            ))
+          }
+        </BodyTableItems>
+      </BaseTableItems>
+      <Alert />
+    </>
   );
 }
 

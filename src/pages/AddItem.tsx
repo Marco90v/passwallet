@@ -2,12 +2,11 @@ import EditForm from '@components/EditForm';
 import { useStoreData } from '@store/store';
 import { generateID } from '@utils/firebase';
 import { Captions, Globe, Link, Mail, User } from 'lucide-react';
+import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
 
 interface AddItemProps {
-  // onAdd: (item: Omit<ItemType, 'id'>) => void;
-  onAdd: (item: ItemType) => void;
   onCancel: () => void;
 };
 
@@ -29,21 +28,27 @@ const dataBase = {
   email: '',
 }
 
-function AddItem({ onAdd, onCancel }: AddItemProps) {
+function AddItem({ onCancel }: AddItemProps) {
 
-  const {addItem, store} = useStoreData(
+  const {addItem} = useStoreData(
     useShallow( (state => ({
-      store: state.store,
       addItem: state.addItem,
     })))
   )
 
+  const [standby, setStandby] = useState(false);
+
   const methods = useForm<ItemType>();
 
-  const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
-    const newData = {...data, id: generateID()};
-    addItem(newData);
+  const callback = () => {
+    setStandby(prev => !prev);
     methods.reset();
+  }
+
+  const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
+    setStandby(prev => !prev);
+    const newData = {...data, id: generateID()};
+    addItem(newData, callback);
   }
 
   return (
@@ -56,6 +61,7 @@ function AddItem({ onAdd, onCancel }: AddItemProps) {
             item={dataBase}
             onCancel={onCancel}
             icons={iconBase}
+            disabled={standby}
           />
         </FormProvider>
       </div>
