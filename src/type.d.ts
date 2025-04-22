@@ -62,6 +62,17 @@ interface salt {
 	salt: string;
 }
 
+interface PasswordType {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+interface resultType {
+  result: boolean;
+  message: string;
+}
+
 // interface ResFirebase {
 // 	user:           User;
 // 	providerId:     null;

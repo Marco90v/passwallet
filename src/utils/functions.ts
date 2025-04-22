@@ -98,3 +98,20 @@ export const decrypt = (encrypted:string, pass:string, salt:string) => {
 
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
+
+
+export const validationPassword  = (pass:string, data:PasswordType):resultType => {
+  if(data.currentPassword === "" || data.newPassword === "" || data.confirmPassword === ""){
+    return {result: false, message:"Todos los campos son necesarios"};
+  }
+  if(data.currentPassword !== pass){
+    return {result:false, message:"Contraseña actual no coincide"};
+  }
+  if(data.currentPassword === data.newPassword){
+    return {result:false, message:"La nueva contraseña debe ser distinta a la actual"};
+  }
+  if(data.newPassword !== data.confirmPassword){
+    return {result:false, message:"Las contraseñas no coinciden"};
+  }
+  return {result:true, message:"Contraseña cambiada correctamente"};
+}

@@ -55,7 +55,7 @@ function Dashboard() {
       case 'add':
         return <AddItem onCancel={() => setCurrentPage('items')} />;
       case 'password':
-        return <ChangePassword onSuccess={() => setCurrentPage('items')} onCancel={() => setCurrentPage('items')} />;
+        return <ChangePassword onCancel={() => setCurrentPage('items')} />;
       case 'help':
         return <Help />;
       default:
