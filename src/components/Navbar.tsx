@@ -19,7 +19,6 @@ const arrPages:IPage[] = [
   {label: 'Help', value: 'help', icon: <HelpCircle />},
 ];
 
-
 const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
 
   const {logout} = useStoreSession(
@@ -38,11 +37,9 @@ const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
   const onLogout = () => {
     const auth = getAuth();
     signOut(auth).then(() => {
-      // Sign-out successful.
       logout();
       clearItems();
     }).catch((error) => {
-      // An error happened.
       console.log(error);
     });
   }
@@ -56,7 +53,6 @@ const Navbar = ({currentPage, onNavigate}:NavbarProps) => {
                 <Shield className="h-8 w-8 text-indigo-600" />
                 <span className="ml-2 text-xl font-bold text-slate-800">PassWallet</span>
               </div>
-              {/* sm:hidden */}
               <div className='flex items-center lg:hidden'>
                 <Button onClick={() => setHiddenMenu(!hiddenMenu)} className="px-4 py-2 border text-sm rounded-md font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100">
                   <ChevronDown />

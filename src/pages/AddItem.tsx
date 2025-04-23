@@ -1,5 +1,6 @@
 import EditForm from '@components/EditForm';
 import { useStoreData } from '@store/store';
+import { ADD } from '@utils/const';
 import { generateID } from '@utils/firebase';
 import { Captions, Globe, Link, Mail, User } from 'lucide-react';
 import { useState } from 'react';
@@ -30,9 +31,9 @@ const dataBase = {
 
 function AddItem({ onCancel }: AddItemProps) {
 
-  const {addItem} = useStoreData(
+  const {modifyStore} = useStoreData(
     useShallow( (state => ({
-      addItem: state.addItem,
+      modifyStore: state.modifyStore,
     })))
   )
 
@@ -48,7 +49,7 @@ function AddItem({ onCancel }: AddItemProps) {
   const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
     setStandby(prev => !prev);
     const newData = {...data, id: generateID()};
-    addItem(newData, callback);
+    modifyStore(ADD,newData, callback);
   }
 
   return (

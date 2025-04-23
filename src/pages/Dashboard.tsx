@@ -67,7 +67,6 @@ function Dashboard() {
     <DasBoardLayout
       currentPage={currentPage}
       onNavigate={setCurrentPage}
-      // onLogout={onLogout}
     >
       {renderContent()}
     </DasBoardLayout>

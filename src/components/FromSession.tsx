@@ -3,7 +3,6 @@ import shield from "@assets/icons/shield.svg";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 
 interface props {
-  // handleSubmit:()=>{};
   onSubmit: SubmitHandler<any>;
   children:ReactNode;
 }

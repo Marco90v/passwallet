@@ -11,7 +11,7 @@ import { Captions, Globe, Link, Mail, User } from 'lucide-react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useStoreData } from '@store/store';
 import { useShallow } from 'zustand/shallow';
-import { ALL, BANKING, OTHER, SOCIAL } from '@utils/const';
+import { ALL, BANKING, OTHER, SOCIAL, UPDATE } from '@utils/const';
 import { capitalize } from '@utils/functions';
 import Alert from './Alert';
 
@@ -32,12 +32,12 @@ const iconBase = {
 
 function ItemList() {
 
-  const {items, updateItem} = useStoreData(
+  const {items, modifyStore} = useStoreData(
     useShallow( (state => ({
       items: state.store,
-      updateItem: state.updateItem,
+      modifyStore: state.modifyStore,
     })))
-  )
+  );
 
   const [filter, setFilter] = useState<itemsfilterValue>(ALL);
   const [editingItem, setEditingItem] = useState<string | null>(null);
@@ -53,7 +53,7 @@ function ItemList() {
   
   const onSubmit:SubmitHandler<ItemType> = (data:ItemType) => {
     setStandby(prev => !prev);
-    updateItem(data, callback);
+    modifyStore(UPDATE, data, callback);
   }
 
   const editItem = (id:string) => {

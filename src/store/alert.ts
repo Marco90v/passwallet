@@ -1,27 +1,25 @@
 import {create} from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 
 interface AlertState {
   message: string;
-  type: 'success' | 'error' | 'info' | 'warning';
+  type: TypeAlertState;
   isVisible: boolean;
-  showAlert: (message: string, type: 'success' | 'error' | 'info' | 'warning') => void;
+  showAlert: (message: string, type: TypeAlertState) => void;
   hideAlert: () => void;
 }
 
 
 const useAlertStore = create<AlertState>()(
   devtools(
-    // persist(
-      (set) => ({
-        message:"Texto de prueba",
-        type:"success",
-        isVisible:false,
-        showAlert: (message, type) => set({ message, type, isVisible: true }),
-        hideAlert: () => set({ isVisible: false }),
-      }),
-      { name: 'storeAlert' }
-    // )
+    (set) => ({
+      message:"",
+      type:"",
+      isVisible:false,
+      showAlert: (message, type) => set({ message, type, isVisible: true }),
+      hideAlert: () => set({ isVisible: false }),
+    }),
+    { name: 'storeAlert' }
   )
 );
 

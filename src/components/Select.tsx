@@ -1,14 +1,16 @@
+import { BANKING, OTHER, SOCIAL } from "@utils/const";
+import { capitalize } from "@utils/functions";
 import { FieldValues } from "react-hook-form";
 
 interface OptionsSelect {
-  value: 'social' | 'banking' | 'other';
+  value: TypeOptionSelect;
   label: string;
 }
 
 const options:OptionsSelect[] = [
-  { value: 'social', label: 'Social' },
-  { value: 'banking', label: 'Banking' },
-  { value: 'other', label: 'Other' },
+  { value: SOCIAL, label: capitalize(SOCIAL) },
+  { value: BANKING, label: capitalize(BANKING) },
+  { value: OTHER, label: capitalize(OTHER) },
 ];
 
 const Salect = <T extends FieldValues>(props:SelectProps<T>) => {

@@ -19,7 +19,6 @@ interface CreateAccountProps {
 
 const CreateAccount = ({onChange}:CreateAccountProps) => {
 
-
   const {appFirebase} = useStoreFirebase(
     useShallow( (state => ({
       appFirebase: state.appFirebase,
@@ -45,7 +44,6 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
     if(data.password === data.rePassword) {
       createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        // Signed in 
         const user = userCredential.user;
         saveSalt(appFirebase, data).then((res) => {
           changeSession(true, data.email, res.salt, data.password);
@@ -78,7 +76,6 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
             identify="email"
             type="email"
             placeholder="Email"
-            // register={register}
             icon={<Mail className="text-indigo-800" />}
           />
           <LabelInput<createAccount>
@@ -86,14 +83,12 @@ const CreateAccount = ({onChange}:CreateAccountProps) => {
             identify="password"
             type="password"
             placeholder="Password"
-            // register={register}
           />
           <LabelInput<createAccount>
             label="Password"
             identify="rePassword"
             type="password"
             placeholder="Repeat Password"
-            // register={register}
           />
           <Button color="green" type="submit">
             Create Account

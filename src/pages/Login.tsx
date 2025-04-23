@@ -50,7 +50,7 @@ const Login = ({onChange}:loginProps) => {
     setStandby(true);
     const auth = getAuth();
     signInWithEmailAndPassword(auth, data.email, data.password)
-    .then((userCredential) => {
+    .then(() => {
       getSalt(appFirebase, data.email).then((res) => {
         if(res){
           changeSession(true, data.email, res.salt, data.password);

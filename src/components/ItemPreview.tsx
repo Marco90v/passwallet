@@ -1,7 +1,7 @@
 import { Edit2, ExternalLink, Eye, EyeOff, Trash2 } from "lucide-react";
 import { useState } from "react";
 import Button from "@components/Button";
-import { PASSNOTVIEW } from "@utils/const";
+import { PASSNOTVIEW, REMOVE } from "@utils/const";
 import { useStoreData } from "@store/store";
 import { useShallow } from "zustand/shallow";
 
@@ -12,9 +12,9 @@ interface ItemPreviewProps {
 
 const ItemPreview = ({item, setEditingItem}:ItemPreviewProps) => {
 
-  const {removeItem} = useStoreData(
+  const {modifyStore} = useStoreData(
     useShallow( (state => ({
-      removeItem: state.removeItem,
+      modifyStore: state.modifyStore,
     })))
   )
 
@@ -25,9 +25,9 @@ const ItemPreview = ({item, setEditingItem}:ItemPreviewProps) => {
     setStandby(prev => !prev)
   }
 
-  const handlerDelete = (id:string) => {
+  const handlerDelete = (data:ItemType) => {
     callback();
-    removeItem(id, callback);
+    modifyStore(REMOVE,data, callback);
   }
 
 	return (
@@ -77,7 +77,7 @@ const ItemPreview = ({item, setEditingItem}:ItemPreviewProps) => {
           <Edit2 className="h-5 w-5" />
         </Button>
         <Button
-          onClick={() => handlerDelete(item.id)}
+          onClick={() => handlerDelete(item)}
           className="p-2 text-slate-400 hover:text-red-600 rounded-full hover:bg-slate-100"
           disabled={standby}
         >

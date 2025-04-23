@@ -1,7 +1,6 @@
 
-interface props{
+interface props {
   children: React.ReactNode;
-  // key: number;
 }
 const RowTableItem = ({children}:props) => {
   return (

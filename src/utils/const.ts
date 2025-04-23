@@ -26,3 +26,13 @@ export const ALL = "all";
 export const SOCIAL = "social";
 export const BANKING = "banking";
 export const OTHER = "other";
+
+export const ADD = "add";
+export const UPDATE ="update";
+export const REMOVE = "remove";
+
+export const GREEN = "green";
+export const RED = "red";
+export const BLUE = "blue";
+export const LINK = "link";
+export const INDIGO = "indigo";

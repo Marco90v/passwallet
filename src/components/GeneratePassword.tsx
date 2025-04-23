@@ -4,17 +4,13 @@ import { keyGenerate } from "@utils/functions";
 import { RefreshCw } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
-// interface props {
-//   setValue2: any;
-//   identify: string;
-// }
-
 const GeneratePassword = () => {
   const { setValue } = useFormContext();
 
   const genertaPassword = () => {
       setValue(PASSWORD, keyGenerate());
   }
+  
   return (
     <div className="absolute right-2 top-1/2 -translate-y-1/2" >
       <Button

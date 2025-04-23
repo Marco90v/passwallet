@@ -1,12 +1,10 @@
 import React from 'react';
 import Navbar from '@components/Navbar';
 
-
 interface LayoutProps {
   children: React.ReactNode;
   currentPage: string;
   onNavigate: (page: itemsNavValue) => void;
-  // onLogout: () => void;
 };
 
 function DasBoardLayout({ children, currentPage, onNavigate }: LayoutProps) {

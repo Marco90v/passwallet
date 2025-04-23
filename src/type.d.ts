@@ -73,46 +73,8 @@ interface resultType {
   message: string;
 }
 
-// interface ResFirebase {
-// 	user:           User;
-// 	providerId:     null;
-// 	_tokenResponse: TokenResponse;
-// 	operationType:  string;
-// }
+type actionModify = "add" | "update" | "remove";
 
-// interface TokenResponse {
-// 	kind:         string;
-// 	localId:      string;
-// 	email:        string;
-// 	displayName:  string;
-// 	idToken:      string;
-// 	registered:   boolean;
-// 	refreshToken: string;
-// 	expiresIn:    string;
-// }
+type TypeOptionSelect = 'social' | 'banking' | 'other';
 
-// interface User {
-// 	reloadUserInfo:  ReloadUserInfo;
-// }
-
-// interface ProviderDatum {
-// 	providerId:  string;
-// 	uid:         string;
-// 	displayName: null;
-// 	email:       string;
-// 	phoneNumber: null;
-// 	photoURL:    null;
-// }
-
-// interface ReloadUserInfo {
-// 	localId:           string;
-// 	email:             string;
-// 	passwordHash:      string;
-// 	emailVerified:     boolean;
-// 	passwordUpdatedAt: number;
-// 	providerUserInfo:  ProviderUserInfo[];
-// 	validSince:        string;
-// 	lastLoginAt:       string;
-// 	createdAt:         string;
-// 	lastRefreshAt:     Date;
-// }
+type TypeAlertState = 'success' | 'error' | 'info' | 'warning' | '';

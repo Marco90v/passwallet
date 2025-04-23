@@ -1,10 +1,10 @@
 import Input from "@components/Input";
-import { FieldValues, Path, SubmitHandler, useForm, useFormContext, UseFormRegister } from "react-hook-form";
+import { FieldValues, SubmitHandler, useFormContext } from "react-hook-form";
 import { capitalize } from "@utils/functions";
 import Button from "@components/Button";
 import Salect from "@components/Select";
+import GeneratePassword from "@components/GeneratePassword";
 import { CATEGORY, EMAIL, ID, NUMBER, PASSWORD, TEXT } from "@utils/const";
-import GeneratePassword from "./GeneratePassword";
 
 interface icon{
   [key:string]:JSX.Element;

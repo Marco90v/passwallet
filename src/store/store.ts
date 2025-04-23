@@ -8,17 +8,14 @@ import { ERROR } from '@utils/const';
 
 interface State {
   store: ItemType[]
-  mySet: (set: any) => void;
 }
 interface Action {
-  addItem: (item: ItemType, callback?:() => void) => void;
-  updateItem: (item: ItemType, callback?:() => void) => void;
-  removeItem: (id: string, callback?:()=>void) => void;
+  modifyStore: (action:actionModify, data:ItemType, callback?:()=>void) => void;
   setItems: (items: ItemType[]) => void;
   clearItems: () => void;
 }
 
-const save = async (temp: ItemType[], callback?: () => void) => {
+const save = async (temp: ItemType[], set:any,  callback?: () => void) => {
   try {
     const FbApp = useStoreFirebase.getState().appFirebase;
     const email= useStoreSession.getState().session.email;
@@ -26,7 +23,6 @@ const save = async (temp: ItemType[], callback?: () => void) => {
     const salt= useStoreSession.getState().session.salt;
     const res = await saveData(FbApp, temp, email, pass, salt);
     if(res){
-      const set = useStoreData.getState().mySet;
       set((state: State) => ({
         ...state,
         store: temp,
@@ -41,27 +37,21 @@ const save = async (temp: ItemType[], callback?: () => void) => {
   
 }
 
+const action = {
+  add: (get:any, item:ItemType) => [...get().store, item],
+  update: (get:any, item:ItemType) => get().store.map((i:ItemType) => i.id === item.id ? item : i),
+  remove: (get:any, item:ItemType) => get().store.filter((i:ItemType) => i.id !== item.id)
+}
+
 const useStoreData = create<State & Action>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         store: [],
-        mySet:set,
-        addItem: (item: ItemType, callback) => set(state=>{
-          const temp = {store:[...state.store, item]};
-          save(temp.store, callback);
-          return {...state}
-        }),
-        updateItem: (item: ItemType, callback) => set(state=>{
-          const temp = state.store.map(i => i.id === item.id ? item : i);
-          save(temp, callback);
-          return {...state}
-        }),
-        removeItem: (id, callback) => set(state=>{
-          const temp = state.store.filter(item => item.id !== id);
-          save(temp, callback);
-          return {...state}
-        }),
+        modifyStore: (a:actionModify, data, callback) => {
+          const temp = action[a](get, data);
+          save(temp, set, callback);
+        },
         setItems: (items: ItemType[]) => set(state=>({...state,store: items})),
         clearItems: () => set(state=>({...state, store: []})),
       }),
