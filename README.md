@@ -1,6 +1,44 @@
 # Passwallet
-Passwallet es una aplicacion de tipo password manager, la cual contiene nuestras contraseñas almacenadas en un solo lugar y cifrada bajo una contraseña maestra.
-El sistema de sifrado es del tipo SHA256 para agrega mayor robustes en la protecion de la informacion.
+Passwallet is a password manager application, which contains our passwords stored in one place and encrypted under a master password.
+
+The encryption system is of the SHA256 type to add more robustness in the protection of the information.
+
+## Features:
+- Add new passwords
+- Generate passwords
+- Edit data
+- Delete data
+- Change master password
+
+## Technologies:
+- React
+- typeScript
+- Tailwindcss
+- CryptJS
+- Firebase
+- Rspack
+
+## Views
+
+- Login:
+![login](https://i.imgur.com/EFQV5ro.png)
+
+- Main panel:
+![dashboard](https://i.imgur.com/SXsuRZo.png)
+
+- Add new:
+![addnew](https://i.imgur.com/kHeqdJ7.png)
+
+- Change master password:
+![changepassword](https://i.imgur.com/06p1hIc.png) xml-ph-
+![editdata](https://i.imgur.com/mEEDn5l.png)
+
+----
+
+# Passwallet
+Passwallet es una aplicación de tipo password manager, la cual contiene nuestras contraseñas almacenadas en un solo lugar y cifrada bajo una contraseña maestra.
+
+El sistema de cifrado es del tipo SHA256 para agregar mayor robustez en la protección de la información.
 
 ## Funciones:
 - Agrega nuevas contraseñas
@@ -9,7 +47,7 @@ El sistema de sifrado es del tipo SHA256 para agrega mayor robustes en la protec
 - Elimina datos
 - Cambio de contraseña maestra
 
-## Tecnologias:
+## Tecnologías:
 - React
 - typeScript
 - Tailwindcss
@@ -19,7 +57,7 @@ El sistema de sifrado es del tipo SHA256 para agrega mayor robustes en la protec
 
 ## Vistas
 
-- Inicio de sesion:
+- Inicio de sesión:
 ![login](https://i.imgur.com/EFQV5ro.png)
 
 - Panel principal:
