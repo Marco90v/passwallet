@@ -75,7 +75,19 @@ export default defineConfig({
 			new rspack.LightningCssMinimizerRspackPlugin({
 				minimizerOptions: { targets }
 			})
-		]
+		],
+		splitChunks:{
+			minSize: 0,
+			cacheGroups: {
+        someLib: {
+          test: /\/some-lib\//,
+          name: 'lib',
+        },
+      },
+		}
+	},
+	performance:{
+		hints: false
 	},
 	experiments: {
 		css: true
