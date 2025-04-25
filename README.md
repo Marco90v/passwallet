@@ -24,7 +24,7 @@ The encryption system is of the SHA256 type to add more robustness in the protec
 ![login](https://i.imgur.com/EFQV5ro.png)
 
 - Main panel:
-![dashboard](https://i.imgur.com/SXsuRZo.png)
+![dashboard](https://i.imgur.com/PkYVxcz.png)
 
 - Add new:
 ![addnew](https://i.imgur.com/kHeqdJ7.png)
@@ -61,7 +61,7 @@ El sistema de cifrado es del tipo SHA256 para agregar mayor robustez en la prote
 ![login](https://i.imgur.com/EFQV5ro.png)
 
 - Panel principal:
-![dashboard](https://i.imgur.com/SXsuRZo.png)
+![dashboard](https://i.imgur.com/PkYVxcz.png)
 
 - Agrega nuevo:
 ![addnew](https://i.imgur.com/kHeqdJ7.png)
